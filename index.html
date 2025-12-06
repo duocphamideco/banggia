@@ -286,8 +286,8 @@
             background: white;
             border-radius: 10px;
             width: 100%;
-            max-width: 400px;
-            padding: 30px;
+            max-width: 450px;
+            padding: 25px;
             position: relative;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
@@ -319,62 +319,94 @@
             font-size: 1.5rem;
             font-weight: 700;
             color: #b71c1c;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             text-align: center;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
         }
         
-        .contact-info {
-            margin-bottom: 25px;
-        }
-        
-        .contact-item {
-            display: flex;
-            align-items: flex-start;
+        .contact-list {
             margin-bottom: 20px;
         }
         
-        .contact-icon {
-            background: #f0f7ff;
-            color: #b71c1c;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-            flex-shrink: 0;
+        .contact-person {
+            background: #f9f9f9;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid #b71c1c;
         }
         
-        .contact-details h3 {
-            font-size: 1rem;
+        .person-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .person-name i {
+            color: #b71c1c;
+            font-size: 0.9rem;
+        }
+        
+        .person-title {
+            font-size: 0.85rem;
             color: #666;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
             font-weight: 500;
         }
         
-        .contact-details p, .contact-details a {
-            font-size: 1.1rem;
-            color: #333;
-            font-weight: 600;
-            text-decoration: none;
-        }
-        
-        .contact-details a:hover {
-            color: #b71c1c;
+        .person-phone {
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         
         .phone-link {
             color: #b71c1c;
             font-weight: 700;
+            font-size: 1.05rem;
+            text-decoration: none;
+            transition: all 0.3s;
+            padding: 5px 10px;
+            border-radius: 5px;
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            display: inline-block;
+        }
+        
+        .phone-link:hover {
+            background: #b71c1c;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(183, 28, 28, 0.2);
+        }
+        
+        .phone-link i {
+            margin-right: 5px;
         }
         
         .modal-footer {
             text-align: center;
-            padding-top: 20px;
+            padding-top: 15px;
             border-top: 1px solid #eee;
             font-size: 0.85rem;
             color: #888;
+            margin-top: 10px;
+        }
+        
+        .call-note {
+            background: #fff8e1;
+            border: 1px solid #ffd54f;
+            border-radius: 6px;
+            padding: 10px;
+            margin-top: 15px;
+            font-size: 0.8rem;
+            color: #666;
+            text-align: center;
         }
         
         /* Connection indicator */
@@ -459,16 +491,19 @@
             
             .modal-content {
                 padding: 20px;
+                max-width: 400px;
             }
             
-            .contact-item {
-                margin-bottom: 15px;
+            .contact-person {
+                padding: 12px;
             }
             
-            .contact-icon {
-                width: 35px;
-                height: 35px;
-                font-size: 0.9rem;
+            .person-name {
+                font-size: 1rem;
+            }
+            
+            .phone-link {
+                font-size: 1rem;
             }
         }
         
@@ -484,11 +519,16 @@
             }
             
             .modal-content {
-                padding: 20px 15px;
+                padding: 15px;
+                max-width: 350px;
             }
             
             .modal-title {
                 font-size: 1.3rem;
+            }
+            
+            .contact-person {
+                padding: 10px;
             }
         }
         
@@ -540,7 +580,7 @@
     <header class="header">
         <div class="container">
             <div class="header-content">
-                <div class="logo">DANH MỤC DƯỢC MỸ PHẨM - THUỐC  <span>•</span> CÔNG TY IDECO</div>
+                <div class="logo">DANH MỤC DƯỢC MỸ PHẨM- THUỐC <span>•</span> - CÔNG TY IDECO</div>
                 <button class="contact-btn" id="contactBtn">
                     <i class="fas fa-phone-alt"></i> Liên hệ
                 </button>
@@ -570,7 +610,7 @@
     <!-- Footer minimal -->
     <footer class="footer">
         <div class="container">
-            <p>© 2025 IDECO Pharmaceutical</p>
+            <p>ĐĐKD: 003 Carlion 5  - 262/3 Lũy Bán Bích - P.Tân Phú -TP.Hồ Chí Minh </p>
         </div>
     </footer>
 
@@ -588,57 +628,60 @@
         <img class="lightbox-img" id="lightboxImg" src="" alt="">
     </div>
 
-    <!-- Contact Modal -->
+    <!-- Contact Modal - CẬP NHẬT VỚI 3 NGƯỜI PHỤ TRÁCH -->
     <div class="contact-modal" id="contactModal">
         <div class="modal-content">
             <button class="modal-close" id="closeModal">
                 <i class="fas fa-times"></i>
             </button>
-            <h2 class="modal-title">Thông Tin Liên Hệ</h2>
+            <h2 class="modal-title">LIÊN HỆ KINH DOANH</h2>
             
-            <div class="contact-info">
-                <div class="contact-item">
-                    <div class="contact-icon">
+            <div class="contact-list">
+                <!-- Người phụ trách 1 -->
+                <div class="contact-person">
+                    <div class="person-name">
                         <i class="fas fa-user-tie"></i>
+                        MS: Nguyễn Hương 
                     </div>
-                    <div class="contact-details">
-                        <h3>Người phụ trách kinh doanh</h3>
-                        <p>Mr. Nguyễn Văn A</p>
-                    </div>
-                </div>
-                
-                <div class="contact-item">
-                    <div class="contact-icon">
-                        <i class="fas fa-phone"></i>
-                    </div>
-                    <div class="contact-details">
-                        <h3>Điện thoại</h3>
-                        <a href="tel:090903" class="phone-link">
-                            <i class="fas fa-phone-alt"></i> 0909 03
+                    <div class="person-title">Quản lý KD ( BGĐ)</div>
+                    <div class="person-phone">
+                        <a href="tel:0909502877" class="phone-link">
+                            <i class="fas fa-phone-alt"></i> 0909502877
                         </a>
                     </div>
                 </div>
                 
-                <div class="contact-item">
-                    <div class="contact-icon">
-                        <i class="fas fa-envelope"></i>
+                <!-- Người phụ trách 2 -->
+                <div class="contact-person">
+                    <div class="person-name">
+                        <i class="fas fa-user-tie"></i>
+                        Ms Nguyển Trúc Mai
                     </div>
-                    <div class="contact-details">
-                        <h3>Email</h3>
-                        <a href="mailto:info@idecopharma.com">info@idecopharma.com</a>
+                    <div class="person-title">Phụ trách Điều phối& Phát Triển KD</div>
+                    <div class="person-phone">
+                        <a href="tel:0336597168" class="phone-link">
+                            <i class="fas fa-phone-alt"></i> 0336597168
+                        </a>
                     </div>
                 </div>
                 
-                <div class="contact-item">
-                    <div class="contact-icon">
-                        <i class="fas fa-clock"></i>
+                <!-- Người phụ trách 3 -->
+                <div class="contact-person">
+                    <div class="person-name">
+                        <i class="fas fa-user-tie"></i>
+                        
                     </div>
-                    <div class="contact-details">
-                        <h3>Giờ làm việc</h3>
-                        <p>Thứ 2 - Thứ 6: 8:00 - 17:00</p>
-                        <p>Thứ 7: 8:00 - 12:00</p>
+                    <div class="person-title">Nhân viên Kinh doanh</div>
+                    <div class="person-phone">
+                        <a href="tel:09" class="phone-link">
+                            <i class="fas fa-phone-alt"></i> 09
+                        </a>
                     </div>
                 </div>
+            </div>
+            
+            <div class="call-note">
+                <i class="fas fa-info-circle"></i> Nhấn vào số điện thoại để gọi ngay (trên điện thoại)
             </div>
             
             <div class="modal-footer">
@@ -672,10 +715,10 @@
 
         // Global variables
         let database;
-        let allImages = []; // Lưu tất cả ảnh từ database
-        let displayedImages = []; // Ảnh đang hiển thị
+        let allImages = [];
+        let displayedImages = [];
         let currentImageIndex = 0;
-        let imagesPerLoad = 30; // Số ảnh tải mỗi lần
+        let imagesPerLoad = 30;
         let currentDisplayCount = 0;
         let totalImageCount = 0;
         
@@ -701,8 +744,6 @@
             initializeFirebase();
             setupEventListeners();
             showConnectionIndicator();
-            
-            // Thiết lập infinite scroll
             setupInfiniteScroll();
         });
         
@@ -764,21 +805,81 @@
                 }
             });
             
-            // Handle phone link click on mobile
-            document.querySelectorAll('a[href^="tel:"]').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    if (window.innerWidth > 768) {
-                        e.preventDefault();
-                        alert('Trên máy tính, vui lòng gọi số: ' + this.textContent);
-                    }
-                });
-            });
+            // Handle phone link click
+            setupPhoneLinks();
             
             // Load more button
             loadMoreBtn.addEventListener('click', loadMoreImages);
         }
         
-        // Load all images from Firebase (nhưng chỉ hiển thị từ từ)
+        // Setup phone links
+        function setupPhoneLinks() {
+            document.querySelectorAll('a[href^="tel:"]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Trên desktop, hiển thị thông báo thay vì gọi
+                    if (window.innerWidth > 768) {
+                        e.preventDefault();
+                        const phoneNumber = this.textContent.replace(/\s/g, '');
+                        const personName = this.closest('.contact-person').querySelector('.person-name').textContent.trim();
+                        
+                        // Tạo popup thông báo đẹp hơn
+                        const popup = document.createElement('div');
+                        popup.style.cssText = `
+                            position: fixed;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            background: white;
+                            padding: 25px;
+                            border-radius: 10px;
+                            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                            z-index: 10002;
+                            text-align: center;
+                            min-width: 300px;
+                        `;
+                        
+                        popup.innerHTML = `
+                            <h3 style="color: #b71c1c; margin-bottom: 15px;">Thông tin liên hệ</h3>
+                            <p style="margin-bottom: 10px; color: #333;"><strong>${personName}</strong></p>
+                            <p style="margin-bottom: 15px; color: #666;">Số điện thoại: <strong>${phoneNumber}</strong></p>
+                            <p style="margin-bottom: 20px; color: #888; font-size: 0.9rem;">Trên máy tính, vui lòng gọi số điện thoại trên</p>
+                            <button onclick="this.parentElement.remove()" style="
+                                background: #b71c1c;
+                                color: white;
+                                border: none;
+                                padding: 10px 25px;
+                                border-radius: 5px;
+                                cursor: pointer;
+                                font-size: 0.9rem;
+                            ">Đóng</button>
+                        `;
+                        
+                        document.body.appendChild(popup);
+                        
+                        // Đóng popup khi click bên ngoài
+                        setTimeout(() => {
+                            const overlay = document.createElement('div');
+                            overlay.style.cssText = `
+                                position: fixed;
+                                top: 0;
+                                left: 0;
+                                width: 100%;
+                                height: 100%;
+                                background: rgba(0,0,0,0.5);
+                                z-index: 10001;
+                            `;
+                            overlay.onclick = function() {
+                                popup.remove();
+                                overlay.remove();
+                            };
+                            document.body.appendChild(overlay);
+                        }, 10);
+                    }
+                });
+            });
+        }
+        
+        // Load all images from Firebase
         async function loadAllImages() {
             if (!database) return;
             
@@ -828,18 +929,15 @@
                 database.ref('images').on('child_added', (snapshot) => {
                     const newImage = snapshot.val();
                     
-                    // Thêm vào đầu mảng allImages
                     allImages.unshift(newImage);
                     totalImageCount = allImages.length;
                     totalCount.textContent = totalImageCount;
                     
-                    // Nếu chưa load nhiều, thêm vào displayedImages
                     if (currentDisplayCount < imagesPerLoad * 2) {
                         displayedImages.unshift(newImage);
                         prependImageToGallery(newImage);
                     }
                     
-                    // Hiển thị thông báo kết nối ngắn
                     showConnectionIndicator();
                     setTimeout(() => {
                         connectionIndicator.classList.remove('show');
@@ -854,7 +952,6 @@
                     totalImageCount = allImages.length;
                     totalCount.textContent = totalImageCount;
                     
-                    // Xóa ảnh khỏi gallery
                     removeImageFromGallery(removedId);
                 });
                 
@@ -876,33 +973,27 @@
             const endIndex = Math.min(startIndex + imagesPerLoad, allImages.length);
             
             if (startIndex >= allImages.length) {
-                // Đã hiển thị hết ảnh
                 loadMoreContainer.style.display = 'none';
                 return;
             }
             
-            // Hiển thị loading
             if (startIndex === 0) {
                 galleryContainer.innerHTML = '<div class="loading"><div class="loading-spinner"></div><p>Đang tải danh mục...</p></div>';
             }
             
-            // Lấy batch ảnh tiếp theo
             const newImages = allImages.slice(startIndex, endIndex);
             
-            // Hiển thị ảnh
             setTimeout(() => {
                 displayImagesBatch(newImages);
                 currentDisplayCount = endIndex;
                 currentCount.textContent = currentDisplayCount;
                 
-                // Hiển thị/hide load more button
                 if (currentDisplayCount < allImages.length) {
                     loadMoreContainer.style.display = 'block';
                 } else {
                     loadMoreContainer.style.display = 'none';
                 }
                 
-                // Update scroll indicator
                 updateScrollIndicator();
             }, 300);
         }
@@ -926,7 +1017,6 @@
             const galleryItem = createGalleryItem(image, 0);
             galleryContainer.insertBefore(galleryItem, galleryContainer.firstChild);
             
-            // Update indices for existing items
             updateGalleryIndices();
         }
         
@@ -945,14 +1035,12 @@
             galleryItem.setAttribute('data-index', index);
             galleryItem.setAttribute('data-id', image.id);
             
-            // Tạo ảnh với lazy loading
             const img = document.createElement('img');
             img.className = 'gallery-image';
             img.loading = 'lazy';
             img.src = image.base64;
             img.alt = 'Sản phẩm IDECO';
             
-            // Xử lý lỗi ảnh
             img.onerror = function() {
                 this.classList.add('error');
                 this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjVmNWY1Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPlByb2R1Y3QgSW1hZ2U8L3RleHQ+PC9zdmc+';
@@ -962,9 +1050,7 @@
                 this.classList.add('loaded');
             };
             
-            // Add click event
             galleryItem.addEventListener('click', () => openLightbox(index));
-            
             galleryItem.appendChild(img);
             return galleryItem;
         }
@@ -1071,20 +1157,17 @@
                 const windowHeight = window.innerHeight;
                 const documentHeight = document.documentElement.scrollHeight;
                 
-                // Nếu còn cách bottom 300px và chưa load hết
                 if (scrollTop + windowHeight >= documentHeight - 300 && 
                     currentDisplayCount < allImages.length) {
                     
                     loading = true;
                     loadMoreImages();
                     
-                    // Debounce
                     setTimeout(() => {
                         loading = false;
                     }, 1000);
                 }
                 
-                // Show/hide scroll indicator
                 updateScrollIndicator();
             });
         }
@@ -1107,7 +1190,6 @@
                 connectionIndicator.classList.remove('show');
             }, 1500);
             
-            // Reload images khi có kết nối lại
             setTimeout(loadAllImages, 1000);
         });
         
@@ -1145,7 +1227,6 @@
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimer);
             resizeTimer = setTimeout(() => {
-                // Force reflow để masonry tính lại layout
                 if (galleryContainer.style.display !== 'none') {
                     galleryContainer.style.display = 'none';
                     setTimeout(() => {
@@ -1172,12 +1253,10 @@
             const swipeThreshold = 50;
             
             if (touchEndX < touchStartX - swipeThreshold) {
-                // Swipe left - next image
                 showNextImage();
             }
             
             if (touchEndX > touchStartX + swipeThreshold) {
-                // Swipe right - previous image
                 showPrevImage();
             }
         }
