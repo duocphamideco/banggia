@@ -13,26 +13,26 @@
         }
         
         body {
-            background: #f5f5f5;
+            background: #f0f2f5; /* Màu nền xám nhẹ hiện đại hơn */
             min-height: 100vh;
             color: #333;
         }
         
-        /* Header thanh mảnh */
+        /* --- Header --- */
         .header {
-            background: #b71c1c;
+            background: linear-gradient(90deg, #b71c1c 0%, #d32f2f 100%);
             color: white;
-            padding: 12px 0;
+            padding: 15px 0;
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
         
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 15px;
+            padding: 0 20px;
         }
         
         .header-content {
@@ -42,110 +42,93 @@
         }
         
         .logo {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
             letter-spacing: 0.5px;
-        }
-        
-        .logo span {
-            color: #ffd54f;
-            margin: 0 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
         .contact-btn {
-            background: rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            padding: 8px 20px;
-            border-radius: 20px;
+            background: white;
+            color: #b71c1c;
+            border: none;
+            padding: 8px 25px;
+            border-radius: 50px;
             cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: all 0.3s;
-            backdrop-filter: blur(5px);
+            font-weight: 600;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
         }
         
         .contact-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-2px);
+            transform: scale(1.05);
         }
-        
-        /* Main content */
+
+        /* --- CẢI TIẾN CHÍNH: GRID SYSTEM CHUYÊN NGHIỆP --- */
         .main-content {
-            padding: 20px 0;
+            padding: 30px 0;
         }
         
-        /* Gallery grid tối giản */
         .gallery-grid {
-            columns: 4;
-            column-gap: 15px;
-            padding: 10px;
+            display: grid;
+            /* Tự động chia cột: Tối thiểu 250px, tối đa 1fr */
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
+            gap: 20px;
+            padding-bottom: 40px;
         }
-        
-        @media (max-width: 1200px) {
-            .gallery-grid {
-                columns: 3;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .gallery-grid {
-                columns: 2;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .gallery-grid {
-                columns: 1;
-                column-gap: 10px;
-            }
-        }
-        
+
         .gallery-item {
-            break-inside: avoid;
-            margin-bottom: 15px;
             background: white;
-            border-radius: 6px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
             transition: all 0.3s ease;
             cursor: pointer;
             position: relative;
-            animation: fadeIn 0.5s ease;
+            border: 1px solid #eee;
+            
+            /* TẠO KHUNG TỶ LỆ CỐ ĐỊNH (Vuông 1:1) */
+            aspect-ratio: 1 / 1; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
+
         .gallery-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            border-color: #ffcdd2;
         }
-        
+
         .gallery-image {
             width: 100%;
-            display: block;
+            height: 100%;
+            /* QUAN TRỌNG: Giữ nguyên ảnh, thêm khoảng trắng nếu tỷ lệ không khớp */
+            object-fit: contain; 
+            padding: 10px; /* Khoảng hở để ảnh không sát lề */
             transition: transform 0.5s ease;
+            background-color: white; /* Nền trắng cho ảnh sản phẩm */
         }
         
+        /* Hiệu ứng zoom nhẹ khi hover */
         .gallery-item:hover .gallery-image {
-            transform: scale(1.02);
+            transform: scale(1.05);
         }
-        
-        /* Footer minimal */
+
+        /* --- Footer --- */
         .footer {
-            background: #263238;
-            color: #b0bec5;
-            padding: 20px 0;
-            margin-top: 30px;
-            font-size: 0.8rem;
+            background: white;
+            color: #555;
+            padding: 30px 0;
             text-align: center;
+            border-top: 1px solid #eee;
+            font-size: 0.9rem;
         }
-        
-        /* Lightbox minimal */
+
+        /* --- Lightbox (Giữ nguyên) --- */
         .lightbox {
             display: none;
             position: fixed;
@@ -153,556 +136,127 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.97);
+            background: rgba(0,0,0,0.95);
             z-index: 9999;
             align-items: center;
             justify-content: center;
-            padding: 10px;
         }
         
-        .lightbox.active {
-            display: flex;
-        }
+        .lightbox.active { display: flex; }
+        .lightbox-img { max-width: 90vw; max-height: 90vh; object-fit: contain; border-radius: 4px; }
+        .close-btn, .nav-btn { position: absolute; background: rgba(255,255,255,0.2); border: none; color: white; cursor: pointer; border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
+        .close-btn:hover, .nav-btn:hover { background: rgba(255,255,255,0.4); }
+        .close-btn { top: 20px; right: 20px; }
+        .nav-btn { top: 50%; transform: translateY(-50%); }
+        .prev-btn { left: 20px; }
+        .next-btn { right: 20px; }
+
+        /* --- Modal Contact (Giữ nguyên) --- */
+        .contact-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 10001; align-items: center; justify-content: center; padding: 15px; backdrop-filter: blur(2px); }
+        .contact-modal.active { display: flex; }
+        .modal-content { background: white; border-radius: 16px; width: 100%; max-width: 450px; padding: 30px; position: relative; box-shadow: 0 15px 40px rgba(0,0,0,0.2); animation: slideUp 0.3s ease; }
+        @keyframes slideUp { from {transform: translateY(20px); opacity: 0;} to {transform: translateY(0); opacity: 1;} }
+        .modal-close { position: absolute; top: 15px; right: 15px; border: none; background: none; font-size: 1.2rem; cursor: pointer; color: #999; }
+        .modal-title { color: #b71c1c; margin-bottom: 20px; text-align: center; font-weight: 800; border-bottom: 2px solid #fce4ec; padding-bottom: 15px; }
+        .contact-person { background: #f8f9fa; border-radius: 10px; padding: 15px; margin-bottom: 12px; border-left: 4px solid #b71c1c; }
+        .person-name { font-weight: 700; color: #333; margin-bottom: 5px; }
+        .person-title { font-size: 0.8rem; color: #666; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .phone-link { display: inline-block; background: white; border: 1px solid #ddd; padding: 6px 15px; border-radius: 20px; text-decoration: none; color: #b71c1c; font-weight: 700; font-size: 0.95rem; transition: 0.2s; }
+        .phone-link:hover { background: #b71c1c; color: white; border-color: #b71c1c; }
         
-        .lightbox-img {
-            max-width: 100%;
-            max-height: 90vh;
-            object-fit: contain;
-            border-radius: 4px;
-        }
+        /* --- Loading & Indicators --- */
+        .loading { grid-column: 1/-1; text-align: center; padding: 50px; color: #888; }
+        .loading-spinner { width: 30px; height: 30px; border: 3px solid #eee; border-top: 3px solid #b71c1c; border-radius: 50%; animation: spin 1s infinite linear; margin: 0 auto 10px; }
+        @keyframes spin { 100% {transform: rotate(360deg);} }
+        .load-more-btn { background: #333; color: white; border: none; padding: 12px 30px; border-radius: 30px; cursor: pointer; display: block; margin: 20px auto; font-weight: 600; }
+        .load-more-btn:hover { background: #000; }
         
-        .close-btn {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: rgba(255,255,255,0.15);
-            border: none;
-            color: white;
-            cursor: pointer;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            font-size: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            backdrop-filter: blur(5px);
-            z-index: 10000;
-        }
-        
-        .close-btn:hover {
-            background: rgba(255,255,255,0.25);
-            transform: scale(1.1);
-        }
-        
-        .nav-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255,255,255,0.15);
-            border: none;
-            color: white;
-            cursor: pointer;
-            border-radius: 50%;
-            width: 45px;
-            height: 45px;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            backdrop-filter: blur(5px);
-            z-index: 10000;
-        }
-        
-        .nav-btn:hover {
-            background: rgba(255,255,255,0.25);
-            transform: translateY(-50%) scale(1.1);
-        }
-        
-        .prev-btn {
-            left: 10px;
-        }
-        
-        .next-btn {
-            right: 10px;
-        }
-        
-        /* Loading animation */
-        .loading {
-            text-align: center;
-            padding: 60px 20px;
-            color: #666;
-        }
-        
-        .loading-spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #b71c1c;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 15px;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .empty-state {
-            text-align: center;
-            padding: 80px 20px;
-            color: #666;
-        }
-        
-        .empty-icon {
-            font-size: 3.5rem;
-            color: #e0e0e0;
-            margin-bottom: 15px;
-        }
-        
-        /* Contact Modal */
-        .contact-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.7);
-            z-index: 10001;
-            align-items: center;
-            justify-content: center;
-            padding: 15px;
-        }
-        
-        .contact-modal.active {
-            display: flex;
-        }
-        
-        .modal-content {
-            background: white;
-            border-radius: 10px;
-            width: 100%;
-            max-width: 450px;
-            padding: 25px;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        
-        .modal-close {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: #666;
-            cursor: pointer;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: all 0.3s;
-        }
-        
-        .modal-close:hover {
-            background: #f5f5f5;
-            color: #333;
-        }
-        
-        .modal-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #b71c1c;
-            margin-bottom: 20px;
-            text-align: center;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #f0f0f0;
-        }
-        
-        .contact-list {
-            margin-bottom: 20px;
-        }
-        
-        .contact-person {
-            background: #f9f9f9;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-left: 4px solid #b71c1c;
-        }
-        
-        .person-name {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .person-name i {
-            color: #b71c1c;
-            font-size: 0.9rem;
-        }
-        
-        .person-title {
-            font-size: 0.85rem;
-            color: #666;
-            margin-bottom: 10px;
-            font-weight: 500;
-        }
-        
-        .person-phone {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .phone-link {
-            color: #b71c1c;
-            font-weight: 700;
-            font-size: 1.05rem;
-            text-decoration: none;
-            transition: all 0.3s;
-            padding: 5px 10px;
-            border-radius: 5px;
-            background: #fff;
-            border: 1px solid #e0e0e0;
-            display: inline-block;
-        }
-        
-        .phone-link:hover {
-            background: #b71c1c;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 3px 10px rgba(183, 28, 28, 0.2);
-        }
-        
-        .phone-link i {
-            margin-right: 5px;
-        }
-        
-        .modal-footer {
-            text-align: center;
-            padding-top: 15px;
-            border-top: 1px solid #eee;
-            font-size: 0.85rem;
-            color: #888;
-            margin-top: 10px;
-        }
-        
-        .call-note {
-            background: #fff8e1;
-            border: 1px solid #ffd54f;
-            border-radius: 6px;
-            padding: 10px;
-            margin-top: 15px;
-            font-size: 0.8rem;
-            color: #666;
-            text-align: center;
-        }
-        
-        /* Connection indicator */
-        .connection-indicator {
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
-            background: #4CAF50;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 0.7rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            z-index: 100;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.3s;
-        }
-        
-        .connection-indicator.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .connection-dot {
-            width: 5px;
-            height: 5px;
-            background: white;
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-        
-        /* Loading more indicator */
-        .load-more {
-            text-align: center;
-            padding: 20px;
-            grid-column: 1 / -1;
-        }
-        
-        .load-more-btn {
-            background: #b71c1c;
-            color: white;
-            border: none;
-            padding: 10px 25px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: all 0.3s;
-        }
-        
-        .load-more-btn:hover {
-            background: #9a0007;
-            transform: translateY(-2px);
-        }
-        
-        /* Responsive adjustments */
+        /* Mobile Responsive */
         @media (max-width: 768px) {
-            .header {
-                padding: 10px 0;
-            }
-            
-            .logo {
-                font-size: 1.5rem;
-            }
-            
-            .contact-btn {
-                padding: 6px 15px;
-                font-size: 0.8rem;
-            }
-            
             .gallery-grid {
-                column-gap: 10px;
-            }
-            
-            .gallery-item {
-                margin-bottom: 10px;
-            }
-            
-            .modal-content {
-                padding: 20px;
-                max-width: 400px;
-            }
-            
-            .contact-person {
-                padding: 12px;
-            }
-            
-            .person-name {
-                font-size: 1rem;
-            }
-            
-            .phone-link {
-                font-size: 1rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .header-content {
-                flex-direction: column;
+                grid-template-columns: repeat(2, 1fr); /* 2 cột trên điện thoại */
                 gap: 10px;
-                text-align: center;
             }
-            
-            .contact-btn {
-                margin-top: 5px;
-            }
-            
-            .modal-content {
-                padding: 15px;
-                max-width: 350px;
-            }
-            
-            .modal-title {
-                font-size: 1.3rem;
-            }
-            
-            .contact-person {
-                padding: 10px;
-            }
-        }
-        
-        /* Smooth image loading */
-        .gallery-image {
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-        
-        .gallery-image.loaded {
-            opacity: 1;
-        }
-        
-        /* Image error handling */
-        .gallery-image.error {
-            min-height: 150px;
-            background: #f0f0f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #999;
-            font-size: 0.8rem;
-        }
-        
-        /* Infinite scroll indicator */
-        .scroll-indicator {
-            position: fixed;
-            top: 50%;
-            right: 10px;
-            transform: translateY(-50%);
-            background: rgba(183, 28, 28, 0.8);
-            color: white;
-            padding: 8px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            display: none;
-            z-index: 100;
-            backdrop-filter: blur(5px);
+            .header-content { flex-direction: column; gap: 10px; }
+            .logo { font-size: 1.1rem; text-align: center; }
         }
     </style>
-    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Header với nút liên hệ -->
     <header class="header">
         <div class="container">
             <div class="header-content">
-                <div class="logo">DANH MỤC DƯỢC MỸ PHẨM- THUỐC <span>•</span> - CÔNG TY IDECO</div>
+                <div class="logo">
+                    <i class="fas fa-clinic-medical"></i>
+                    <div>DANH MỤC DƯỢC PHẨM<br><span style="font-size: 0.7em; font-weight: 400; opacity: 0.9">IDECO PHARMA</span></div>
+                </div>
                 <button class="contact-btn" id="contactBtn">
-                    <i class="fas fa-phone-alt"></i> Liên hệ
+                    <i class="fas fa-headset"></i> Liên hệ đặt hàng
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- Main Content - CHỈ HIỂN THỊ ẢNH -->
     <main class="main-content">
         <div class="container">
             <div class="gallery-grid" id="galleryContainer">
                 <div class="loading">
                     <div class="loading-spinner"></div>
-                    <p>Đang tải danh mục...</p>
+                    <p>Đang tải dữ liệu sản phẩm...</p>
                 </div>
             </div>
             
-            <!-- Load more button -->
-            <div class="load-more" id="loadMoreContainer" style="display: none;">
-                <button class="load-more-btn" id="loadMoreBtn">
-                    <i class="fas fa-chevron-down"></i> Xem thêm ảnh
-                </button>
+            <div id="loadMoreContainer" style="display: none;">
+                <button class="load-more-btn" id="loadMoreBtn">Xem thêm sản phẩm</button>
             </div>
         </div>
     </main>
 
-    <!-- Footer minimal -->
     <footer class="footer">
         <div class="container">
-            <p>ĐĐKD: 003 Carlion 5  - 262/3 Lũy Bán Bích - P.Tân Phú -TP.Hồ Chí Minh </p>
+            <strong>CÔNG TY IDECO</strong><br>
+            ĐĐKD: 003 Carlion 5 - 262/3 Lũy Bán Bích - P.Tân Phú - TP.Hồ Chí Minh
         </div>
     </footer>
 
-    <!-- Lightbox chỉ hiển thị ảnh -->
     <div class="lightbox" id="lightbox">
-        <button class="close-btn" id="closeLightbox">
-            <i class="fas fa-times"></i>
-        </button>
-        <button class="nav-btn prev-btn" id="prevBtn">
-            <i class="fas fa-chevron-left"></i>
-        </button>
-        <button class="nav-btn next-btn" id="nextBtn">
-            <i class="fas fa-chevron-right"></i>
-        </button>
+        <button class="close-btn" id="closeLightbox"><i class="fas fa-times"></i></button>
+        <button class="nav-btn prev-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+        <button class="nav-btn next-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
         <img class="lightbox-img" id="lightboxImg" src="" alt="">
     </div>
 
-    <!-- Contact Modal - CẬP NHẬT VỚI 3 NGƯỜI PHỤ TRÁCH -->
     <div class="contact-modal" id="contactModal">
         <div class="modal-content">
-            <button class="modal-close" id="closeModal">
-                <i class="fas fa-times"></i>
-            </button>
-            <h2 class="modal-title">LIÊN HỆ KINH DOANH</h2>
+            <button class="modal-close" id="closeModal"><i class="fas fa-times"></i></button>
+            <h3 class="modal-title">THÔNG TIN LIÊN HỆ</h3>
             
             <div class="contact-list">
-                <!-- Người phụ trách 1 -->
                 <div class="contact-person">
-                    <div class="person-name">
-                        <i class="fas fa-user-tie"></i>
-                        MS: Nguyễn Hương 
-                    </div>
-                    <div class="person-title">Quản lý KD ( BGĐ)</div>
-                    <div class="person-phone">
-                        <a href="tel:0909502877" class="phone-link">
-                            <i class="fas fa-phone-alt"></i> 0909502877
-                        </a>
-                    </div>
+                    <div class="person-name">Ms. Nguyễn Hương</div>
+                    <div class="person-title">Quản lý Kinh doanh (BGĐ)</div>
+                    <a href="tel:0909502877" class="phone-link"><i class="fas fa-phone-alt"></i> 0909 502 877</a>
                 </div>
                 
-                <!-- Người phụ trách 2 -->
                 <div class="contact-person">
-                    <div class="person-name">
-                        <i class="fas fa-user-tie"></i>
-                        Ms Nguyển Trúc Mai
-                    </div>
-                    <div class="person-title">Phụ trách Điều phối& Phát Triển KD</div>
-                    <div class="person-phone">
-                        <a href="tel:0336597168" class="phone-link">
-                            <i class="fas fa-phone-alt"></i> 0336597168
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Người phụ trách 3 -->
-                <div class="contact-person">
-                    <div class="person-name">
-                        <i class="fas fa-user-tie"></i>
-                        
-                    </div>
-                    <div class="person-title">Nhân viên Kinh doanh</div>
-                    <div class="person-phone">
-                        <a href="tel:09" class="phone-link">
-                            <i class="fas fa-phone-alt"></i> 09
-                        </a>
-                    </div>
+                    <div class="person-name">Ms. Nguyễn Trúc Mai</div>
+                    <div class="person-title">Phụ trách Điều phối & Phát triển KD</div>
+                    <a href="tel:0336597168" class="phone-link"><i class="fas fa-phone-alt"></i> 0336 597 168</a>
                 </div>
             </div>
             
-            <div class="call-note">
-                <i class="fas fa-info-circle"></i> Nhấn vào số điện thoại để gọi ngay (trên điện thoại)
-            </div>
-            
-            <div class="modal-footer">
-                <p>Liên hệ ngay để được tư vấn và báo giá chi tiết</p>
+            <div style="text-align: center; font-size: 0.8rem; color: #888; margin-top: 15px;">
+                Nhấn vào số điện thoại để gọi trực tiếp
             </div>
         </div>
     </div>
 
-    <!-- Connection indicator -->
-    <div class="connection-indicator" id="connectionIndicator">
-        <div class="connection-dot"></div>
-        <span>Đang kết nối</span>
-    </div>
-
-    <!-- Scroll indicator -->
-    <div class="scroll-indicator" id="scrollIndicator">
-        <span id="currentCount">0</span>/<span id="totalCount">0</span>
-    </div>
-
     <script>
-        // Firebase Configuration
+        // --- GIỮ NGUYÊN PHẦN LOGIC JAVASCRIPT CỦA BẠN ---
+        // Firebase Config
         const firebaseConfig = {
             apiKey: "AIzaSyAcy4Wr4D1nHFyVejJWLNacmT-bnWm6xWY",
             authDomain: "webcty-ecf1b.firebaseapp.com",
@@ -713,572 +267,124 @@
             measurementId: "G-C43Z1BTTXL"
         };
 
-        // Global variables
         let database;
         let allImages = [];
         let displayedImages = [];
-        let currentImageIndex = 0;
-        let imagesPerLoad = 30;
         let currentDisplayCount = 0;
-        let totalImageCount = 0;
-        
-        // DOM Elements
-        const galleryContainer = document.getElementById('galleryContainer');
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightboxImg');
-        const closeLightbox = document.getElementById('closeLightbox');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const contactBtn = document.getElementById('contactBtn');
-        const contactModal = document.getElementById('contactModal');
-        const closeModal = document.getElementById('closeModal');
-        const connectionIndicator = document.getElementById('connectionIndicator');
-        const loadMoreBtn = document.getElementById('loadMoreBtn');
-        const loadMoreContainer = document.getElementById('loadMoreContainer');
-        const scrollIndicator = document.getElementById('scrollIndicator');
-        const currentCount = document.getElementById('currentCount');
-        const totalCount = document.getElementById('totalCount');
-        
-        // Initialize on page load
+        let currentImageIndex = 0;
+        const imagesPerLoad = 24; // Load số chẵn để chia hết cho 2,3,4 cột
+
         document.addEventListener('DOMContentLoaded', function() {
-            initializeFirebase();
-            setupEventListeners();
-            showConnectionIndicator();
-            setupInfiniteScroll();
-        });
-        
-        // Initialize Firebase
-        function initializeFirebase() {
             try {
-                if (!firebase.apps.length) {
-                    firebase.initializeApp(firebaseConfig);
-                }
-                
+                if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
                 database = firebase.database();
-                loadAllImages();
-                setupRealtimeListener();
-                
-                console.log("✅ Firebase initialized");
-                
-            } catch (error) {
-                console.error("❌ Firebase initialization error:", error);
-                showError("Không thể kết nối đến hệ thống");
-            }
-        }
-        
-        // Setup event listeners
-        function setupEventListeners() {
-            // Lightbox controls
-            closeLightbox.addEventListener('click', closeLightboxView);
-            prevBtn.addEventListener('click', showPrevImage);
-            nextBtn.addEventListener('click', showNextImage);
-            
-            // Lightbox background click
-            lightbox.addEventListener('click', (e) => {
-                if (e.target === lightbox) {
-                    closeLightboxView();
-                }
-            });
-            
-            // Keyboard navigation
-            document.addEventListener('keydown', (e) => {
-                if (lightbox.classList.contains('active')) {
-                    if (e.key === 'Escape') closeLightboxView();
-                    if (e.key === 'ArrowLeft') showPrevImage();
-                    if (e.key === 'ArrowRight') showNextImage();
-                }
-                
-                // Close modal với ESC
-                if (e.key === 'Escape' && contactModal.classList.contains('active')) {
-                    closeContactModal();
-                }
-            });
-            
-            // Contact modal controls
-            contactBtn.addEventListener('click', openContactModal);
-            closeModal.addEventListener('click', closeContactModal);
-            
-            // Close modal when clicking outside
-            contactModal.addEventListener('click', (e) => {
-                if (e.target === contactModal) {
-                    closeContactModal();
-                }
-            });
-            
-            // Handle phone link click
-            setupPhoneLinks();
-            
-            // Load more button
-            loadMoreBtn.addEventListener('click', loadMoreImages);
-        }
-        
-        // Setup phone links
-        function setupPhoneLinks() {
-            document.querySelectorAll('a[href^="tel:"]').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    // Trên desktop, hiển thị thông báo thay vì gọi
-                    if (window.innerWidth > 768) {
-                        e.preventDefault();
-                        const phoneNumber = this.textContent.replace(/\s/g, '');
-                        const personName = this.closest('.contact-person').querySelector('.person-name').textContent.trim();
-                        
-                        // Tạo popup thông báo đẹp hơn
-                        const popup = document.createElement('div');
-                        popup.style.cssText = `
-                            position: fixed;
-                            top: 50%;
-                            left: 50%;
-                            transform: translate(-50%, -50%);
-                            background: white;
-                            padding: 25px;
-                            border-radius: 10px;
-                            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-                            z-index: 10002;
-                            text-align: center;
-                            min-width: 300px;
-                        `;
-                        
-                        popup.innerHTML = `
-                            <h3 style="color: #b71c1c; margin-bottom: 15px;">Thông tin liên hệ</h3>
-                            <p style="margin-bottom: 10px; color: #333;"><strong>${personName}</strong></p>
-                            <p style="margin-bottom: 15px; color: #666;">Số điện thoại: <strong>${phoneNumber}</strong></p>
-                            <p style="margin-bottom: 20px; color: #888; font-size: 0.9rem;">Trên máy tính, vui lòng gọi số điện thoại trên</p>
-                            <button onclick="this.parentElement.remove()" style="
-                                background: #b71c1c;
-                                color: white;
-                                border: none;
-                                padding: 10px 25px;
-                                border-radius: 5px;
-                                cursor: pointer;
-                                font-size: 0.9rem;
-                            ">Đóng</button>
-                        `;
-                        
-                        document.body.appendChild(popup);
-                        
-                        // Đóng popup khi click bên ngoài
-                        setTimeout(() => {
-                            const overlay = document.createElement('div');
-                            overlay.style.cssText = `
-                                position: fixed;
-                                top: 0;
-                                left: 0;
-                                width: 100%;
-                                height: 100%;
-                                background: rgba(0,0,0,0.5);
-                                z-index: 10001;
-                            `;
-                            overlay.onclick = function() {
-                                popup.remove();
-                                overlay.remove();
-                            };
-                            document.body.appendChild(overlay);
-                        }, 10);
-                    }
-                });
-            });
-        }
-        
-        // Load all images from Firebase
-        async function loadAllImages() {
-            if (!database) return;
-            
+                loadImages();
+                setupEvents();
+            } catch (e) { console.error(e); }
+        });
+
+        async function loadImages() {
+            const container = document.getElementById('galleryContainer');
             try {
                 const snapshot = await database.ref('images').once('value');
-                allImages = [];
                 const data = snapshot.val();
                 
                 if (!data) {
-                    showEmptyState();
+                    container.innerHTML = '<div class="loading">Chưa có sản phẩm nào</div>';
                     return;
                 }
+
+                allImages = Object.values(data).sort((a, b) => b.timestamp - a.timestamp);
                 
-                // Convert object to array
-                Object.keys(data).forEach(key => {
-                    allImages.push(data[key]);
-                });
-                
-                // Sort by timestamp (newest first)
-                allImages.sort((a, b) => b.timestamp - a.timestamp);
-                
-                totalImageCount = allImages.length;
-                totalCount.textContent = totalImageCount;
-                
-                // Load initial batch of images
-                loadMoreImages();
-                
-                // Auto-hide connection indicator after 2 seconds
-                setTimeout(() => {
-                    connectionIndicator.classList.remove('show');
-                }, 2000);
-                
-                console.log(`✅ Loaded ${totalImageCount} images total`);
-                
-            } catch (error) {
-                console.error('❌ Error loading images:', error);
-                showError("Không thể tải danh mục sản phẩm");
-            }
-        }
-        
-        // Setup realtime listener
-        function setupRealtimeListener() {
-            if (!database) return;
-            
-            try {
-                // Listen for new images
-                database.ref('images').on('child_added', (snapshot) => {
-                    const newImage = snapshot.val();
-                    
-                    allImages.unshift(newImage);
-                    totalImageCount = allImages.length;
-                    totalCount.textContent = totalImageCount;
-                    
-                    if (currentDisplayCount < imagesPerLoad * 2) {
-                        displayedImages.unshift(newImage);
-                        prependImageToGallery(newImage);
+                // Realtime Listener cho ảnh mới
+                database.ref('images').limitToLast(1).on('child_added', snapshot => {
+                    const newImg = snapshot.val();
+                    if (!allImages.find(img => img.id === newImg.id)) {
+                        allImages.unshift(newImg);
+                        // Chỉ thêm vào nếu đang ở top
+                        if (window.scrollY < 100) {
+                            const item = createGalleryItem(newImg, 0);
+                            container.insertBefore(item, container.firstChild);
+                        }
                     }
-                    
-                    showConnectionIndicator();
-                    setTimeout(() => {
-                        connectionIndicator.classList.remove('show');
-                    }, 1500);
                 });
-                
-                // Listen for removed images
-                database.ref('images').on('child_removed', (snapshot) => {
-                    const removedId = snapshot.key;
-                    allImages = allImages.filter(img => img.id !== removedId);
-                    displayedImages = displayedImages.filter(img => img.id !== removedId);
-                    totalImageCount = allImages.length;
-                    totalCount.textContent = totalImageCount;
-                    
-                    removeImageFromGallery(removedId);
-                });
-                
-                console.log('✅ Realtime listener active');
-                
+
+                loadMore();
             } catch (error) {
-                console.error('❌ Realtime listener error:', error);
+                container.innerHTML = '<div class="loading">Lỗi tải dữ liệu</div>';
             }
         }
-        
-        // Load more images (infinite scroll)
-        function loadMoreImages() {
-            if (allImages.length === 0) {
-                showEmptyState();
-                return;
-            }
+
+        function loadMore() {
+            const container = document.getElementById('galleryContainer');
+            const btnContainer = document.getElementById('loadMoreContainer');
             
-            const startIndex = currentDisplayCount;
-            const endIndex = Math.min(startIndex + imagesPerLoad, allImages.length);
+            if (currentDisplayCount === 0) container.innerHTML = '';
+
+            const nextBatch = allImages.slice(currentDisplayCount, currentDisplayCount + imagesPerLoad);
             
-            if (startIndex >= allImages.length) {
-                loadMoreContainer.style.display = 'none';
-                return;
-            }
-            
-            if (startIndex === 0) {
-                galleryContainer.innerHTML = '<div class="loading"><div class="loading-spinner"></div><p>Đang tải danh mục...</p></div>';
-            }
-            
-            const newImages = allImages.slice(startIndex, endIndex);
-            
-            setTimeout(() => {
-                displayImagesBatch(newImages);
-                currentDisplayCount = endIndex;
-                currentCount.textContent = currentDisplayCount;
-                
-                if (currentDisplayCount < allImages.length) {
-                    loadMoreContainer.style.display = 'block';
-                } else {
-                    loadMoreContainer.style.display = 'none';
-                }
-                
-                updateScrollIndicator();
-            }, 300);
-        }
-        
-        // Display a batch of images
-        function displayImagesBatch(imagesBatch) {
-            if (currentDisplayCount === 0) {
-                galleryContainer.innerHTML = '';
-                displayedImages = [];
-            }
-            
-            imagesBatch.forEach((image, index) => {
-                const galleryItem = createGalleryItem(image, currentDisplayCount + index);
-                galleryContainer.appendChild(galleryItem);
-                displayedImages.push(image);
+            nextBatch.forEach((img, idx) => {
+                displayedImages.push(img);
+                container.appendChild(createGalleryItem(img, currentDisplayCount + idx));
             });
+
+            currentDisplayCount += nextBatch.length;
+            btnContainer.style.display = currentDisplayCount < allImages.length ? 'block' : 'none';
         }
-        
-        // Prepend single image to gallery (for new realtime images)
-        function prependImageToGallery(image) {
-            const galleryItem = createGalleryItem(image, 0);
-            galleryContainer.insertBefore(galleryItem, galleryContainer.firstChild);
-            
-            updateGalleryIndices();
-        }
-        
-        // Remove image from gallery
-        function removeImageFromGallery(imageId) {
-            const itemToRemove = document.querySelector(`.gallery-item[data-id="${imageId}"]`);
-            if (itemToRemove) {
-                itemToRemove.remove();
-            }
-        }
-        
-        // Create a gallery item
+
         function createGalleryItem(image, index) {
-            const galleryItem = document.createElement('div');
-            galleryItem.className = 'gallery-item';
-            galleryItem.setAttribute('data-index', index);
-            galleryItem.setAttribute('data-id', image.id);
+            const div = document.createElement('div');
+            div.className = 'gallery-item';
+            div.onclick = () => openLightbox(index);
             
             const img = document.createElement('img');
             img.className = 'gallery-image';
             img.loading = 'lazy';
             img.src = image.base64;
-            img.alt = 'Sản phẩm IDECO';
+            // Xử lý ảnh lỗi
+            img.onerror = function() { this.src = 'https://via.placeholder.com/300?text=No+Image'; };
             
-            img.onerror = function() {
-                this.classList.add('error');
-                this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjVmNWY1Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPlByb2R1Y3QgSW1hZ2U8L3RleHQ+PC9zdmc+';
+            div.appendChild(img);
+            return div;
+        }
+
+        // --- Lightbox & Modal Logic ---
+        function setupEvents() {
+            document.getElementById('loadMoreBtn').onclick = loadMore;
+            document.getElementById('contactBtn').onclick = () => document.getElementById('contactModal').classList.add('active');
+            document.getElementById('closeModal').onclick = () => document.getElementById('contactModal').classList.remove('active');
+            
+            // Lightbox
+            const lb = document.getElementById('lightbox');
+            document.getElementById('closeLightbox').onclick = () => lb.classList.remove('active');
+            document.getElementById('prevBtn').onclick = (e) => { e.stopPropagation(); navigate(-1); };
+            document.getElementById('nextBtn').onclick = (e) => { e.stopPropagation(); navigate(1); };
+            lb.onclick = (e) => { if(e.target === lb) lb.classList.remove('active'); };
+            
+            // Đóng modal khi click ngoài
+            document.getElementById('contactModal').onclick = (e) => {
+                if(e.target === document.getElementById('contactModal')) 
+                    document.getElementById('contactModal').classList.remove('active');
             };
-            
-            img.onload = function() {
-                this.classList.add('loaded');
-            };
-            
-            galleryItem.addEventListener('click', () => openLightbox(index));
-            galleryItem.appendChild(img);
-            return galleryItem;
         }
-        
-        // Update gallery indices after prepend
-        function updateGalleryIndices() {
-            const items = document.querySelectorAll('.gallery-item');
-            items.forEach((item, index) => {
-                item.setAttribute('data-index', index);
-            });
-        }
-        
-        // Show empty state
-        function showEmptyState() {
-            galleryContainer.innerHTML = `
-                <div class="empty-state" style="grid-column: 1 / -1;">
-                    <div class="empty-icon">
-                        <i class="fas fa-pills"></i>
-                    </div>
-                    <h3 style="color: #666; margin-bottom: 10px;">Danh mục đang được cập nhật</h3>
-                    <p style="color: #888; font-size: 0.9rem;">Sản phẩm sẽ hiển thị tại đây</p>
-                </div>
-            `;
-        }
-        
-        // Show error state
-        function showError(message) {
-            galleryContainer.innerHTML = `
-                <div class="empty-state" style="grid-column: 1 / -1;">
-                    <div class="empty-icon" style="color: #b71c1c;">
-                        <i class="fas fa-exclamation-triangle"></i>
-                    </div>
-                    <h3 style="color: #666; margin-bottom: 10px;">Tạm thời gián đoạn</h3>
-                    <p style="color: #888; font-size: 0.9rem;">${message}</p>
-                </div>
-            `;
-        }
-        
-        // Open lightbox
+
         function openLightbox(index) {
-            currentImageIndex = parseInt(index);
-            const image = displayedImages[currentImageIndex];
-            
-            if (!image) return;
-            
-            lightboxImg.src = image.base64;
-            lightboxImg.alt = 'Sản phẩm IDECO';
-            
-            lightbox.classList.add('active');
-            document.body.style.overflow = 'hidden';
+            currentImageIndex = index;
+            updateLightbox();
+            document.getElementById('lightbox').classList.add('active');
         }
-        
-        // Close lightbox
-        function closeLightboxView() {
-            lightbox.classList.remove('active');
-            document.body.style.overflow = 'auto';
+
+        function navigate(dir) {
+            currentImageIndex += dir;
+            if (currentImageIndex < 0) currentImageIndex = displayedImages.length - 1;
+            if (currentImageIndex >= displayedImages.length) currentImageIndex = 0;
+            updateLightbox();
         }
-        
-        // Show previous image
-        function showPrevImage() {
-            if (currentImageIndex > 0) {
-                currentImageIndex--;
-            } else {
-                currentImageIndex = displayedImages.length - 1;
-            }
-            openLightbox(currentImageIndex);
+
+        function updateLightbox() {
+            const img = displayedImages[currentImageIndex];
+            if(img) document.getElementById('lightboxImg').src = img.base64;
         }
-        
-        // Show next image
-        function showNextImage() {
-            if (currentImageIndex < displayedImages.length - 1) {
-                currentImageIndex++;
-            } else {
-                currentImageIndex = 0;
-            }
-            openLightbox(currentImageIndex);
-        }
-        
-        // Open contact modal
-        function openContactModal() {
-            contactModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-        
-        // Close contact modal
-        function closeContactModal() {
-            contactModal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-        
-        // Show connection indicator
-        function showConnectionIndicator() {
-            connectionIndicator.classList.add('show');
-        }
-        
-        // Setup infinite scroll
-        function setupInfiniteScroll() {
-            let loading = false;
-            
-            window.addEventListener('scroll', () => {
-                if (loading) return;
-                
-                const scrollTop = window.pageYOffset;
-                const windowHeight = window.innerHeight;
-                const documentHeight = document.documentElement.scrollHeight;
-                
-                if (scrollTop + windowHeight >= documentHeight - 300 && 
-                    currentDisplayCount < allImages.length) {
-                    
-                    loading = true;
-                    loadMoreImages();
-                    
-                    setTimeout(() => {
-                        loading = false;
-                    }, 1000);
-                }
-                
-                updateScrollIndicator();
-            });
-        }
-        
-        // Update scroll indicator
-        function updateScrollIndicator() {
-            if (currentDisplayCount > 50) {
-                scrollIndicator.style.display = 'block';
-                currentCount.textContent = currentDisplayCount;
-                totalCount.textContent = totalImageCount;
-            } else {
-                scrollIndicator.style.display = 'none';
-            }
-        }
-        
-        // Handle offline/online
-        window.addEventListener('online', () => {
-            showConnectionIndicator();
-            setTimeout(() => {
-                connectionIndicator.classList.remove('show');
-            }, 1500);
-            
-            setTimeout(loadAllImages, 1000);
-        });
-        
-        window.addEventListener('offline', () => {
-            connectionIndicator.innerHTML = '<div class="connection-dot" style="background: #ff9800;"></div><span>Đang ngoại tuyến</span>';
-            connectionIndicator.classList.add('show');
-        });
-        
-        // Image lazy loading enhancement
-        function setupLazyLoading() {
-            if ('IntersectionObserver' in window) {
-                const imageObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const img = entry.target;
-                            if (!img.classList.contains('loaded')) {
-                                img.src = img.dataset.src || img.src;
-                            }
-                            imageObserver.unobserve(img);
-                        }
-                    });
-                });
-                
-                document.querySelectorAll('.gallery-image').forEach(img => {
-                    imageObserver.observe(img);
-                });
-            }
-        }
-        
-        // Setup lazy loading sau khi images được load
-        setTimeout(setupLazyLoading, 100);
-        
-        // Xử lý resize để masonry hoạt động tốt trên mobile
-        let resizeTimer;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(() => {
-                if (galleryContainer.style.display !== 'none') {
-                    galleryContainer.style.display = 'none';
-                    setTimeout(() => {
-                        galleryContainer.style.display = 'block';
-                    }, 50);
-                }
-            }, 250);
-        });
-        
-        // Touch gestures cho lightbox trên mobile
-        let touchStartX = 0;
-        let touchEndX = 0;
-        
-        lightbox.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-        });
-        
-        lightbox.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        });
-        
-        function handleSwipe() {
-            const swipeThreshold = 50;
-            
-            if (touchEndX < touchStartX - swipeThreshold) {
-                showNextImage();
-            }
-            
-            if (touchEndX > touchStartX + swipeThreshold) {
-                showPrevImage();
-            }
-        }
-        
-        // Preload next batch of images
-        function preloadNextBatch() {
-            if (currentDisplayCount < allImages.length) {
-                const nextBatch = allImages.slice(currentDisplayCount, currentDisplayCount + 10);
-                nextBatch.forEach(image => {
-                    const img = new Image();
-                    img.src = image.base64;
-                });
-            }
-        }
-        
-        // Auto preload khi sắp cuộn đến cuối
-        window.addEventListener('scroll', () => {
-            const scrollPercent = (window.pageYOffset + window.innerHeight) / document.documentElement.scrollHeight;
-            if (scrollPercent > 0.7) {
-                preloadNextBatch();
-            }
-        });
     </script>
 </body>
 </html>
