@@ -3,388 +3,270 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danh Mục Thuốc - IDECO</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-        }
-        
-        body {
-            background: #f0f2f5; /* Màu nền xám nhẹ hiện đại hơn */
-            min-height: 100vh;
-            color: #333;
-        }
-        
-        /* --- Header --- */
-        .header {
-            background: linear-gradient(90deg, #b71c1c 0%, #d32f2f 100%);
-            color: white;
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .contact-btn {
-            background: white;
-            color: #b71c1c;
-            border: none;
-            padding: 8px 25px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 600;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            transition: transform 0.2s;
-        }
-        
-        .contact-btn:hover {
-            transform: scale(1.05);
-        }
-
-        /* --- CẢI TIẾN CHÍNH: GRID SYSTEM CHUYÊN NGHIỆP --- */
-        .main-content {
-            padding: 30px 0;
-        }
-        
-        .gallery-grid {
-            display: grid;
-            /* Tự động chia cột: Tối thiểu 250px, tối đa 1fr */
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
-            gap: 20px;
-            padding-bottom: 40px;
-        }
-
-        .gallery-item {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            border: 1px solid #eee;
-            
-            /* TẠO KHUNG TỶ LỆ CỐ ĐỊNH (Vuông 1:1) */
-            aspect-ratio: 1 / 1; 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .gallery-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-            border-color: #ffcdd2;
-        }
-
-        .gallery-image {
-            width: 100%;
-            height: 100%;
-            /* QUAN TRỌNG: Giữ nguyên ảnh, thêm khoảng trắng nếu tỷ lệ không khớp */
-            object-fit: contain; 
-            padding: 10px; /* Khoảng hở để ảnh không sát lề */
-            transition: transform 0.5s ease;
-            background-color: white; /* Nền trắng cho ảnh sản phẩm */
-        }
-        
-        /* Hiệu ứng zoom nhẹ khi hover */
-        .gallery-item:hover .gallery-image {
-            transform: scale(1.05);
-        }
-
-        /* --- Footer --- */
-        .footer {
-            background: white;
-            color: #555;
-            padding: 30px 0;
-            text-align: center;
-            border-top: 1px solid #eee;
-            font-size: 0.9rem;
-        }
-
-        /* --- Lightbox (Giữ nguyên) --- */
-        .lightbox {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.95);
-            z-index: 9999;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .lightbox.active { display: flex; }
-        .lightbox-img { max-width: 90vw; max-height: 90vh; object-fit: contain; border-radius: 4px; }
-        .close-btn, .nav-btn { position: absolute; background: rgba(255,255,255,0.2); border: none; color: white; cursor: pointer; border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
-        .close-btn:hover, .nav-btn:hover { background: rgba(255,255,255,0.4); }
-        .close-btn { top: 20px; right: 20px; }
-        .nav-btn { top: 50%; transform: translateY(-50%); }
-        .prev-btn { left: 20px; }
-        .next-btn { right: 20px; }
-
-        /* --- Modal Contact (Giữ nguyên) --- */
-        .contact-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 10001; align-items: center; justify-content: center; padding: 15px; backdrop-filter: blur(2px); }
-        .contact-modal.active { display: flex; }
-        .modal-content { background: white; border-radius: 16px; width: 100%; max-width: 450px; padding: 30px; position: relative; box-shadow: 0 15px 40px rgba(0,0,0,0.2); animation: slideUp 0.3s ease; }
-        @keyframes slideUp { from {transform: translateY(20px); opacity: 0;} to {transform: translateY(0); opacity: 1;} }
-        .modal-close { position: absolute; top: 15px; right: 15px; border: none; background: none; font-size: 1.2rem; cursor: pointer; color: #999; }
-        .modal-title { color: #b71c1c; margin-bottom: 20px; text-align: center; font-weight: 800; border-bottom: 2px solid #fce4ec; padding-bottom: 15px; }
-        .contact-person { background: #f8f9fa; border-radius: 10px; padding: 15px; margin-bottom: 12px; border-left: 4px solid #b71c1c; }
-        .person-name { font-weight: 700; color: #333; margin-bottom: 5px; }
-        .person-title { font-size: 0.8rem; color: #666; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
-        .phone-link { display: inline-block; background: white; border: 1px solid #ddd; padding: 6px 15px; border-radius: 20px; text-decoration: none; color: #b71c1c; font-weight: 700; font-size: 0.95rem; transition: 0.2s; }
-        .phone-link:hover { background: #b71c1c; color: white; border-color: #b71c1c; }
-        
-        /* --- Loading & Indicators --- */
-        .loading { grid-column: 1/-1; text-align: center; padding: 50px; color: #888; }
-        .loading-spinner { width: 30px; height: 30px; border: 3px solid #eee; border-top: 3px solid #b71c1c; border-radius: 50%; animation: spin 1s infinite linear; margin: 0 auto 10px; }
-        @keyframes spin { 100% {transform: rotate(360deg);} }
-        .load-more-btn { background: #333; color: white; border: none; padding: 12px 30px; border-radius: 30px; cursor: pointer; display: block; margin: 20px auto; font-weight: 600; }
-        .load-more-btn:hover { background: #000; }
-        
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .gallery-grid {
-                grid-template-columns: repeat(2, 1fr); /* 2 cột trên điện thoại */
-                gap: 10px;
-            }
-            .header-content { flex-direction: column; gap: 10px; }
-            .logo { font-size: 1.1rem; text-align: center; }
-        }
-    </style>
+    <title>Hệ Thống IDECO - Báo Giá Chuyên Nghiệp</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root { --primary-red: #b71c1c; --secondary-red: #d32f2f; --bg-light: #f0f2f5; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+        body { background: var(--bg-light); min-height: 100vh; }
+
+        /* Header & Tabs */
+        .header { background: linear-gradient(90deg, var(--primary-red) 0%, var(--secondary-red) 100%); color: white; padding: 15px 0; position: sticky; top: 0; z-index: 1000; }
+        .nav-tabs { background: white; display: flex; justify-content: center; border-bottom: 2px solid #ddd; position: sticky; top: 72px; z-index: 999; }
+        .tab-btn { padding: 15px 30px; border: none; background: none; font-weight: bold; cursor: pointer; color: #666; border-bottom: 3px solid transparent; }
+        .tab-btn.active { color: var(--primary-red); border-bottom-color: var(--primary-red); }
+
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* Catalog */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
+        .gallery-item { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); cursor: pointer; border: 3px solid transparent; position: relative; }
+        .gallery-item.selected { border-color: var(--primary-red); }
+        .gallery-item.selected::after { content: "\f058"; font-family: "Font Awesome 5 Free"; font-weight: 900; position: absolute; top: 5px; right: 5px; color: var(--primary-red); background: white; border-radius: 50%; }
+        .gallery-image { width: 100%; aspect-ratio: 1/1; object-fit: contain; }
+
+        /* Báo giá - Controls */
+        .control-panel { background: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .btn-group { margin-bottom: 10px; }
+        .mode-btn, .ratio-btn { padding: 8px 18px; margin: 4px; border: 1px solid #ddd; border-radius: 8px; cursor: pointer; font-weight: 600; transition: 0.2s; }
+        .mode-btn.active, .ratio-btn.active { background: var(--primary-red); color: white; border-color: var(--primary-red); }
+
+        /* Vùng hiển thị báo giá */
+        .preview-wrapper { background: white; padding: 40px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 1000px; margin: 0 auto; }
+        .preview-grid { display: grid; gap: 15px; }
+        .preview-grid-8 { grid-template-columns: repeat(4, 1fr); }
+        .preview-grid-6 { grid-template-columns: repeat(3, 1fr); }
+        .preview-grid-4 { grid-template-columns: repeat(2, 1fr); }
+        .preview-grid-2 { grid-template-columns: repeat(2, 1fr); }
+        .preview-grid-1 { grid-template-columns: 1fr; }
+
+        .preview-item { width: 100%; background: #fdfdfd; border: 1px dashed #ddd; border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; }
+        .preview-item:hover { border-color: var(--primary-red); background: #fff5f5; }
+        .preview-item img { width: 100%; height: 100%; object-fit: fill; }
+
+        /* Khung văn bản co giãn toàn diện */
+        .text-container { margin-top: 25px; width: 100%; display: flex; justify-content: center; }
+        .quote-textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            border: 2px solid #eee;
+            border-radius: 6px;
+            font-size: 16px;
+            color: #333;
+            background: #fffdf2;
+            line-height: 1.6;
+            resize: both; /* Co giãn cả rộng và cao */
+            overflow: auto;
+            outline: none;
+        }
+        .quote-textarea:focus { border-color: var(--primary-red); box-shadow: 0 0 8px rgba(183, 28, 28, 0.1); }
+
+        .actions { text-align: center; margin-top: 40px; padding-bottom: 50px; }
+        .action-btn { padding: 15px 35px; margin: 10px; border-radius: 50px; border: none; color: white; font-weight: bold; cursor: pointer; font-size: 16px; transition: 0.3s; }
+        #exportPng { background: #0277bd; }
+        #exportPdf { background: #c62828; }
+        .action-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+    </style>
 </head>
 <body>
-    <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <i class="fas fa-clinic-medical"></i>
-                    <div>DANH MỤC DƯỢC PHẨM<br><span style="font-size: 0.7em; font-weight: 400; opacity: 0.9">IDECO PHARMA</span></div>
-                </div>
-                <button class="contact-btn" id="contactBtn">
-                    <i class="fas fa-headset"></i> Liên hệ đặt hàng
-                </button>
-            </div>
-        </div>
-    </header>
 
-    <main class="main-content">
-        <div class="container">
-            <div class="gallery-grid" id="galleryContainer">
-                <div class="loading">
-                    <div class="loading-spinner"></div>
-                    <p>Đang tải dữ liệu sản phẩm...</p>
-                </div>
-            </div>
-            
-            <div id="loadMoreContainer" style="display: none;">
-                <button class="load-more-btn" id="loadMoreBtn">Xem thêm sản phẩm</button>
-            </div>
-        </div>
-    </main>
+<header class="header">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; padding: 0 20px;">
+        <div style="font-size: 1.6rem; font-weight: 800; letter-spacing: 1px;">IDECO PHARMA</div>
+        <div id="selectedCount" style="background: white; color: var(--primary-red); padding: 7px 25px; border-radius: 25px; font-weight: bold; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">Đã chọn: 0</div>
+    </div>
+</header>
 
-    <footer class="footer">
-        <div class="container">
-            <strong>CÔNG TY IDECO</strong><br>
-            ĐĐKD: 003 Carlion 5 - 262/3 Lũy Bán Bích - P.Tân Phú - TP.Hồ Chí Minh
-        </div>
-    </footer>
+<nav class="nav-tabs">
+    <button class="tab-btn active" onclick="openTab('catalog')" id="btn-catalog">DANH MỤC SẢN PHẨM</button>
+    <button class="tab-btn" onclick="openTab('quotation')" id="btn-quotation">TẠO BÁO GIÁ</button>
+</nav>
 
-    <div class="lightbox" id="lightbox">
-        <button class="close-btn" id="closeLightbox"><i class="fas fa-times"></i></button>
-        <button class="nav-btn prev-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
-        <button class="nav-btn next-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
-        <img class="lightbox-img" id="lightboxImg" src="" alt="">
+<div class="container">
+    <div id="catalog" class="tab-content active">
+        <div class="gallery-grid" id="galleryContainer"></div>
     </div>
 
-    <div class="contact-modal" id="contactModal">
-        <div class="modal-content">
-            <button class="modal-close" id="closeModal"><i class="fas fa-times"></i></button>
-            <h3 class="modal-title">THÔNG TIN LIÊN HỆ</h3>
-            
-            <div class="contact-list">
-                <div class="contact-person">
-                    <div class="person-name">Ms. Nguyễn Hương</div>
-                    <div class="person-title">Quản lý Kinh doanh (BGĐ)</div>
-                    <a href="tel:0909502877" class="phone-link"><i class="fas fa-phone-alt"></i> 0909 502 877</a>
-                </div>
-                
-                <div class="contact-person">
-                    <div class="person-name">Ms. Nguyễn Trúc Mai</div>
-                    <div class="person-title">Phụ trách Điều phối & Phát triển KD</div>
-                    <a href="tel:0336597168" class="phone-link"><i class="fas fa-phone-alt"></i> 0336 597 168</a>
-                </div>
+    <div id="quotation" class="tab-content">
+        <div class="control-panel">
+            <div class="btn-group">
+                <span style="font-weight: bold; margin-right: 10px;">Số lượng ảnh:</span>
+                <button class="mode-btn active" onclick="setMode('8')">8 Ảnh</button>
+                <button class="mode-btn" onclick="setMode('6')">6 Ảnh</button>
+                <button class="mode-btn" onclick="setMode('4')">4 Ảnh</button>
+                <button class="mode-btn" onclick="setMode('2')">2 Ảnh</button>
+                <button class="mode-btn" onclick="setMode('1')">1 Ảnh</button>
             </div>
-            
-            <div style="text-align: center; font-size: 0.8rem; color: #888; margin-top: 15px;">
-                Nhấn vào số điện thoại để gọi trực tiếp
+            <div class="btn-group">
+                <span style="font-weight: bold; margin-right: 10px;">Khổ ảnh:</span>
+                <button class="ratio-btn active" onclick="setRatio('3/4')">Khổ Dọc (3:4)</button>
+                <button class="ratio-btn" onclick="setRatio('1/1')">Khổ Vuông (1:1)</button>
+                <button class="ratio-btn" onclick="setRatio('4/3')">Khổ Ngang (4:3)</button>
             </div>
         </div>
+
+        <div class="preview-wrapper" id="captureArea">
+            <div style="display: flex; align-items: center; gap: 25px; margin-bottom: 25px; border-bottom: 4px solid var(--primary-red); padding-bottom: 20px;">
+                <img src="https://cdn.imgpile.com/f/5cLRy50_xl.jpg" style="height: 70px;">
+                <div>
+                    <h1 style="color: var(--primary-red); text-transform: uppercase; margin: 0; font-size: 28px;">Bảng Báo Giá Chi Tiết</h1>
+                    <p style="color: #666; margin: 0;">Kính gửi: Quý khách hàng & Đối tác</p>
+                </div>
+            </div>
+
+            <div id="previewGrid" class="preview-grid preview-grid-8"></div>
+
+            <div class="text-container">
+                <textarea class="quote-textarea" id="quoteText" placeholder="Nhập nội dung chiết khấu, đơn giá hoặc ghi chú tại đây... (Kéo góc để co giãn rộng/cao)"></textarea>
+            </div>
+         <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #eee; text-align: center;">
+    <p style="color: #555; font-size: 14px; margin-bottom: 10px;">
+        VPGD: 262/3 Lũy Bán Bích, P. Tân Phú, TP. HCM | <strong>Hotline: 0385400436</strong>
+    </p>
+    
+    <p style="color: #b71c1c; font-weight: 800; font-size: 18px; margin: 0; text-transform: uppercase; letter-spacing: 0.5px;">
+        Xem tất cả hơn 500 loại thuốc tại: 
+        <span style="text-decoration: underline;">https://ideco-thuoc.netlify.app</span>
+    </p>
+</div>
+        <div class="actions">
+            <button class="action-btn" id="exportPng" onclick="exportFile('png')"><i class="fas fa-image"></i> XUẤT ẢNH BÁO GIÁ</button>
+            <button class="action-btn" id="exportPdf" onclick="exportFile('pdf')"><i class="fas fa-file-pdf"></i> XUẤT FILE PDF</button>
+        </div>
     </div>
+</div>
 
-    <script>
-        // --- GIỮ NGUYÊN PHẦN LOGIC JAVASCRIPT CỦA BẠN ---
-        // Firebase Config
-        const firebaseConfig = {
-            apiKey: "AIzaSyAcy4Wr4D1nHFyVejJWLNacmT-bnWm6xWY",
-            authDomain: "webcty-ecf1b.firebaseapp.com",
-            databaseURL: "https://webcty-ecf1b-default-rtdb.firebaseio.com",
-            projectId: "webcty-ecf1b",
-            messagingSenderId: "736670340278",
-            appId: "1:736670340278:web:788716a477fef3ba1a0217",
-            measurementId: "G-C43Z1BTTXL"
-        };
+<script>
+    // Firebase Config (Giữ nguyên từ code của anh)
+    const firebaseConfig = {
+        apiKey: "AIzaSyAcy4Wr4D1nHFyVejJWLNacmT-bnWm6xWY",
+        authDomain: "webcty-ecf1b.firebaseapp.com",
+        databaseURL: "https://webcty-ecf1b-default-rtdb.firebaseio.com",
+        projectId: "webcty-ecf1b",
+        storageBucket: "webcty-ecf1b.appspot.com",
+        messagingSenderId: "736670340278",
+        appId: "1:736670340278:web:788716a477fef3ba1a0217"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+    
+    let selectedImages = [];
+    let currentMode = '8';
+    let currentRatio = '3/4';
 
-        let database;
-        let allImages = [];
-        let displayedImages = [];
-        let currentDisplayCount = 0;
-        let currentImageIndex = 0;
-        const imagesPerLoad = 24; // Load số chẵn để chia hết cho 2,3,4 cột
-
-        document.addEventListener('DOMContentLoaded', function() {
-            try {
-                if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
-                database = firebase.database();
-                loadImages();
-                setupEvents();
-            } catch (e) { console.error(e); }
-        });
-
-        async function loadImages() {
-            const container = document.getElementById('galleryContainer');
-            try {
-                const snapshot = await database.ref('images').once('value');
-                const data = snapshot.val();
-                
-                if (!data) {
-                    container.innerHTML = '<div class="loading">Chưa có sản phẩm nào</div>';
-                    return;
+    async function loadImages() {
+        const snap = await database.ref('images').once('value');
+        const data = snap.val();
+        const container = document.getElementById('galleryContainer');
+        container.innerHTML = '';
+        Object.values(data).reverse().forEach(img => {
+            const item = document.createElement('div');
+            item.className = 'gallery-item';
+            item.dataset.src = img.base64;
+            item.innerHTML = `<img src="${img.base64}" class="gallery-image">`;
+            item.onclick = () => {
+                const i = selectedImages.indexOf(img.base64);
+                if (i > -1) {
+                    selectedImages.splice(i, 1);
+                    item.classList.remove('selected');
+                } else {
+                    if (selectedImages.length >= 8) return alert("Chỉ được chọn tối đa 8 ảnh");
+                    selectedImages.push(img.base64);
+                    item.classList.add('selected');
                 }
-
-                allImages = Object.values(data).sort((a, b) => b.timestamp - a.timestamp);
-                
-                // Realtime Listener cho ảnh mới
-                database.ref('images').limitToLast(1).on('child_added', snapshot => {
-                    const newImg = snapshot.val();
-                    if (!allImages.find(img => img.id === newImg.id)) {
-                        allImages.unshift(newImg);
-                        // Chỉ thêm vào nếu đang ở top
-                        if (window.scrollY < 100) {
-                            const item = createGalleryItem(newImg, 0);
-                            container.insertBefore(item, container.firstChild);
-                        }
-                    }
-                });
-
-                loadMore();
-            } catch (error) {
-                container.innerHTML = '<div class="loading">Lỗi tải dữ liệu</div>';
-            }
-        }
-
-        function loadMore() {
-            const container = document.getElementById('galleryContainer');
-            const btnContainer = document.getElementById('loadMoreContainer');
-            
-            if (currentDisplayCount === 0) container.innerHTML = '';
-
-            const nextBatch = allImages.slice(currentDisplayCount, currentDisplayCount + imagesPerLoad);
-            
-            nextBatch.forEach((img, idx) => {
-                displayedImages.push(img);
-                container.appendChild(createGalleryItem(img, currentDisplayCount + idx));
-            });
-
-            currentDisplayCount += nextBatch.length;
-            btnContainer.style.display = currentDisplayCount < allImages.length ? 'block' : 'none';
-        }
-
-        function createGalleryItem(image, index) {
-            const div = document.createElement('div');
-            div.className = 'gallery-item';
-            div.onclick = () => openLightbox(index);
-            
-            const img = document.createElement('img');
-            img.className = 'gallery-image';
-            img.loading = 'lazy';
-            img.src = image.base64;
-            // Xử lý ảnh lỗi
-            img.onerror = function() { this.src = 'https://via.placeholder.com/300?text=No+Image'; };
-            
-            div.appendChild(img);
-            return div;
-        }
-
-        // --- Lightbox & Modal Logic ---
-        function setupEvents() {
-            document.getElementById('loadMoreBtn').onclick = loadMore;
-            document.getElementById('contactBtn').onclick = () => document.getElementById('contactModal').classList.add('active');
-            document.getElementById('closeModal').onclick = () => document.getElementById('contactModal').classList.remove('active');
-            
-            // Lightbox
-            const lb = document.getElementById('lightbox');
-            document.getElementById('closeLightbox').onclick = () => lb.classList.remove('active');
-            document.getElementById('prevBtn').onclick = (e) => { e.stopPropagation(); navigate(-1); };
-            document.getElementById('nextBtn').onclick = (e) => { e.stopPropagation(); navigate(1); };
-            lb.onclick = (e) => { if(e.target === lb) lb.classList.remove('active'); };
-            
-            // Đóng modal khi click ngoài
-            document.getElementById('contactModal').onclick = (e) => {
-                if(e.target === document.getElementById('contactModal')) 
-                    document.getElementById('contactModal').classList.remove('active');
+                document.getElementById('selectedCount').innerText = `Đã chọn: ${selectedImages.length}`;
             };
-        }
+            container.appendChild(item);
+        });
+    }
 
-        function openLightbox(index) {
-            currentImageIndex = index;
-            updateLightbox();
-            document.getElementById('lightbox').classList.add('active');
-        }
+    function openTab(id) {
+        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        document.getElementById('btn-'+id).classList.add('active');
+        if(id === 'quotation') updatePreview();
+    }
 
-        function navigate(dir) {
-            currentImageIndex += dir;
-            if (currentImageIndex < 0) currentImageIndex = displayedImages.length - 1;
-            if (currentImageIndex >= displayedImages.length) currentImageIndex = 0;
-            updateLightbox();
-        }
+    function setMode(m) {
+        currentMode = m;
+        document.querySelectorAll('.mode-btn').forEach(b => b.classList.toggle('active', b.innerText.includes(m)));
+        updatePreview();
+    }
 
-        function updateLightbox() {
-            const img = displayedImages[currentImageIndex];
-            if(img) document.getElementById('lightboxImg').src = img.base64;
+    function setRatio(r) {
+        currentRatio = r;
+        document.querySelectorAll('.ratio-btn').forEach(b => b.classList.toggle('active', b.getAttribute('onclick').includes(r)));
+        updatePreview();
+    }
+
+    function updatePreview() {
+        const grid = document.getElementById('previewGrid');
+        grid.className = `preview-grid preview-grid-${currentMode}`;
+        grid.innerHTML = '';
+        const limit = parseInt(currentMode);
+
+        for (let i = 0; i < limit; i++) {
+            const box = document.createElement('div');
+            box.className = 'preview-item';
+            box.style.aspectRatio = currentRatio;
+            
+            if (selectedImages[i]) {
+                box.innerHTML = `<img src="${selectedImages[i]}">`;
+                box.onclick = () => {
+                    selectedImages = selectedImages.filter(s => s !== selectedImages[i]);
+                    updatePreview();
+                    document.getElementById('selectedCount').innerText = `Đã chọn: ${selectedImages.length}`;
+                    document.querySelectorAll('.gallery-item').forEach(el => {
+                        if(!selectedImages.includes(el.dataset.src)) el.classList.remove('selected');
+                    });
+                };
+            } else {
+                box.innerHTML = `<span style="color:#ccc; font-size:12px;">+ Thêm ảnh</span>`;
+                box.onclick = () => openTab('catalog');
+            }
+            grid.appendChild(box);
         }
-    </script>
+    }
+
+    async function exportFile(type) {
+        const target = document.getElementById('captureArea');
+        const txt = document.getElementById('quoteText');
+        
+        // Làm đẹp textarea trước khi chụp
+        txt.style.border = 'none';
+        txt.style.background = 'transparent';
+
+        const canvas = await html2canvas(target, { scale: 2, useCORS: true, backgroundColor: "#ffffff" });
+
+        txt.style.border = '2px solid #eee';
+        txt.style.background = '#fffdf2';
+
+        if (type === 'png') {
+            const link = document.createElement('a');
+            link.download = `IDECO_BaoGia_${Date.now()}.png`;
+            link.href = canvas.toDataURL();
+            link.click();
+        } else {
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const imgData = canvas.toDataURL('image/png');
+            const w = 210;
+            const h = (canvas.height * w) / canvas.width;
+            pdf.addImage(imgData, 'PNG', 0, 5, w, h);
+            pdf.save(`IDECO_BaoGia_${Date.now()}.pdf`);
+        }
+    }
+
+    loadImages();
+</script>
 </body>
 </html>
