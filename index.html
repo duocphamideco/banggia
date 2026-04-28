@@ -154,11 +154,20 @@
         }
         
         .website-link {
-            color: #b71c1c;
-            font-weight: 700;
-            font-size: 14px;
+            color: #d32f2f;
+            font-weight: 800;
+            font-size: 17px;
             margin: 0;
             text-decoration: none;
+            letter-spacing: 0.3px;
+        }
+        .website-link a {
+            color: #d32f2f;
+            text-decoration: none;
+            font-weight: 800;
+        }
+        .website-link a:hover {
+            text-decoration: underline;
         }
 
         .actions { text-align: center; margin-top: 30px; padding-bottom: 40px; }
@@ -173,6 +182,8 @@
             font-size: 14px; 
             transition: 0.3s;
         }
+        .action-btn.btn-png { background: #0277bd; }
+        .action-btn.btn-pdf { background: #c62828; }
         #exportPng { background: #0277bd; }
         #exportPdf { background: #c62828; }
         .action-btn:hover { 
@@ -266,14 +277,14 @@
                 <!-- Footer -->
                 <div class="info-footer">
                     <p>VPGD: 262/3 Lũy Bán Bích, P. Tân Phú, TP. HCM | Hotline: 0385400436</p>
-                    <p class="website-link">https://ideco-thuoc.netlify.app</p>
+                    <p class="website-link">Xem tất cả danh mục thuốc tại: <a href="https://ideco-thuoc.netlify.app/" target="_blank">https://ideco-thuoc.netlify.app/</a></p>
                 </div>
             </div>
         </div>
         
         <div class="actions">
-            <button class="action-btn" onclick="exportFile('png')"><i class="fas fa-image"></i> XUẤT ẢNH PNG</button>
-            <button class="action-btn" onclick="exportFile('pdf')"><i class="fas fa-file-pdf"></i> XUẤT FILE PDF</button>
+            <button class="action-btn btn-png" id="exportPng" onclick="exportFile('png')"><i class="fas fa-image"></i> XUẤT ẢNH PNG</button>
+            <button class="action-btn btn-pdf" id="exportPdf" onclick="exportFile('pdf')"><i class="fas fa-file-pdf"></i> XUẤT FILE PDF</button>
         </div>
     </div>
 </div>
