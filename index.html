@@ -432,6 +432,7 @@
         }
         .action-btn.btn-png { background: #0277bd; }
         .action-btn.btn-jpg { background: #2e7d32; }
+        .action-btn.btn-print { background: #6a1b9a; }
         .action-btn.btn-pdf { background: #c62828; }
         #exportPng { background: #0277bd; }
         #exportJpg { background: #2e7d32; }
@@ -617,6 +618,7 @@
             <button class="action-btn btn-png" id="exportPng" onclick="exportFile('png')"><i class="fas fa-image"></i> XUẤT ẢNH PNG</button>
             <button class="action-btn btn-jpg" id="exportJpg" onclick="exportFile('jpg')"><i class="fas fa-file-image"></i> XUẤT ẢNH JPG</button>
             <button class="action-btn btn-pdf" id="exportPdf" onclick="exportFile('pdf')"><i class="fas fa-file-pdf"></i> XUẤT FILE PDF</button>
+            <button class="action-btn btn-print" id="exportPrint" onclick="exportFile('print')"><i class="fas fa-print"></i> IN TRỰC TIẾP</button>
         </div>
     </div>
 </div>
@@ -1021,13 +1023,26 @@
             cloneTextarea.style.height = contentHeight + 'px';
         }
 
-        await new Promise(resolve => setTimeout(resolve, 80));
+        await new Promise(resolve => setTimeout(resolve, 120));
 
         try {
+            // Scale động: ảnh càng ít cột thì khung càng nhỏ -> tăng scale để nét hơn,
+            // khung lớn giảm scale tránh tràn bộ nhớ trình duyệt.
+            const dynamicScale = exportWidth <= 500 ? 5
+                               : exportWidth <= 750 ? 4
+                               : exportWidth <= 850 ? 3.5
+                               : 3;
+
             const canvas = await html2canvas(cloneArea, {
-                scale: 3, useCORS: true,
+                scale: dynamicScale,
+                useCORS: true,
                 backgroundColor: "#ffffff",
-                logging: false, allowTaint: false
+                logging: false,
+                allowTaint: false,
+                imageTimeout: 0,
+                windowWidth: exportWidth,
+                scrollX: 0,
+                scrollY: 0
             });
             document.body.removeChild(cloneArea);
 
@@ -1036,16 +1051,38 @@
             if (type === 'png') {
                 const link = document.createElement('a');
                 link.download = `IDECO_BaoGia_${stamp}.png`;
-                link.href = canvas.toDataURL('image/png');
+                link.href = canvas.toDataURL('image/png'); // PNG lossless
                 link.click();
             } else if (type === 'jpg') {
                 const link = document.createElement('a');
                 link.download = `IDECO_BaoGia_${stamp}.jpg`;
-                link.href = canvas.toDataURL('image/jpeg', 0.95);
+                link.href = canvas.toDataURL('image/jpeg', 1.0); // chất lượng tối đa
                 link.click();
+            } else if (type === 'print') {
+                // === IN TRỰC TIẾP ===
+                const imgData = canvas.toDataURL('image/png');
+                const pw = window.open('', '_blank');
+                pw.document.write(`<!DOCTYPE html><html><head><title>IDECO - Báo giá</title>
+                    <style>
+                        @page { size: auto; margin: 8mm; }
+                        * { margin:0; padding:0; box-sizing:border-box; }
+                        html,body { width:100%; }
+                        .print-img { display:block; width:100%; height:auto; }
+                        @media print { body { -webkit-print-color-adjust:exact; print-color-adjust:exact; } }
+                    </style></head><body>
+                    <img class="print-img" src="${imgData}" alt="Báo giá IDECO">
+                    <script>
+                        const img = document.querySelector('.print-img');
+                        function go(){ window.focus(); window.print(); }
+                        if (img.complete) { setTimeout(go, 300); }
+                        else { img.onload = function(){ setTimeout(go, 300); }; }
+                        window.onafterprint = function(){ window.close(); };
+                    <\/script>
+                    </body></html>`);
+                pw.document.close();
             } else {
                 const { jsPDF } = window.jspdf;
-                const imgData = canvas.toDataURL('image/jpeg', 0.95);
+                const imgData = canvas.toDataURL('image/jpeg', 1.0);
                 const imgWidth = 210, pageHeight = 297;
                 const imgHeight = (canvas.height * imgWidth) / canvas.width;
                 let pdf = new jsPDF('p', 'mm', 'a4');
