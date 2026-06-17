@@ -618,6 +618,11 @@
             <button class="action-btn btn-png" id="exportPng" onclick="exportFile('png')"><i class="fas fa-image"></i> XUẤT ẢNH PNG</button>
             <button class="action-btn btn-jpg" id="exportJpg" onclick="exportFile('jpg')"><i class="fas fa-file-image"></i> XUẤT ẢNH JPG</button>
             <button class="action-btn btn-pdf" id="exportPdf" onclick="exportFile('pdf')"><i class="fas fa-file-pdf"></i> XUẤT FILE PDF</button>
+            <select id="printSize" class="action-btn btn-print" style="cursor:pointer; border:none; padding-right:10px;" title="Chọn khổ in">
+                <option value="auto">🖨 Khổ in: Tự động</option>
+                <option value="portrait">🖨 Khổ in: A4 Dọc</option>
+                <option value="landscape">🖨 Khổ in: A4 Ngang</option>
+            </select>
             <button class="action-btn btn-print" id="exportPrint" onclick="exportFile('print')"><i class="fas fa-print"></i> IN TRỰC TIẾP</button>
         </div>
     </div>
@@ -1061,39 +1066,54 @@
             } else if (type === 'print') {
                 // === IN TRỰC TIẾP ===
                 const imgData = canvas.toDataURL('image/png');
-                // Tỷ lệ thật của khung báo giá
                 const cw = canvas.width, ch = canvas.height;
                 const ratio = cw / ch;
-                // Kích thước vùng in A4 (trừ lề 8mm mỗi bên)
-                const M = 8;                       // lề (mm)
+
+                // Khổ in do người dùng chọn
+                const sizeSel = (document.getElementById('printSize') || {}).value || 'auto';
+                let landscape;
+                if (sizeSel === 'portrait')      landscape = false;
+                else if (sizeSel === 'landscape') landscape = true;
+                else                              landscape = ratio > 1; // auto: theo tỷ lệ khung
+
+                const M = 6;                       // lề (mm) - nhỏ để ảnh sát lề, in đẹp
                 const A4_W = 210, A4_H = 297;
-                // Chọn hướng giấy theo tỷ lệ khung: rộng hơn cao -> ngang
-                const landscape = ratio > 1;
                 const pageW = landscape ? A4_H : A4_W;
                 const pageH = landscape ? A4_W : A4_H;
                 const availW = pageW - M * 2;
                 const availH = pageH - M * 2;
-                // Scale vừa khít trong 1 trang, giữ nguyên tỷ lệ (không méo, không tràn)
+
+                // Scale CONTAIN: ảnh luôn nằm trọn trong vùng in, giữ tỷ lệ, không méo, không tràn
                 let printW = availW;
                 let printH = printW / ratio;
                 if (printH > availH) { printH = availH; printW = printH * ratio; }
+                // làm tròn xuống để tránh sai số 1px đẩy sang trang 2
+                printW = Math.floor(printW * 100) / 100;
+                printH = Math.floor(printH * 100) / 100;
 
                 const pw = window.open('', '_blank');
                 pw.document.write(`<!DOCTYPE html><html><head><title>IDECO - Báo giá</title>
                     <style>
                         @page { size: A4 ${landscape ? 'landscape' : 'portrait'}; margin: ${M}mm; }
                         * { margin:0; padding:0; box-sizing:border-box; }
-                        html,body { width:100%; height:100%; }
-                        .print-wrap { width:100%; height:100%; display:flex; align-items:center; justify-content:center; }
+                        html, body { width:${availW}mm; height:${availH}mm; overflow:hidden; }
+                        .print-wrap {
+                            width:${availW}mm; height:${availH}mm;
+                            display:flex; align-items:center; justify-content:center;
+                            overflow:hidden; page-break-after:avoid; page-break-inside:avoid;
+                        }
                         .print-img { width:${printW}mm; height:${printH}mm; display:block; }
-                        @media print { body { -webkit-print-color-adjust:exact; print-color-adjust:exact; } }
+                        @media print {
+                            body { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+                            .print-wrap { page-break-inside:avoid; }
+                        }
                     </style></head><body>
                     <div class="print-wrap"><img class="print-img" src="${imgData}" alt="Báo giá IDECO"></div>
                     <script>
                         const img = document.querySelector('.print-img');
                         function go(){ window.focus(); window.print(); }
-                        if (img.complete) { setTimeout(go, 300); }
-                        else { img.onload = function(){ setTimeout(go, 300); }; }
+                        if (img.complete) { setTimeout(go, 350); }
+                        else { img.onload = function(){ setTimeout(go, 350); }; }
                         window.onafterprint = function(){ window.close(); };
                     <\/script>
                     </body></html>`);
