@@ -499,6 +499,132 @@
             .preview-wrapper { padding: 20px; }
             .drug-menu-panel { width: 92vw; }
         }
+
+        /* ===================== TAB QUẢN TRỊ (ADMIN) ===================== */
+        #admin .admin-wrap { max-width: 1200px; margin: 0 auto; background: white; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); overflow: hidden; border: 1px solid #eee; }
+        #admin .admin-header { background: linear-gradient(135deg, #4a6ee0 0%, #5a3d8a 100%); color: white; padding: 26px 30px; text-align: center; position: relative; }
+        #admin .admin-header h1 { font-size: 1.9rem; margin-bottom: 6px; }
+        #admin .admin-header p { opacity: 0.92; font-size: 0.92rem; }
+        #admin .admin-main { padding: 26px; display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+        @media (max-width: 900px) { #admin .admin-main { grid-template-columns: 1fr; } }
+        #admin .upload-section, #admin .images-section { background: #f8f9fa; border-radius: 10px; padding: 22px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        #admin .section-title { color: #2c3e50; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 2px solid #eaeaea; font-size: 1.35rem; display: flex; justify-content: space-between; align-items: center; }
+        #admin .upload-area { border: 3px dashed #667eea; border-radius: 10px; padding: 34px 20px; text-align: center; cursor: pointer; transition: all 0.3s; margin-bottom: 18px; background: white; position: relative; }
+        #admin .upload-area:hover { border-color: #764ba2; background: #f5f7ff; }
+        #admin .upload-area i.fa-cloud-upload-alt { font-size: 3.4rem; color: #667eea; margin-bottom: 12px; }
+        #admin #fileInput { position: absolute; width: 100%; height: 100%; top: 0; left: 0; opacity: 0; cursor: pointer; }
+        #admin .upload-btn { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 14px 30px; font-size: 1.05rem; border-radius: 8px; cursor: pointer; width: 100%; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        #admin .upload-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+        #admin .selected-files { margin-top: 18px; max-height: 420px; overflow-y: auto; border: 1px solid #ddd; border-radius: 8px; padding: 10px; background: white; }
+        #admin .remove-file { color: #e74c3c; background: none; border: none; cursor: pointer; font-size: 1rem; padding: 6px 8px; }
+        #admin .images-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin-top: 16px; }
+        #admin .image-card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.1); position: relative; }
+        #admin .image-preview { height: 120px; overflow: hidden; background: #f5f5f5; cursor: zoom-in; position: relative; transition: opacity 0.15s; }
+        #admin .image-preview:hover { opacity: 0.92; }
+        #admin .image-preview img { width: 100%; height: 100%; object-fit: cover; }
+        #admin .image-info { padding: 10px; }
+        #admin .image-name { font-size: 0.72rem; color: #888; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 4px; }
+        #admin .zoom-hint { position: absolute; bottom: 6px; right: 6px; background: rgba(0,0,0,0.6); color: white; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; opacity: 0; transition: opacity 0.15s; pointer-events: none; backdrop-filter: blur(4px); }
+        #admin .image-preview:hover .zoom-hint { opacity: 1; }
+
+        #admin .file-item-new { display: flex; align-items: center; gap: 10px; padding: 8px; border-bottom: 1px solid #eee; transition: background 0.15s; }
+        #admin .file-item-new:hover { background: #fafbff; }
+        #admin .file-thumb { width: 56px; height: 56px; object-fit: cover; border-radius: 6px; flex-shrink: 0; border: 1px solid #ddd; background: #f5f5f5; }
+        #admin .file-data { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 5px; }
+        #admin .file-meta { font-size: 0.72rem; color: #888; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        #admin .drug-name-input-upload { width: 100%; padding: 7px 10px; border: 1.5px solid #d8d8e8; border-radius: 6px; font-size: 0.85rem; outline: none; transition: all 0.15s; background: #fdfdff; }
+        #admin .drug-name-input-upload:focus { border-color: #667eea; box-shadow: 0 0 0 2px rgba(102,126,234,0.12); background: white; }
+        #admin .drug-name-input-upload::placeholder { color: #b5b5c5; }
+
+        #admin .drug-name-row { display: flex; gap: 5px; align-items: stretch; margin-bottom: 6px; }
+        #admin .drug-name-input-edit { flex: 1; min-width: 0; padding: 6px 9px; border: 1.5px solid #e0e0e8; border-radius: 5px; font-size: 0.8rem; outline: none; background: #fdfdff; transition: all 0.15s; }
+        #admin .drug-name-input-edit:focus { border-color: #667eea; box-shadow: 0 0 0 2px rgba(102,126,234,0.12); background: white; }
+        #admin .save-name-btn { background: #28a745; color: white; border: none; padding: 0 9px; border-radius: 5px; cursor: pointer; font-size: 0.75rem; display: flex; align-items: center; justify-content: center; transition: all 0.15s; min-width: 32px; }
+        #admin .save-name-btn:hover { background: #1e7e34; }
+        #admin .save-name-btn:disabled { opacity: 0.7; cursor: not-allowed; }
+
+        #admin .card-actions { display: flex; gap: 5px; margin-top: 5px; }
+        #admin .btn-action { border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; flex: 1; font-size: 0.8rem; color: white; display: flex; align-items: center; justify-content: center; gap: 5px; }
+        #admin .delete-btn { background: #e74c3c; }
+        #admin .delete-btn:hover { background: #c0392b; }
+        #admin .notify-btn { background: #3498db; }
+        #admin .notify-btn:hover { background: #2980b9; }
+
+        #admin .danger-zone { margin-top: 22px; padding-top: 18px; border-top: 2px dashed #e74c3c; }
+        #admin .delete-all-btn { background: #e74c3c; color: white; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer; width: 100%; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.2s; }
+        #admin .delete-all-btn:hover { background: #c0392b; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(231,76,60,0.3); }
+        #admin .delete-all-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        #admin .status { text-align: center; padding: 10px; margin: 10px 0; border-radius: 5px; font-weight: 600; }
+        #admin .status.success { background: #d4edda; color: #155724; }
+        #admin .status.error { background: #f8d7da; color: #721c24; }
+        #admin .status.warning { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+        #admin .status.info { background: #d1ecf1; color: #0c5460; }
+        #admin .progress-container { margin: 15px 0; display: none; }
+        #admin .progress-bar { width: 100%; height: 8px; background: #e0e0e0; border-radius: 4px; overflow: hidden; }
+        #admin .progress-fill { height: 100%; background: linear-gradient(90deg, #667eea, #764ba2); width: 0%; transition: width 0.3s; }
+        #admin .progress-text { font-size: 0.85rem; color: #666; margin-top: 6px; text-align: center; }
+        #admin .load-more-btn { background: #6c757d; color: white; border: none; padding: 10px; width: 100%; margin-top: 15px; border-radius: 5px; cursor: pointer; }
+        #admin .load-more-btn:hover { background: #5a6268; }
+        #admin .count-badge { background: #ff4757; color: white; padding: 5px 12px; border-radius: 20px; font-size: 0.9rem; font-weight: bold; transition: transform 0.2s; }
+        #admin .admin-footer { text-align: center; padding: 18px; color: #888; font-size: 0.85rem; border-top: 1px solid #eee; }
+        .spinning { animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        #admin .bulk-name-bar { display: flex; gap: 6px; margin-top: 10px; padding: 8px; background: #f0f3ff; border-radius: 6px; align-items: center; }
+        #admin .bulk-name-bar input { flex: 1; padding: 7px 10px; border: 1.5px solid #c8d0e8; border-radius: 5px; font-size: 0.85rem; outline: none; }
+        #admin .bulk-name-bar input:focus { border-color: #667eea; }
+        #admin .bulk-apply-btn { background: #667eea; color: white; border: none; padding: 7px 12px; border-radius: 5px; cursor: pointer; font-size: 0.8rem; font-weight: 600; white-space: nowrap; }
+        #admin .bulk-apply-btn:hover { background: #4f63d4; }
+        #admin .admin-logout-btn { position: absolute; top: 18px; right: 18px; background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 0.85rem; display: flex; align-items: center; gap: 6px; transition: all 0.2s; backdrop-filter: blur(10px); }
+        #admin .admin-logout-btn:hover { background: rgba(255,255,255,0.3); transform: translateY(-1px); }
+
+        /* Khóa nội dung admin khi chưa đăng nhập */
+        #admin .admin-wrap { transition: filter 0.2s; }
+        #admin.locked .admin-wrap { filter: blur(6px); pointer-events: none; user-select: none; }
+
+        /* ===== LIGHTBOX PHÓNG TO ẢNH (ADMIN) ===== */
+        .image-lightbox { position: fixed; inset: 0; z-index: 9500; display: none; align-items: center; justify-content: center; padding: 20px; }
+        .image-lightbox.active { display: flex; }
+        .lightbox-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.88); backdrop-filter: blur(4px); cursor: pointer; animation: lbOverlayFade 0.2s ease; }
+        @keyframes lbOverlayFade { from { opacity: 0; } to { opacity: 1; } }
+        .lightbox-content { position: relative; max-width: min(900px, 92vw); max-height: 92vh; background: white; border-radius: 14px; padding: 20px; display: flex; flex-direction: column; gap: 12px; z-index: 1; animation: lbFadeIn 0.25s ease; box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+        @keyframes lbFadeIn { from { opacity: 0; transform: scale(0.92) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+        .lightbox-close { position: absolute; top: 12px; right: 12px; width: 38px; height: 38px; border-radius: 50%; background: rgba(0,0,0,0.55); border: none; color: white; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; z-index: 3; backdrop-filter: blur(8px); }
+        .lightbox-close:hover { background: #e74c3c; transform: rotate(90deg); }
+        .lightbox-img-wrap { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; background: #1a1a1a; border-radius: 10px; overflow: hidden; position: relative; }
+        #lightboxImg { max-width: 100%; max-height: calc(92vh - 200px); object-fit: contain; display: block; user-select: none; }
+        .lightbox-filename { text-align: center; color: #888; font-size: 0.8rem; font-style: italic; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .lightbox-bottom { display: flex; gap: 10px; align-items: stretch; }
+        .lightbox-input { flex: 1; min-width: 0; padding: 11px 14px; border: 2px solid #e0e0e8; border-radius: 9px; font-size: 1rem; outline: none; transition: all 0.15s; background: #fdfdff; }
+        .lightbox-input:focus { border-color: #667eea; box-shadow: 0 0 0 3px rgba(102,126,234,0.15); background: white; }
+        .lightbox-save-btn { background: linear-gradient(135deg, #28a745 0%, #20c997 100%); color: white; border: none; padding: 11px 22px; border-radius: 9px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s; white-space: nowrap; font-size: 0.95rem; box-shadow: 0 3px 10px rgba(40,167,69,0.3); }
+        .lightbox-save-btn:hover { transform: translateY(-1px); box-shadow: 0 5px 15px rgba(40,167,69,0.4); }
+        .lightbox-save-btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+        @media (max-width: 600px) { .lightbox-content { padding: 15px; gap: 10px; } .lightbox-bottom { flex-direction: column; } #lightboxImg { max-height: calc(92vh - 240px); } }
+
+        /* ===== LOGIN OVERLAY (ADMIN) ===== */
+        #adminLoginOverlay { position: fixed; inset: 0; z-index: 9999; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: none; align-items: center; justify-content: center; padding: 20px; }
+        #adminLoginOverlay.active { display: flex; }
+        #adminLoginOverlay .login-box { background: white; border-radius: 16px; padding: 40px 35px; box-shadow: 0 25px 60px rgba(0,0,0,0.3); width: 100%; max-width: 400px; animation: loginFadeIn 0.5s ease; position: relative; }
+        @keyframes loginFadeIn { from { opacity: 0; transform: translateY(-20px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        @keyframes loginShake { 0%,100% { transform: translateX(0); } 20%,60% { transform: translateX(-10px); } 40%,80% { transform: translateX(10px); } }
+        #adminLoginOverlay .login-shake { animation: loginShake 0.4s ease; }
+        #adminLoginOverlay .login-icon { width: 80px; height: 80px; margin: 0 auto 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 2.2rem; box-shadow: 0 10px 25px rgba(102,126,234,0.4); }
+        #adminLoginOverlay h2 { text-align: center; color: #2c3e50; margin-bottom: 8px; font-size: 1.7rem; }
+        #adminLoginOverlay .login-sub { text-align: center; color: #7f8c8d; margin-bottom: 25px; font-size: 0.95rem; }
+        #adminLoginOverlay .login-field { position: relative; margin-bottom: 18px; }
+        #adminLoginOverlay .login-field i.fa-lock { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #95a5a6; }
+        #adminLoginPassword { width: 100%; padding: 14px 45px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 1rem; outline: none; transition: all 0.2s; }
+        #adminLoginPassword:focus { border-color: #667eea; box-shadow: 0 0 0 3px rgba(102,126,234,0.15); }
+        #adminLoginOverlay .toggle-pw { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #95a5a6; cursor: pointer; padding: 6px; font-size: 1rem; }
+        #adminLoginOverlay .toggle-pw:hover { color: #667eea; }
+        #adminLoginBtn { width: 100%; padding: 14px; border: none; border-radius: 10px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; font-size: 1.05rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.2s; }
+        #adminLoginBtn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(102,126,234,0.4); }
+        #adminLoginError { display: none; margin-bottom: 15px; padding: 12px; background: #f8d7da; color: #721c24; border-radius: 8px; font-size: 0.9rem; text-align: center; }
+        #adminLoginOverlay .login-footer { text-align: center; margin-top: 20px; color: #95a5a6; font-size: 0.8rem; }
+        #adminLoginOverlay .login-cancel { position: absolute; top: 14px; right: 14px; background: #f1f1f4; border: none; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; color: #888; font-size: 15px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+        #adminLoginOverlay .login-cancel:hover { background: #e74c3c; color: white; }
     </style>
 </head>
 <body>
@@ -519,6 +645,7 @@
 <nav class="nav-tabs">
     <button class="tab-btn active" onclick="openTab('catalog')" id="btn-catalog">DANH MỤC SẢN PHẨM</button>
     <button class="tab-btn" onclick="openTab('quotation')" id="btn-quotation">TẠO BÁO GIÁ</button>
+    <button class="tab-btn" onclick="openTab('admin')" id="btn-admin"><i class="fas fa-cog"></i> QUẢN TRỊ</button>
 </nav>
 
 <!-- ===== MENU DANH SÁCH THUỐC ===== -->
@@ -625,6 +752,118 @@
             </select>
             <button class="action-btn btn-print" id="exportPrint" onclick="exportFile('print')"><i class="fas fa-print"></i> IN TRỰC TIẾP</button>
         </div>
+    </div>
+
+    <!-- ===================== TAB QUẢN TRỊ ===================== -->
+    <div id="admin" class="tab-content locked">
+        <div class="admin-wrap">
+            <div class="admin-header">
+                <button class="admin-logout-btn" onclick="adminLogout()" title="Đăng xuất">
+                    <i class="fas fa-right-from-bracket"></i> Đăng xuất
+                </button>
+                <h1><i class="fas fa-rocket"></i> Quản Trị Ảnh &amp; Tên Thuốc</h1>
+                <p>Upload hàng loạt - Đặt tên thuốc - Tự động phát hiện trùng</p>
+            </div>
+
+            <div class="admin-main">
+                <div class="upload-section">
+                    <h2 class="section-title">Upload Ảnh Mới</h2>
+
+                    <div class="upload-area">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Click hoặc Kéo thả nhiều ảnh vào đây</p>
+                        <p style="color: #28a745; font-weight: bold;">Mỗi ảnh sẽ có ô nhập tên thuốc bên dưới</p>
+                        <input type="file" id="fileInput" accept="image/jpeg,image/png,image/jpg" multiple>
+                    </div>
+
+                    <div class="progress-container" id="progressContainer">
+                        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+                        <div class="progress-text" id="progressText">Đang xử lý...</div>
+                    </div>
+
+                    <div id="statusMessage" class="status info" style="display:none"></div>
+
+                    <button id="uploadBtn" class="upload-btn" disabled>
+                        <i class="fas fa-upload"></i> <span>Bắt đầu Upload</span>
+                    </button>
+
+                    <div id="selectedFiles" class="selected-files" style="display: none;">
+                        <h3 style="font-size: 1rem; margin-bottom: 8px;">Hàng chờ Upload (<span id="fileCount">0</span>):</h3>
+                        <div class="bulk-name-bar">
+                            <input type="text" id="bulkNameInput" placeholder="Nhập tên áp cho tất cả ảnh chưa có tên...">
+                            <button class="bulk-apply-btn" onclick="applyBulkName()" title="Áp tên này cho mọi ảnh chưa đặt tên">
+                                <i class="fas fa-tags"></i> Áp tất cả
+                            </button>
+                        </div>
+                        <div id="filesList" style="margin-top: 6px;"></div>
+                    </div>
+
+                    <div class="danger-zone">
+                        <button id="deleteAllBtn" class="delete-all-btn" onclick="deleteAllImages()">
+                            <i class="fas fa-trash-alt"></i> <span>Xóa tất cả dữ liệu ảnh</span>
+                        </button>
+                        <p style="font-size: 0.8rem; color: #e74c3c; margin-top: 8px; text-align: center;">
+                            <i class="fas fa-exclamation-triangle"></i> Hành động này không thể hoàn tác!
+                        </p>
+                    </div>
+                </div>
+
+                <div class="images-section">
+                    <h2 class="section-title">
+                        Thư Viện Ảnh
+                        <span id="totalImagesBadge" class="count-badge">0 ảnh</span>
+                    </h2>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <small style="color: #666">Có thể chỉnh sửa tên thuốc trực tiếp</small>
+                        <button onclick="refreshImages()" style="background: none; border: none; color: #667eea; cursor: pointer;"><i class="fas fa-sync"></i> Làm mới</button>
+                    </div>
+                    <div id="imagesGrid" class="images-grid"></div>
+                    <button id="loadMoreBtn" class="load-more-btn" style="display: none;" onclick="loadMoreImages()">
+                        <i class="fas fa-arrow-down"></i> Tải thêm ảnh cũ hơn
+                    </button>
+                </div>
+            </div>
+
+            <div class="admin-footer">
+                <p>Phiên bản tích hợp: Quản trị ảnh + Đặt tên thuốc trong cùng ứng dụng báo giá</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== LIGHTBOX PHÓNG TO ẢNH ===== -->
+<div id="imageLightbox" class="image-lightbox">
+    <div class="lightbox-overlay" onclick="closeLightbox()"></div>
+    <div class="lightbox-content">
+        <button class="lightbox-close" onclick="closeLightbox()" title="Đóng (ESC)"><i class="fas fa-times"></i></button>
+        <div class="lightbox-img-wrap"><img id="lightboxImg" src="" alt=""></div>
+        <div class="lightbox-filename" id="lightboxFilename"></div>
+        <div class="lightbox-bottom">
+            <input type="text" id="lightboxDrugInput" class="lightbox-input" placeholder="Nhập tên thuốc... (Enter để lưu)" autocomplete="off">
+            <button class="lightbox-save-btn" onclick="saveDrugNameFromLightbox()" id="lightboxSaveBtn">
+                <i class="fas fa-save"></i> <span>Lưu tên thuốc</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ===== MÀN HÌNH ĐĂNG NHẬP QUẢN TRỊ ===== -->
+<div id="adminLoginOverlay">
+    <div class="login-box" id="adminLoginBox">
+        <button class="login-cancel" onclick="cancelAdminLogin()" title="Đóng"><i class="fas fa-times"></i></button>
+        <div class="login-icon"><i class="fas fa-shield-halved"></i></div>
+        <h2>Đăng Nhập Quản Trị</h2>
+        <p class="login-sub">Vui lòng nhập mật khẩu để truy cập</p>
+        <div id="adminLoginError"><i class="fas fa-exclamation-circle"></i> <span id="adminLoginErrorMsg">Mật khẩu không đúng!</span></div>
+        <div class="login-field">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="adminLoginPassword" placeholder="Nhập mật khẩu..." autocomplete="current-password">
+            <button type="button" class="toggle-pw" id="adminTogglePw" title="Hiện/Ẩn mật khẩu"><i class="fas fa-eye"></i></button>
+        </div>
+        <button id="adminLoginBtn" type="button">
+            <i class="fas fa-right-to-bracket"></i> <span>Đăng nhập</span>
+        </button>
+        <p class="login-footer"><i class="fas fa-lock"></i> Truy cập được bảo vệ</p>
     </div>
 </div>
 
@@ -879,6 +1118,9 @@
         if(id === 'quotation') {
             updatePreview();
             autoFitTextarea();
+        }
+        if(id === 'admin') {
+            onEnterAdminTab();
         }
     }
 
@@ -1154,6 +1396,549 @@
             autoFitTextarea();
         }
     });
+
+    /* ============================================================
+       ===============   KHỐI CHỨC NĂNG QUẢN TRỊ   ================
+       (Dùng chung biến `database` đã khởi tạo ở trên)
+       ============================================================ */
+    (function initAdminModule() {
+        const AUTH_KEY = 'qtwg_auth_token_v1';
+        const PW_HASH  = 'bWluaHRyaWV0QDIwMjY='; // btoa('minhtriet@2026')
+
+        let isAdminInitialized = false;       // đã gắn upload listeners chưa
+        let isAdminDataLoaded = false;         // đã load ảnh lần đầu chưa
+        let selectedFiles = [];                // [{file, drugName, previewUrl}]
+        let lastLoadedKey = null;
+        const PAGE_SIZE = 20;
+        let isUploading = false;
+        let isDeletingAll = false;
+        let imagesCache = {};                  // id -> data (cho lightbox)
+        let currentLightboxId = null;
+
+        function isLoggedIn() {
+            try { return sessionStorage.getItem(AUTH_KEY) === PW_HASH; } catch (e) { return false; }
+        }
+
+        // ===== Gọi khi mở tab Quản trị =====
+        window.onEnterAdminTab = function() {
+            if (isLoggedIn()) {
+                unlockAdmin();
+            } else {
+                showAdminLogin();
+            }
+        };
+
+        function showAdminLogin() {
+            const ov = document.getElementById('adminLoginOverlay');
+            ov.classList.add('active');
+            document.getElementById('adminLoginError').style.display = 'none';
+            const inp = document.getElementById('adminLoginPassword');
+            inp.value = '';
+            setTimeout(() => inp.focus(), 200);
+        }
+
+        window.cancelAdminLogin = function() {
+            document.getElementById('adminLoginOverlay').classList.remove('active');
+            // Nếu chưa đăng nhập, quay lại tab danh mục
+            if (!isLoggedIn()) {
+                openTab('catalog');
+            }
+        };
+
+        function unlockAdmin() {
+            document.getElementById('adminLoginOverlay').classList.remove('active');
+            document.getElementById('admin').classList.remove('locked');
+            initAdminFeatures();
+        }
+
+        window.adminLogout = function() {
+            if (!confirm('Bạn có chắc muốn đăng xuất khỏi Quản trị?')) return;
+            try { sessionStorage.removeItem(AUTH_KEY); } catch (e) {}
+            document.getElementById('admin').classList.add('locked');
+            openTab('catalog');
+        };
+
+        function doAdminLogin() {
+            const input = document.getElementById('adminLoginPassword');
+            const box   = document.getElementById('adminLoginBox');
+            const errEl = document.getElementById('adminLoginError');
+            const val   = (input.value || '').trim();
+            if (!val) { showLoginError('Vui lòng nhập mật khẩu!'); return; }
+            if (btoa(val) === PW_HASH) {
+                try { sessionStorage.setItem(AUTH_KEY, PW_HASH); } catch (e) {}
+                errEl.style.display = 'none';
+                const btn = document.getElementById('adminLoginBtn');
+                btn.innerHTML = '<i class="fas fa-check"></i> <span>Thành công!</span>';
+                btn.style.background = 'linear-gradient(135deg, #28a745, #20c997)';
+                setTimeout(() => {
+                    unlockAdmin();
+                    btn.innerHTML = '<i class="fas fa-right-to-bracket"></i> <span>Đăng nhập</span>';
+                    btn.style.background = '';
+                }, 350);
+            } else {
+                showLoginError('Mật khẩu không đúng. Vui lòng thử lại!');
+                box.classList.remove('login-shake'); void box.offsetWidth; box.classList.add('login-shake');
+                input.value = ''; input.focus();
+            }
+        }
+        function showLoginError(msg) {
+            const errEl = document.getElementById('adminLoginError');
+            document.getElementById('adminLoginErrorMsg').innerText = msg;
+            errEl.style.display = 'block';
+        }
+
+        // Gắn sự kiện cho form đăng nhập (1 lần)
+        document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.getElementById('adminLoginBtn');
+            const input = document.getElementById('adminLoginPassword');
+            const tgl = document.getElementById('adminTogglePw');
+            if (btn) btn.addEventListener('click', doAdminLogin);
+            if (input) input.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); doAdminLogin(); }});
+            if (tgl) tgl.addEventListener('click', () => {
+                const isPw = input.type === 'password';
+                input.type = isPw ? 'text' : 'password';
+                tgl.innerHTML = isPw ? '<i class="fas fa-eye-slash"></i>' : '<i class="fas fa-eye"></i>';
+                input.focus();
+            });
+        });
+
+        // ===== Khởi tạo các tính năng admin sau khi đăng nhập =====
+        function initAdminFeatures() {
+            if (!isAdminInitialized) {
+                bindUploadHandlers();
+                // Badge tổng số ảnh realtime
+                database.ref('images').on('value', snapshot => {
+                    const count = snapshot.numChildren();
+                    const badge = document.getElementById('totalImagesBadge');
+                    if (badge) {
+                        badge.innerText = `${count} ảnh`;
+                        badge.style.transform = "scale(1.2)";
+                        setTimeout(() => badge.style.transform = "scale(1)", 200);
+                    }
+                    const deleteAllBtn = document.getElementById('deleteAllBtn');
+                    if (deleteAllBtn) deleteAllBtn.disabled = (count === 0) || isDeletingAll;
+                });
+                isAdminInitialized = true;
+            }
+            if (!isAdminDataLoaded) {
+                loadInitialImages();
+                isAdminDataLoaded = true;
+            }
+        }
+
+        function bindUploadHandlers() {
+            const fileInput = document.getElementById('fileInput');
+            const uploadBtn = document.getElementById('uploadBtn');
+
+            fileInput.addEventListener('change', (e) => {
+                const newFiles = Array.from(e.target.files).filter(file =>
+                    ['image/jpeg', 'image/png', 'image/jpg'].includes(file.type));
+                const newItems = newFiles.map(file => ({
+                    file: file, drugName: '', previewUrl: URL.createObjectURL(file)
+                }));
+                selectedFiles = [...selectedFiles, ...newItems];
+                updateFileListUI();
+                fileInput.value = '';
+            });
+
+            uploadBtn.addEventListener('click', async () => {
+                if (selectedFiles.length === 0 || isUploading) return;
+                isUploading = true;
+                uploadBtn.disabled = true;
+                document.getElementById('progressContainer').style.display = 'block';
+
+                let successCount = 0, duplicateCount = 0, processedCount = 0;
+                const totalFiles = selectedFiles.length;
+                const BATCH_SIZE = 5;
+
+                for (let i = 0; i < totalFiles; i += BATCH_SIZE) {
+                    const chunk = selectedFiles.slice(i, i + BATCH_SIZE);
+                    await Promise.all(chunk.map(async (fileItem) => {
+                        try {
+                            const isDuplicate = await checkFileExists(fileItem.file.name);
+                            if (isDuplicate) { duplicateCount++; }
+                            else { await processAndUploadImage(fileItem); successCount++; }
+                        } catch (err) {
+                            console.error("Lỗi upload file:", fileItem.file.name, err);
+                        } finally {
+                            processedCount++;
+                            const percent = Math.round((processedCount / totalFiles) * 100);
+                            document.getElementById('progressFill').style.width = `${percent}%`;
+                            document.getElementById('progressText').innerText = `Đang xử lý ${processedCount}/${totalFiles}...`;
+                        }
+                    }));
+                }
+
+                let msg = `Hoàn thành! Đã thêm ${successCount} ảnh mới.`;
+                let type = 'success';
+                if (duplicateCount > 0) {
+                    msg += ` (Bỏ qua ${duplicateCount} ảnh trùng tên file).`;
+                    type = successCount > 0 ? 'warning' : 'error';
+                }
+                showStatus(msg, type);
+
+                selectedFiles.forEach(it => URL.revokeObjectURL(it.previewUrl));
+                selectedFiles = [];
+                updateFileListUI();
+                isUploading = false;
+                document.getElementById('progressContainer').style.display = 'none';
+                refreshImages();
+            });
+        }
+
+        function updateFileListUI() {
+            const filesList = document.getElementById('filesList');
+            const uploadBtn = document.getElementById('uploadBtn');
+            filesList.innerHTML = '';
+            document.getElementById('fileCount').innerText = selectedFiles.length;
+
+            if (selectedFiles.length > 0) {
+                document.getElementById('selectedFiles').style.display = 'block';
+                uploadBtn.disabled = isUploading || isDeletingAll;
+                uploadBtn.innerHTML = `<i class="fas fa-upload"></i> Upload ${selectedFiles.length} ảnh`;
+
+                selectedFiles.forEach((item, index) => {
+                    const div = document.createElement('div');
+                    div.className = 'file-item-new';
+                    div.innerHTML = `
+                        <img class="file-thumb" src="${item.previewUrl}" alt="">
+                        <div class="file-data">
+                            <span class="file-meta" title="${escapeHtml(item.file.name)}">
+                                ${escapeHtml(item.file.name)} (${(item.file.size/1024).toFixed(0)}KB)
+                            </span>
+                            <input type="text" class="drug-name-input-upload"
+                                   placeholder="Nhập tên thuốc..."
+                                   value="${escapeHtml(item.drugName)}"
+                                   data-index="${index}">
+                        </div>
+                        <button class="remove-file" onclick="removeFile(${index})" title="Bỏ file này">
+                            <i class="fas fa-times"></i>
+                        </button>`;
+                    filesList.appendChild(div);
+                    const input = div.querySelector('.drug-name-input-upload');
+                    input.addEventListener('input', (e) => {
+                        if (selectedFiles[index]) selectedFiles[index].drugName = e.target.value;
+                    });
+                });
+            } else {
+                document.getElementById('selectedFiles').style.display = 'none';
+                uploadBtn.disabled = true;
+                uploadBtn.innerHTML = '<i class="fas fa-upload"></i> Bắt đầu Upload';
+            }
+        }
+
+        window.removeFile = function(index) {
+            if (selectedFiles[index]) {
+                URL.revokeObjectURL(selectedFiles[index].previewUrl);
+                selectedFiles.splice(index, 1);
+                updateFileListUI();
+            }
+        };
+
+        window.applyBulkName = function() {
+            const bulkInput = document.getElementById('bulkNameInput');
+            const name = (bulkInput.value || '').trim();
+            if (!name) { showStatus('Hãy nhập tên muốn áp.', 'warning'); return; }
+            let count = 0;
+            selectedFiles.forEach(it => {
+                if (!it.drugName || !it.drugName.trim()) { it.drugName = name; count++; }
+            });
+            if (count === 0) { showStatus('Không có ảnh trống tên để áp.', 'info'); return; }
+            bulkInput.value = '';
+            updateFileListUI();
+            showStatus(`Đã áp tên cho ${count} ảnh.`, 'success');
+        };
+
+        async function checkFileExists(fileName) {
+            const snapshot = await database.ref('images')
+                .orderByChild('name').equalTo(fileName).once('value');
+            return snapshot.exists();
+        }
+
+        function processAndUploadImage(fileItem) {
+            return new Promise((resolve, reject) => {
+                const file = fileItem.file;
+                const drugName = (fileItem.drugName || '').trim();
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        let width = img.width, height = img.height;
+                        const MAX_SIZE = 800;
+                        if (width > height) { if (width > MAX_SIZE) { height *= MAX_SIZE / width; width = MAX_SIZE; } }
+                        else { if (height > MAX_SIZE) { width *= MAX_SIZE / height; height = MAX_SIZE; } }
+                        canvas.width = width; canvas.height = height;
+                        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+                        const base64 = canvas.toDataURL('image/jpeg', 0.7);
+                        const timestamp = Date.now();
+                        const id = `img_${timestamp}_${Math.random().toString(36).substr(2, 5)}`;
+                        database.ref('images/' + id).set({
+                            id: id,
+                            name: file.name,
+                            drugName: drugName,
+                            base64: base64,
+                            timestamp: firebase.database.ServerValue.TIMESTAMP,
+                            uploadedAt: new Date().toISOString()
+                        }).then(resolve).catch(reject);
+                    };
+                    img.onerror = reject;
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // --- XÓA TẤT CẢ ---
+        window.deleteAllImages = async function() {
+            const count = document.getElementById('totalImagesBadge').innerText.replace(' ảnh', '');
+            if (count === '0') { showStatus('Không có ảnh nào để xóa.', 'warning'); return; }
+            if (!confirm(`BẠN CÓ CHẮC CHẮN MUỐN XÓA TẤT CẢ ${count} ẢNH?\n\nHành động này không thể hoàn tác!`)) return;
+            const secondConfirm = prompt(`Để xác nhận, hãy gõ chính xác: "XOA TAT CA"`);
+            if (secondConfirm !== "XOA TAT CA") { showStatus('Hủy thao tác xóa tất cả.', 'info'); return; }
+
+            const btn = document.getElementById('deleteAllBtn');
+            const originalText = btn.innerHTML;
+            isDeletingAll = true;
+            btn.innerHTML = '<i class="fas fa-spinner spinning"></i> Đang xóa tất cả...';
+            btn.disabled = true;
+            document.getElementById('uploadBtn').disabled = true;
+            showStatus(`Đang xóa ${count} ảnh... Vui lòng đợi.`, 'warning');
+            try {
+                await database.ref('images').remove();
+                showStatus(`Đã xóa thành công tất cả ${count} ảnh!`, 'success');
+                lastLoadedKey = null;
+                refreshImages();
+                selectedFiles.forEach(it => URL.revokeObjectURL(it.previewUrl));
+                selectedFiles = [];
+                updateFileListUI();
+            } catch (error) {
+                showStatus('Lỗi khi xóa dữ liệu: ' + error.message, 'error');
+            } finally {
+                isDeletingAll = false;
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                document.getElementById('uploadBtn').disabled = selectedFiles.length === 0;
+            }
+        };
+
+        // --- LOAD ẢNH ---
+        function loadInitialImages() {
+            document.getElementById('imagesGrid').innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 20px; color: #666;">Đang tải ảnh...</div>';
+            imagesCache = {};
+            database.ref('images').orderByChild('timestamp').limitToLast(PAGE_SIZE).once('value')
+                .then(snapshot => {
+                    const data = snapshot.val();
+                    document.getElementById('imagesGrid').innerHTML = '';
+                    if (!data) {
+                        document.getElementById('imagesGrid').innerHTML = '<p style="grid-column: 1/-1; text-align: center;">Chưa có ảnh nào.</p>';
+                        return;
+                    }
+                    const images = [];
+                    snapshot.forEach(child => { images.push(child.val()); });
+                    images.reverse();
+                    if (images.length > 0) lastLoadedKey = images[images.length - 1].timestamp;
+                    renderImages(images);
+                    document.getElementById('loadMoreBtn').style.display = images.length >= PAGE_SIZE ? 'block' : 'none';
+                });
+        }
+
+        window.loadMoreImages = function() {
+            if (!lastLoadedKey) return;
+            const btn = document.getElementById('loadMoreBtn');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang tải...';
+            database.ref('images').orderByChild('timestamp').endAt(lastLoadedKey - 1).limitToLast(PAGE_SIZE).once('value')
+                .then(snapshot => {
+                    const data = snapshot.val();
+                    if (!data) { btn.style.display = 'none'; return; }
+                    const images = [];
+                    snapshot.forEach(child => { images.push(child.val()); });
+                    images.reverse();
+                    lastLoadedKey = images[images.length - 1].timestamp;
+                    renderImages(images);
+                    btn.innerHTML = '<i class="fas fa-arrow-down"></i> Tải thêm ảnh cũ hơn';
+                    if (images.length < PAGE_SIZE) btn.style.display = 'none';
+                });
+        };
+
+        function renderImages(images) {
+            const grid = document.getElementById('imagesGrid');
+            images.forEach(img => {
+                imagesCache[img.id] = img;
+                const div = document.createElement('div');
+                div.className = 'image-card';
+                div.innerHTML = `
+                    <div class="image-preview" onclick="openLightbox('${img.id}')" title="Click để phóng to ảnh">
+                        <img src="${img.base64}" loading="lazy" alt="${escapeHtml(img.name)}">
+                        <span class="zoom-hint"><i class="fas fa-search-plus"></i></span>
+                    </div>
+                    <div class="image-info">
+                        <div class="drug-name-row">
+                            <input type="text" class="drug-name-input-edit"
+                                   value="${escapeHtml(img.drugName || '')}"
+                                   placeholder="Tên thuốc..."
+                                   id="drug-input-${img.id}"
+                                   data-original="${escapeHtml(img.drugName || '')}">
+                            <button class="save-name-btn" onclick="saveDrugName('${img.id}', this)" title="Lưu tên thuốc">
+                                <i class="fas fa-save"></i>
+                            </button>
+                        </div>
+                        <div class="image-name" title="${escapeHtml(img.name)}">${escapeHtml(img.name)}</div>
+                        <div class="card-actions">
+                            <button id="btn-tb-${img.id}" class="btn-action notify-btn" onclick="repushNotification('${img.id}')">
+                                <i class="fas fa-bell"></i> TB
+                            </button>
+                            <button class="btn-action delete-btn" onclick="deleteImage('${img.id}')">
+                                <i class="fas fa-trash"></i> Xóa
+                            </button>
+                        </div>
+                    </div>`;
+                grid.appendChild(div);
+                const input = div.querySelector('.drug-name-input-edit');
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        saveDrugName(img.id, div.querySelector('.save-name-btn'));
+                    }
+                });
+            });
+        }
+
+        // ===== LIGHTBOX =====
+        window.openLightbox = function(id) {
+            const data = imagesCache[id];
+            if (!data) return;
+            currentLightboxId = id;
+            document.getElementById('lightboxImg').src = data.base64;
+            document.getElementById('lightboxImg').alt = data.name || '';
+            document.getElementById('lightboxDrugInput').value = data.drugName || '';
+            document.getElementById('lightboxFilename').textContent = data.name || '';
+            document.getElementById('imageLightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => document.getElementById('lightboxDrugInput').focus(), 200);
+        };
+        window.closeLightbox = function() {
+            document.getElementById('imageLightbox').classList.remove('active');
+            document.body.style.overflow = '';
+            currentLightboxId = null;
+            const btn = document.getElementById('lightboxSaveBtn');
+            btn.disabled = false;
+            btn.style.background = '';
+            btn.innerHTML = '<i class="fas fa-save"></i> <span>Lưu tên thuốc</span>';
+        };
+        window.saveDrugNameFromLightbox = function() {
+            if (!currentLightboxId) return;
+            const input = document.getElementById('lightboxDrugInput');
+            const newName = input.value.trim();
+            const btn = document.getElementById('lightboxSaveBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner spinning"></i> <span>Đang lưu...</span>';
+            const id = currentLightboxId;
+            database.ref('images/' + id + '/drugName').set(newName)
+                .then(() => {
+                    if (imagesCache[id]) imagesCache[id].drugName = newName;
+                    const cardInput = document.getElementById('drug-input-' + id);
+                    if (cardInput) { cardInput.value = newName; cardInput.dataset.original = newName; }
+                    btn.innerHTML = '<i class="fas fa-check"></i> <span>Đã lưu!</span>';
+                    btn.style.background = 'linear-gradient(135deg, #1e7e34 0%, #157347 100%)';
+                    showStatus('Đã lưu tên thuốc!', 'success');
+                    setTimeout(() => {
+                        btn.innerHTML = '<i class="fas fa-save"></i> <span>Lưu tên thuốc</span>';
+                        btn.style.background = '';
+                        btn.disabled = false;
+                    }, 1500);
+                })
+                .catch(err => {
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fas fa-save"></i> <span>Lưu tên thuốc</span>';
+                    showStatus('Lỗi: ' + err.message, 'error');
+                });
+        };
+        document.addEventListener('keydown', (e) => {
+            const lb = document.getElementById('imageLightbox');
+            if (!lb || !lb.classList.contains('active')) return;
+            if (e.key === 'Escape') closeLightbox();
+            else if (e.key === 'Enter' && document.activeElement.id === 'lightboxDrugInput') {
+                e.preventDefault();
+                saveDrugNameFromLightbox();
+            }
+        });
+
+        // --- LƯU TÊN THUỐC (card) ---
+        window.saveDrugName = function(id, btn) {
+            const input = document.getElementById('drug-input-' + id);
+            if (!input) return;
+            const newName = input.value.trim();
+            const icon = btn.querySelector('i');
+            const originalClass = icon.className;
+            icon.className = 'fas fa-spinner spinning';
+            btn.disabled = true;
+            database.ref('images/' + id + '/drugName').set(newName)
+                .then(() => {
+                    icon.className = 'fas fa-check';
+                    btn.style.background = '#1e7e34';
+                    input.dataset.original = newName;
+                    if (imagesCache[id]) imagesCache[id].drugName = newName;
+                    showStatus('Đã lưu tên thuốc!', 'success');
+                    setTimeout(() => {
+                        icon.className = originalClass;
+                        btn.style.background = '';
+                        btn.disabled = false;
+                    }, 1200);
+                })
+                .catch(err => {
+                    icon.className = originalClass;
+                    btn.disabled = false;
+                    showStatus('Lỗi: ' + err.message, 'error');
+                });
+        };
+
+        // --- ĐẨY LẠI THÔNG BÁO ---
+        window.repushNotification = function(id) {
+            if (!confirm(`Bạn muốn gửi lại thông báo mới cho ảnh này?`)) return;
+            const btn = document.getElementById('btn-tb-' + id);
+            const icon = btn.querySelector('i');
+            const originalIconClass = icon.className;
+            icon.className = "fas fa-spinner spinning";
+            btn.disabled = true;
+            database.ref('images/' + id).once('value').then(snap => {
+                const data = snap.val();
+                if (!data) throw new Error("Không lấy được dữ liệu ảnh gốc!");
+                const newId = `img_${Date.now()}_repush`;
+                data.id = newId;
+                data.timestamp = firebase.database.ServerValue.TIMESTAMP;
+                data.uploadedAt = new Date().toISOString();
+                return database.ref('images/' + newId).set(data)
+                    .then(() => database.ref('images/' + id).remove());
+            })
+            .then(() => { showStatus('Đã đẩy thông báo thành công!', 'success'); refreshImages(); })
+            .catch(err => {
+                showStatus('Lỗi: ' + err.message, 'error');
+                icon.className = originalIconClass;
+                btn.disabled = false;
+            });
+        };
+
+        window.refreshImages = function() { lastLoadedKey = null; loadInitialImages(); };
+
+        window.deleteImage = function(id) {
+            if (confirm('Bạn chắc chắn muốn xóa ảnh này?')) {
+                database.ref('images/' + id).remove()
+                    .then(() => { showStatus('Đã xóa ảnh thành công', 'success'); refreshImages(); })
+                    .catch(err => showStatus('Lỗi: ' + err.message, 'error'));
+            }
+        };
+
+        function showStatus(msg, type) {
+            const el = document.getElementById('statusMessage');
+            if (!el) return;
+            el.innerText = msg;
+            el.className = `status ${type}`;
+            el.style.display = 'block';
+            const timeout = type === 'warning' ? 5000 : 3000;
+            setTimeout(() => el.style.display = 'none', timeout);
+        }
+    })();
 </script>
 </body>
 </html>
