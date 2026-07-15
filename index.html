@@ -625,6 +625,85 @@
         #adminLoginOverlay .login-footer { text-align: center; margin-top: 20px; color: #95a5a6; font-size: 0.8rem; }
         #adminLoginOverlay .login-cancel { position: absolute; top: 14px; right: 14px; background: #f1f1f4; border: none; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; color: #888; font-size: 15px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
         #adminLoginOverlay .login-cancel:hover { background: #e74c3c; color: white; }
+        /* ===================== GỬI BÁO GIÁ QUA ZALO ===================== */
+        .zalo-panel { max-width: 1000px; margin: 26px auto 10px; background: #fff; border-radius: 14px; box-shadow: 0 4px 18px rgba(0,0,0,0.08); overflow: hidden; }
+        .zalo-panel-header { background: linear-gradient(135deg, #0068ff, #0052cc); color: #fff; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
+        .zalo-panel-header h3 { font-size: 16px; display: flex; align-items: center; gap: 10px; margin: 0; }
+        .zalo-panel-header .zp-count { background: rgba(255,255,255,0.25); padding: 2px 12px; border-radius: 20px; font-size: 13px; font-weight: bold; }
+        .zalo-panel-header .zp-toggle { transition: transform 0.25s; }
+        .zalo-panel.open .zp-toggle { transform: rotate(180deg); }
+        .zalo-panel-body { display: none; }
+        .zalo-panel.open .zalo-panel-body { display: block; }
+        .zalo-guide { background: #eaf3ff; border-bottom: 1px solid #d3e5ff; padding: 10px 20px; font-size: 13px; color: #0052cc; line-height: 1.55; }
+        .zalo-guide b { color: #003d99; }
+        .zalo-controls { display: flex; gap: 10px; padding: 14px 20px 6px; flex-wrap: wrap; }
+        .zalo-search-wrap { flex: 1; min-width: 220px; position: relative; }
+        .zalo-search-wrap i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #999; }
+        .zalo-search { width: 100%; padding: 10px 12px 10px 36px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 14px; outline: none; transition: border-color 0.2s; }
+        .zalo-search:focus { border-color: #0068ff; }
+        .zalo-staff-filter { padding: 10px 12px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 14px; outline: none; background: #fff; cursor: pointer; max-width: 220px; }
+        .zalo-staff-filter:focus { border-color: #0068ff; }
+        .zalo-list { max-height: 420px; overflow-y: auto; padding: 8px 14px 14px; }
+        .zalo-cust-row { display: flex; align-items: center; gap: 12px; padding: 10px 10px; border-bottom: 1px solid #f0f0f0; border-radius: 8px; transition: background 0.15s; }
+        .zalo-cust-row:hover { background: #f6faff; }
+        .zalo-cust-row.sent-today { background: #f2fbf4; }
+        .zc-info { flex: 1; min-width: 0; }
+        .zc-name { font-weight: bold; font-size: 14px; color: #222; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .zc-name .zc-code { font-weight: normal; color: #888; font-size: 12px; margin-left: 6px; }
+        .zc-sub { font-size: 12.5px; color: #666; margin-top: 2px; display: flex; gap: 12px; flex-wrap: wrap; }
+        .zc-sub .zc-staff { color: #8e44ad; }
+        .zc-phones { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; align-items: center; }
+        .zc-send-btn { background: #0068ff; color: #fff; border: none; border-radius: 8px; padding: 8px 14px; font-size: 13px; font-weight: bold; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: background 0.15s, transform 0.1s; white-space: nowrap; }
+        .zc-send-btn:hover { background: #0052cc; transform: translateY(-1px); }
+        .zc-send-btn:disabled { background: #9bbdf5; cursor: wait; transform: none; }
+        .zc-clicks { font-size: 11px; padding: 3px 9px; border-radius: 12px; font-weight: bold; white-space: nowrap; background: #eef2ff; color: #4338ca; border: 1px solid #d6ddfb; display: inline-flex; align-items: center; gap: 4px; }
+        .zc-clicks.zero { background: #f5f5f5; color: #999; border-color: #e5e5e5; }
+        .zc-status { font-size: 11px; padding: 3px 9px; border-radius: 12px; font-weight: bold; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px; }
+        .zc-status.st-ordered { background: #e6f7ec; color: #1e8e4e; border: 1px solid #b8e6c9; }
+        .zc-status.st-not-ordered { background: #fdecea; color: #d93025; border: 1px solid #f5c6c1; }
+        .zc-sent-badge { background: #27ae60; color: #fff; font-size: 11px; padding: 3px 9px; border-radius: 12px; font-weight: bold; white-space: nowrap; }
+        .zalo-list-empty { text-align: center; color: #999; padding: 30px 10px; font-size: 14px; }
+        .zalo-list-empty i { font-size: 32px; display: block; margin-bottom: 10px; color: #ccc; }
+        @media (max-width: 600px) {
+            .zalo-cust-row { flex-direction: column; align-items: stretch; gap: 8px; }
+            .zc-phones { justify-content: flex-start; }
+        }
+        /* ===================== TAB BÁO CÁO ===================== */
+        .report-wrap { max-width: 1000px; margin: 10px auto 30px; }
+        .report-toolbar { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; background: #fff; border-radius: 14px; padding: 14px 18px; box-shadow: 0 4px 18px rgba(0,0,0,0.08); margin-bottom: 16px; }
+        .report-toolbar label { font-weight: bold; font-size: 14px; color: #333; }
+        .report-toolbar select { padding: 9px 14px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 14px; outline: none; background: #fff; cursor: pointer; }
+        .report-toolbar select:focus { border-color: #0068ff; }
+        .report-toolbar .rp-note { font-size: 12.5px; color: #888; margin-left: auto; }
+        .report-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 16px; }
+        .rp-card { background: #fff; border-radius: 14px; padding: 16px 18px; box-shadow: 0 4px 18px rgba(0,0,0,0.08); border-top: 4px solid #0068ff; }
+        .rp-card.c2 { border-top-color: #27ae60; }
+        .rp-card.c3 { border-top-color: #8e44ad; }
+        .rp-card .rp-num { font-size: 28px; font-weight: 800; color: #1b2a4a; line-height: 1.1; }
+        .rp-card .rp-label { font-size: 13px; color: #777; margin-top: 4px; }
+        .report-section { background: #fff; border-radius: 14px; box-shadow: 0 4px 18px rgba(0,0,0,0.08); margin-bottom: 16px; overflow: hidden; }
+        .report-section h3 { background: #f7f9fc; border-bottom: 1px solid #eef1f5; padding: 13px 18px; font-size: 15px; color: #1b2a4a; display: flex; align-items: center; gap: 8px; margin: 0; }
+        .report-table-wrap { overflow-x: auto; }
+        .report-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+        .report-table th { background: #fbfcfe; text-align: left; padding: 10px 14px; color: #555; font-size: 12px; text-transform: uppercase; letter-spacing: 0.4px; border-bottom: 2px solid #eef1f5; white-space: nowrap; }
+        .report-table td { padding: 10px 14px; border-bottom: 1px solid #f2f4f7; vertical-align: middle; }
+        .report-table tr:hover td { background: #f8fbff; }
+        .report-table .num { text-align: right; font-weight: bold; font-family: 'Segoe UI', monospace; }
+        .rp-rank { display: inline-flex; width: 26px; height: 26px; align-items: center; justify-content: center; border-radius: 50%; background: #eef2ff; color: #4338ca; font-weight: 800; font-size: 12px; }
+        .rp-rank.r1 { background: #ffd700; color: #7a5c00; }
+        .rp-rank.r2 { background: #d9dce3; color: #555; }
+        .rp-rank.r3 { background: #e8b98a; color: #6e3f0a; }
+        .rp-bar-track { background: #eef1f5; border-radius: 6px; height: 10px; min-width: 90px; overflow: hidden; }
+        .rp-bar { height: 100%; border-radius: 6px; background: linear-gradient(90deg, #0068ff, #00a3ff); }
+        .report-empty { text-align: center; color: #999; padding: 34px 10px; font-size: 14px; }
+        .report-empty i { font-size: 34px; display: block; margin-bottom: 10px; color: #ccc; }
+        @media (max-width: 600px) { .rp-card .rp-num { font-size: 22px; } }
+
+        /* Toast thông báo */
+        #zaloToast { position: fixed; left: 50%; bottom: 34px; transform: translateX(-50%) translateY(20px); background: #1b2a4a; color: #fff; padding: 14px 22px; border-radius: 12px; font-size: 14.5px; font-weight: 600; box-shadow: 0 8px 30px rgba(0,0,0,0.35); z-index: 99999; opacity: 0; pointer-events: none; transition: opacity 0.25s, transform 0.25s; max-width: 92vw; text-align: center; line-height: 1.5; }
+        #zaloToast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+        #zaloToast .kbd { background: #fff; color: #1b2a4a; border-radius: 5px; padding: 1px 7px; font-family: monospace; font-weight: bold; }
+
     </style>
 </head>
 <body>
@@ -645,6 +724,7 @@
 <nav class="nav-tabs">
     <button class="tab-btn active" onclick="openTab('catalog')" id="btn-catalog">DANH MỤC SẢN PHẨM</button>
     <button class="tab-btn" onclick="openTab('quotation')" id="btn-quotation">TẠO BÁO GIÁ</button>
+    <button class="tab-btn" onclick="openTab('report')" id="btn-report"><i class="fas fa-chart-column"></i> BÁO CÁO</button>
     <button class="tab-btn" onclick="openTab('admin')" id="btn-admin"><i class="fas fa-cog"></i> QUẢN TRỊ</button>
 </nav>
 
@@ -751,6 +831,79 @@
                 <option value="landscape">🖨 Khổ in: A4 Ngang</option>
             </select>
             <button class="action-btn btn-print" id="exportPrint" onclick="exportFile('print')"><i class="fas fa-print"></i> IN TRỰC TIẾP</button>
+        </div>
+
+        <!-- ===================== GỬI BÁO GIÁ QUA ZALO ===================== -->
+        <div class="zalo-panel" id="zaloPanel">
+            <div class="zalo-panel-header" onclick="toggleZaloPanel()">
+                <h3><i class="fas fa-paper-plane"></i> GỬI BÁO GIÁ QUA ZALO <span class="zp-count" id="zpCount">0 khách</span></h3>
+                <i class="fas fa-chevron-down zp-toggle"></i>
+            </div>
+            <div class="zalo-panel-body">
+                <div class="zalo-guide">
+                    <i class="fas fa-circle-info"></i> Bấm <b>Gửi Zalo</b> → ảnh báo giá phía trên được <b>tự động copy</b> và Zalo PC mở đúng khung chat của khách.
+                    Trong Zalo chỉ cần bấm <b>Ctrl+V</b> rồi <b>Enter</b> là gửi xong.
+                </div>
+                <div class="zalo-controls">
+                    <div class="zalo-search-wrap">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="zaloSearch" class="zalo-search" placeholder="Tìm tên khách, mã KH, số điện thoại..." autocomplete="off">
+                    </div>
+                    <select id="zaloStaffFilter" class="zalo-staff-filter">
+                        <option value="">— Tất cả nhân viên —</option>
+                    </select>
+                    <select id="zaloOrderFilter" class="zalo-staff-filter">
+                        <option value="">— Trạng thái đặt hàng —</option>
+                        <option value="not-ordered">🔴 Chưa đặt hàng</option>
+                        <option value="ordered">🟢 Đã đặt hàng</option>
+                    </select>
+                </div>
+                <div class="zalo-list" id="zaloCustList">
+                    <div class="zalo-list-empty"><i class="fas fa-users"></i>Đang tải danh sách khách hàng...</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ===================== TAB BÁO CÁO GỬI ZALO ===================== -->
+    <div id="report" class="tab-content">
+        <div class="report-wrap">
+            <div class="report-toolbar">
+                <label><i class="fas fa-calendar-days"></i> Kỳ báo cáo:</label>
+                <select id="rpMonthSel"></select>
+                <label><i class="fas fa-id-badge"></i> Nhân viên:</label>
+                <select id="rpStaffSel"><option value="">— Tất cả —</option></select>
+                <span class="rp-note" id="rpUpdatedAt"></span>
+            </div>
+
+            <div class="report-cards">
+                <div class="rp-card"><div class="rp-num" id="rpTotalSends">0</div><div class="rp-label">Tổng lượt gửi Zalo trong kỳ</div></div>
+                <div class="rp-card c2"><div class="rp-num" id="rpTotalCusts">0</div><div class="rp-label">Số khách hàng đã được gửi</div></div>
+                <div class="rp-card c3"><div class="rp-num" id="rpTotalStaff">0</div><div class="rp-label">Số nhân viên tham gia gửi</div></div>
+            </div>
+
+            <div class="report-section">
+                <h3><i class="fas fa-ranking-star"></i> Xếp hạng nhân viên theo lượt gửi</h3>
+                <div class="report-table-wrap">
+                    <table class="report-table" id="rpStaffTable">
+                        <thead><tr><th>#</th><th>Nhân viên</th><th class="num">Lượt gửi</th><th class="num">Số khách</th><th style="width:32%;">Tỷ trọng</th></tr></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div class="report-empty" id="rpStaffEmpty" style="display:none;"><i class="fas fa-chart-simple"></i>Chưa có lượt gửi nào trong kỳ này.</div>
+            </div>
+
+            <div class="report-section">
+                <h3><i class="fas fa-users"></i> Chi tiết theo khách hàng</h3>
+                <div class="report-table-wrap">
+                    <table class="report-table" id="rpCustTable">
+                        <thead><tr><th>Khách hàng</th><th>Mã KH</th><th>Nhân viên</th><th class="num">Lượt gửi</th><th>Lần gửi gần nhất</th></tr></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div class="report-empty" id="rpCustEmpty" style="display:none;"><i class="fas fa-user-slash"></i>Không có dữ liệu.</div>
+            </div>
         </div>
     </div>
 
@@ -1122,6 +1275,9 @@
         if(id === 'admin') {
             onEnterAdminTab();
         }
+        if(id === 'report' && window.onEnterReportTab) {
+            onEnterReportTab();
+        }
     }
 
     function setMode(m) {
@@ -1209,7 +1365,7 @@
     }
 
     // === EXPORT FILE ===
-    async function exportFile(type) {
+    async function renderQuoteCanvas() {
         const target = document.getElementById('captureArea');
         const originalTextarea = document.getElementById('quoteText');
         const originalValue = originalTextarea.value;
@@ -1292,7 +1448,16 @@
                 scrollY: 0
             });
             document.body.removeChild(cloneArea);
+            return canvas;
+        } catch (err) {
+            if (cloneArea && cloneArea.parentNode) document.body.removeChild(cloneArea);
+            throw err;
+        }
+    }
 
+    async function exportFile(type) {
+        try {
+            const canvas = await renderQuoteCanvas();
             const stamp = Date.now();
 
             if (type === 'png') {
@@ -1384,7 +1549,6 @@
         } catch (err) {
             console.error("Lỗi:", err);
             alert("Có lỗi xảy ra, vui lòng thử lại.");
-            if (cloneArea && cloneArea.parentNode) document.body.removeChild(cloneArea);
         }
     }
 
@@ -1396,6 +1560,459 @@
             autoFitTextarea();
         }
     });
+
+    /* ================================================================
+       =========  GỬI BÁO GIÁ QUA ZALO — DANH SÁCH KHÁCH HÀNG  ========
+       Nguồn KH: Firebase TBKH (quetbarcode) → customerManagement/customers
+       (đồng bộ realtime với script Thông báo KH đặt hàng)
+       Quy trình: bấm "Gửi Zalo" → render báo giá thành ảnh PNG →
+       copy vào clipboard → mở app Zalo PC đúng khung chat của khách →
+       người dùng chỉ cần Ctrl+V rồi Enter.
+       ================================================================ */
+    (function initZaloQuoteModule() {
+        const TBKH_CONFIG = {
+            apiKey: "AIzaSyDKNLLhisemYQJeCW8QCOwfbvVsvUur-60",
+            authDomain: "quetbarcode-2361a.firebaseapp.com",
+            databaseURL: "https://quetbarcode-2361a-default-rtdb.firebaseio.com",
+            projectId: "quetbarcode-2361a",
+            storageBucket: "quetbarcode-2361a.firebasestorage.app",
+            messagingSenderId: "209619008657",
+            appId: "1:209619008657:web:ee4af6f6ec567a1d745330"
+        };
+
+        let tbkhApp;
+        try {
+            tbkhApp = (firebase.apps || []).find(a => a && a.name === 'tbkhQuoteApp')
+                   || firebase.initializeApp(TBKH_CONFIG, 'tbkhQuoteApp');
+        } catch (e) {
+            console.error('[ZALO] Không khởi tạo được Firebase TBKH:', e);
+            return;
+        }
+        const dbKhach = tbkhApp.database();
+
+        const MAX_RENDER = 300;            // giới hạn số dòng hiển thị (dùng tìm kiếm để lọc)
+        let customers = [];                // {id, code, name, contact, staff, phones:[{display,digits}]}
+        let hasLoaded = false;
+        let isSending = false;
+
+        // ---------- Thống kê lượt bấm Gửi Zalo trong kỳ (lưu Firebase webcty, chia sẻ mọi máy) ----------
+        function kyKey() {                 // kỳ = tháng hiện tại, dạng YYYY-MM
+            const d = new Date();
+            return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+        }
+        let clickStats = {};               // custId -> {count, staff, name, lastAt}
+        const statsRef = database.ref('zaloQuoteStats/' + kyKey());
+        statsRef.on('value', snap => {
+            clickStats = snap.val() || {};
+            renderZaloList();
+        }, err => console.error('[ZALO] Lỗi tải thống kê lượt gửi:', err));
+
+        function recordZaloClick(cust) {
+            // Transaction: cộng dồn an toàn kể cả nhiều máy bấm cùng lúc
+            database.ref(`zaloQuoteStats/${kyKey()}/${cust.id}`).transaction(cur => ({
+                count:  ((cur && cur.count) || 0) + 1,
+                name:   cust.name  || '',
+                code:   cust.code  || '',
+                staff:  cust.staff || '',
+                lastAt: Date.now()
+            })).catch(e => console.error('[ZALO] Lỗi ghi thống kê:', e));
+        }
+
+        // ---------- Đánh dấu "đã gửi hôm nay" (lưu localStorage theo ngày) ----------
+        function todayKey() {
+            const d = new Date();
+            return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+        }
+        const SENT_LS_KEY = 'baogia_zalo_sent_v1';
+        function getSentMap() {
+            try {
+                const raw = JSON.parse(localStorage.getItem(SENT_LS_KEY) || '{}');
+                return (raw.day === todayKey()) ? (raw.map || {}) : {};
+            } catch (e) { return {}; }
+        }
+        function markSent(id) {
+            try {
+                const map = getSentMap();
+                map[id] = Date.now();
+                localStorage.setItem(SENT_LS_KEY, JSON.stringify({ day: todayKey(), map }));
+            } catch (e) { /* bỏ qua */ }
+        }
+
+        // ---------- Chuẩn hoá & tách số điện thoại (giống script TBKH) ----------
+        function normalizePhoneVN(digits) {
+            let d = digits;
+            if (d.startsWith('84') && d.length >= 11) d = '0' + d.slice(2);
+            if (!d.startsWith('0') && d.length === 9) d = '0' + d;
+            return d;
+        }
+        function extractPhones(rawPhone) {
+            const phones = [];
+            const parts = String(rawPhone || '').split(/[\/,;\-–—|va&\n]+|và/i);
+            for (const p of parts) {
+                const digits = (p.match(/\d/g) || []).join('');
+                if (digits.length >= 9 && digits.length <= 12) {
+                    phones.push({ display: p.trim(), digits: normalizePhoneVN(digits) });
+                }
+            }
+            return phones;
+        }
+
+        // ---------- Tải danh sách KH realtime ----------
+        dbKhach.ref('customerManagement/customers').on('value', snap => {
+            const data = snap.val();
+            let arr = [];
+            if (Array.isArray(data)) {
+                arr = data.map((v, i) => v ? { _key: String(i), ...v } : null).filter(Boolean);
+            } else if (data && typeof data === 'object') {
+                arr = Object.keys(data).map(k => {
+                    const v = data[k];
+                    return (v && typeof v === 'object') ? { _key: k, ...v } : null;
+                }).filter(Boolean);
+            }
+            customers = arr.map(c => ({
+                id:      c._key,
+                code:    c.code || '',
+                name:    c.name || '(Chưa có tên)',
+                contact: c.contact || c.contactPerson || '',
+                staff:   (c.staff || '').trim(),
+                phones:  extractPhones(c.phone),
+                ordered:         !!c.ordered,          // đã đặt hàng non-drug (tick từ script TBKH)
+                medicineOrdered: !!c.medicineOrdered    // đã đặt hàng thuốc (tick từ script TBKH)
+            }));
+            hasLoaded = true;
+            buildStaffFilter();
+            renderZaloList();
+        }, err => {
+            console.error('[ZALO] Lỗi tải danh sách KH:', err);
+            const box = document.getElementById('zaloCustList');
+            if (box) box.innerHTML = '<div class="zalo-list-empty"><i class="fas fa-triangle-exclamation"></i>Không tải được danh sách khách hàng.<br>Vui lòng kiểm tra kết nối mạng.</div>';
+        });
+
+        // ---------- Bộ lọc nhân viên ----------
+        function buildStaffFilter() {
+            const sel = document.getElementById('zaloStaffFilter');
+            if (!sel) return;
+            const current = sel.value;
+            const staffs = [...new Set(customers.map(c => c.staff).filter(Boolean))]
+                .sort((a, b) => a.localeCompare(b, 'vi'));
+            sel.innerHTML = '<option value="">— Tất cả nhân viên —</option>' +
+                staffs.map(st => `<option value="${escapeHtml(st)}">${escapeHtml(st)}</option>`).join('');
+            if (staffs.includes(current)) sel.value = current;
+        }
+
+        // ---------- Render danh sách ----------
+        function renderZaloList() {
+            const box = document.getElementById('zaloCustList');
+            const countEl = document.getElementById('zpCount');
+            if (!box) return;
+
+            const kw = (document.getElementById('zaloSearch')?.value || '').trim().toLowerCase();
+            const staff = document.getElementById('zaloStaffFilter')?.value || '';
+            const orderF = document.getElementById('zaloOrderFilter')?.value || '';
+            const sentMap = getSentMap();
+
+            let list = customers;
+            if (staff) list = list.filter(c => c.staff === staff);
+            if (orderF === 'ordered')     list = list.filter(c => c.ordered || c.medicineOrdered);
+            if (orderF === 'not-ordered') list = list.filter(c => !c.ordered && !c.medicineOrdered);
+            if (kw) {
+                list = list.filter(c =>
+                    c.name.toLowerCase().includes(kw) ||
+                    c.code.toLowerCase().includes(kw) ||
+                    c.contact.toLowerCase().includes(kw) ||
+                    c.phones.some(p => p.digits.includes(kw))
+                );
+            }
+            list = [...list].sort((a, b) => a.name.localeCompare(b.name, 'vi'));
+
+            const totalClicks = list.reduce((t, c) => t + ((clickStats[c.id] && clickStats[c.id].count) || 0), 0);
+            if (countEl) countEl.textContent = `${list.length} khách · ${totalClicks} lượt gửi trong kỳ`;
+
+            if (!hasLoaded) return;
+            if (list.length === 0) {
+                box.innerHTML = '<div class="zalo-list-empty"><i class="fas fa-user-slash"></i>Không tìm thấy khách hàng phù hợp.</div>';
+                return;
+            }
+
+            const shown = list.slice(0, MAX_RENDER);
+            let html = shown.map(c => {
+                const sent = !!sentMap[c.id];
+                // Trạng thái đặt hàng (đồng bộ realtime từ script Thông báo KH đặt hàng)
+                let statusHtml;
+                if (c.ordered && c.medicineOrdered) {
+                    statusHtml = '<span class="zc-status st-ordered"><i class="fas fa-circle-check"></i> Đã đặt (non + thuốc)</span>';
+                } else if (c.medicineOrdered) {
+                    statusHtml = '<span class="zc-status st-ordered"><i class="fas fa-circle-check"></i> Đã đặt (thuốc)</span>';
+                } else if (c.ordered) {
+                    statusHtml = '<span class="zc-status st-ordered"><i class="fas fa-circle-check"></i> Đã đặt (non-drug)</span>';
+                } else {
+                    statusHtml = '<span class="zc-status st-not-ordered"><i class="fas fa-circle-xmark"></i> Chưa đặt hàng</span>';
+                }
+                // Số lần bấm Gửi Zalo trong kỳ (tháng) — đo mức độ tương tác của nhân viên
+                const nClicks = (clickStats[c.id] && clickStats[c.id].count) || 0;
+                const clicksHtml = nClicks > 0
+                    ? `<span class="zc-clicks" title="Số lần bấm Gửi Zalo cho khách này trong kỳ ${kyKey()}"><i class="fas fa-paper-plane"></i> ${nClicks} lần/kỳ</span>`
+                    : `<span class="zc-clicks zero" title="Chưa gửi lần nào trong kỳ ${kyKey()}"><i class="fas fa-paper-plane"></i> 0 lần/kỳ</span>`;
+                const phoneBtns = c.phones.length
+                    ? c.phones.map(p => `
+                        <button class="zc-send-btn" data-phone="${escapeHtml(p.digits)}" data-id="${escapeHtml(c.id)}"
+                                title="Copy ảnh báo giá & mở chat Zalo ${escapeHtml(p.digits)}">
+                            <i class="fas fa-paper-plane"></i> Gửi Zalo ${escapeHtml(p.digits)}
+                        </button>`).join('')
+                    : '<span style="color:#bbb; font-size:12.5px;">Chưa có SĐT</span>';
+                return `
+                    <div class="zalo-cust-row${sent ? ' sent-today' : ''}">
+                        <div class="zc-info">
+                            <div class="zc-name">${escapeHtml(c.name)}${c.code ? `<span class="zc-code">[${escapeHtml(c.code)}]</span>` : ''}</div>
+                            <div class="zc-sub">
+                                ${statusHtml}
+                                ${clicksHtml}
+                                ${c.contact ? `<span><i class="fas fa-user"></i> ${escapeHtml(c.contact)}</span>` : ''}
+                                ${c.staff ? `<span class="zc-staff"><i class="fas fa-id-badge"></i> ${escapeHtml(c.staff)}</span>` : ''}
+                            </div>
+                        </div>
+                        <div class="zc-phones">
+                            ${sent ? '<span class="zc-sent-badge"><i class="fas fa-check"></i> Đã gửi hôm nay</span>' : ''}
+                            ${phoneBtns}
+                        </div>
+                    </div>`;
+            }).join('');
+
+            if (list.length > MAX_RENDER) {
+                html += `<div class="zalo-list-empty" style="padding:14px;">Đang hiển thị ${MAX_RENDER}/${list.length} khách — nhập từ khóa tìm kiếm để lọc bớt.</div>`;
+            }
+            box.innerHTML = html;
+        }
+
+        // ---------- Toast ----------
+        let toastTimer = null;
+        function showToast(html, ms) {
+            const t = document.getElementById('zaloToast');
+            if (!t) return;
+            t.innerHTML = html;
+            t.classList.add('show');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => t.classList.remove('show'), ms || 5000);
+        }
+
+        // ---------- Mở app Zalo PC đúng khung chat ----------
+        function openZaloChatPC(phone) {
+            if (!phone) return;
+            const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+            if (isMobile) {
+                window.open('https://zalo.me/' + phone, '_blank', 'noopener');
+                return;
+            }
+            const started = Date.now();
+            window.location.href = 'zalo://conversation?phone=' + phone;
+            setTimeout(() => {
+                if (!document.hidden && Date.now() - started >= 1900) {
+                    window.open('https://zalo.me/' + phone, '_blank', 'noopener');
+                }
+            }, 2000);
+        }
+
+        // ---------- Copy ảnh báo giá vào clipboard ----------
+        function makeQuoteBlob() {
+            return renderQuoteCanvas().then(cv => new Promise((res, rej) =>
+                cv.toBlob(b => b ? res(b) : rej(new Error('Không tạo được ảnh')), 'image/png')
+            ));
+        }
+        async function copyQuoteImage() {
+            if (!navigator.clipboard || !window.ClipboardItem) {
+                throw new Error('Trình duyệt không hỗ trợ copy ảnh — hãy dùng Chrome/Edge mới và mở trang qua HTTPS.');
+            }
+            try {
+                // Cách 1: truyền Promise vào ClipboardItem (giữ user-gesture, chuẩn nhất)
+                await navigator.clipboard.write([new ClipboardItem({ 'image/png': makeQuoteBlob() })]);
+            } catch (e1) {
+                // Cách 2 (fallback cho Chrome cũ): render xong mới ghi clipboard
+                const blob = await makeQuoteBlob();
+                await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+            }
+        }
+
+        // ---------- Gửi báo giá ----------
+        async function sendQuote(phone, custId, btn) {
+            if (isSending) return;
+            isSending = true;
+            const oldHtml = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang tạo ảnh...';
+            try {
+                await copyQuoteImage();
+                markSent(custId);
+                const cust = customers.find(c => c.id === custId);
+                if (cust) recordZaloClick(cust);
+                showToast('✅ <b>Ảnh báo giá đã copy!</b><br>Trong Zalo bấm <span class="kbd">Ctrl + V</span> rồi <span class="kbd">Enter</span> để gửi.', 7000);
+                setTimeout(() => openZaloChatPC(phone), 400);
+                renderZaloList();
+            } catch (e) {
+                console.error('[ZALO] Lỗi copy ảnh:', e);
+                showToast('❌ Không copy được ảnh báo giá.<br>' + escapeHtml(e.message || 'Vui lòng thử lại.'), 6000);
+                btn.innerHTML = oldHtml;
+                btn.disabled = false;
+            } finally {
+                isSending = false;
+            }
+        }
+
+        // ---------- Gắn sự kiện ----------
+        window.toggleZaloPanel = function () {
+            document.getElementById('zaloPanel')?.classList.toggle('open');
+        };
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('zaloSearch')?.addEventListener('input', renderZaloList);
+            document.getElementById('zaloStaffFilter')?.addEventListener('change', renderZaloList);
+            document.getElementById('zaloOrderFilter')?.addEventListener('change', renderZaloList);
+            document.getElementById('zaloCustList')?.addEventListener('click', e => {
+                const btn = e.target.closest('.zc-send-btn');
+                if (!btn) return;
+                e.preventDefault();
+                sendQuote(btn.getAttribute('data-phone'), btn.getAttribute('data-id'), btn);
+            });
+        });
+    })();
+
+    /* ================================================================
+       ============  TAB BÁO CÁO — LƯỢT GỬI BÁO GIÁ QUA ZALO ==========
+       Nguồn: Firebase webcty → zaloQuoteStats/{YYYY-MM}/{custId}
+       Mỗi bản ghi rất nhẹ (~120 byte): count, name, code, staff, lastAt
+       ================================================================ */
+    (function initReportModule() {
+        let allStats = null;       // toàn bộ zaloQuoteStats {month: {custId: rec}}
+        let listening = false;
+
+        function fmtTime(ts) {
+            if (!ts) return '—';
+            const d = new Date(ts);
+            const p = n => String(n).padStart(2, '0');
+            return `${p(d.getDate())}/${p(d.getMonth() + 1)}/${d.getFullYear()} ${p(d.getHours())}:${p(d.getMinutes())}`;
+        }
+        function curMonth() {
+            const d = new Date();
+            return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+        }
+        function monthLabel(m) {
+            const [y, mm] = m.split('-');
+            return `Tháng ${parseInt(mm, 10)}/${y}`;
+        }
+
+        // Gọi khi mở tab Báo cáo — gắn listener realtime 1 lần duy nhất
+        window.onEnterReportTab = function () {
+            if (!listening) {
+                listening = true;
+                database.ref('zaloQuoteStats').on('value', snap => {
+                    allStats = snap.val() || {};
+                    buildMonthOptions();
+                    renderReport();
+                    const el = document.getElementById('rpUpdatedAt');
+                    if (el) el.textContent = 'Cập nhật lúc ' + fmtTime(Date.now());
+                }, err => console.error('[BÁO CÁO] Lỗi tải dữ liệu:', err));
+                document.getElementById('rpMonthSel')?.addEventListener('change', renderReport);
+                document.getElementById('rpStaffSel')?.addEventListener('change', renderReport);
+            } else {
+                renderReport();
+            }
+        };
+
+        function buildMonthOptions() {
+            const sel = document.getElementById('rpMonthSel');
+            if (!sel) return;
+            const cur = sel.value;
+            const months = Object.keys(allStats || {});
+            if (!months.includes(curMonth())) months.push(curMonth()); // luôn có kỳ hiện tại
+            months.sort().reverse();
+            sel.innerHTML = months.map(m =>
+                `<option value="${m}">${monthLabel(m)}${m === curMonth() ? ' (kỳ hiện tại)' : ''}</option>`
+            ).join('');
+            sel.value = months.includes(cur) ? cur : curMonth();
+        }
+
+        function renderReport() {
+            if (!allStats) return;
+            const month = document.getElementById('rpMonthSel')?.value || curMonth();
+            const staffF = document.getElementById('rpStaffSel')?.value || '';
+            const data = allStats[month] || {};
+
+            // Chuẩn hoá bản ghi
+            let rows = Object.keys(data).map(id => {
+                const r = data[id] || {};
+                return {
+                    id,
+                    name:   r.name  || '(Không tên)',
+                    code:   r.code  || '',
+                    staff:  (r.staff || '').trim() || '(Chưa gán NV)',
+                    count:  Number(r.count) || 0,
+                    lastAt: Number(r.lastAt) || 0
+                };
+            }).filter(r => r.count > 0);
+
+            // Bộ lọc nhân viên (dựng option từ dữ liệu kỳ đang chọn)
+            const staffSel = document.getElementById('rpStaffSel');
+            if (staffSel) {
+                const keep = staffSel.value;
+                const staffs = [...new Set(rows.map(r => r.staff))].sort((a, b) => a.localeCompare(b, 'vi'));
+                staffSel.innerHTML = '<option value="">— Tất cả —</option>' +
+                    staffs.map(st => `<option value="${escapeHtml(st)}">${escapeHtml(st)}</option>`).join('');
+                if (staffs.includes(keep)) staffSel.value = keep;
+            }
+            const effStaff = document.getElementById('rpStaffSel')?.value || '';
+            if (effStaff) rows = rows.filter(r => r.staff === effStaff);
+
+            // ===== Thẻ tổng quan =====
+            const totalSends = rows.reduce((t, r) => t + r.count, 0);
+            const staffAgg = {};
+            rows.forEach(r => {
+                if (!staffAgg[r.staff]) staffAgg[r.staff] = { sends: 0, custs: 0 };
+                staffAgg[r.staff].sends += r.count;
+                staffAgg[r.staff].custs += 1;
+            });
+            document.getElementById('rpTotalSends').textContent = totalSends;
+            document.getElementById('rpTotalCusts').textContent = rows.length;
+            document.getElementById('rpTotalStaff').textContent = Object.keys(staffAgg).length;
+
+            // ===== Bảng xếp hạng nhân viên =====
+            const staffRows = Object.keys(staffAgg)
+                .map(st => ({ staff: st, ...staffAgg[st] }))
+                .sort((a, b) => b.sends - a.sends || a.staff.localeCompare(b.staff, 'vi'));
+            const maxSends = staffRows.length ? staffRows[0].sends : 0;
+            const stBody = document.querySelector('#rpStaffTable tbody');
+            const stEmpty = document.getElementById('rpStaffEmpty');
+            if (stBody) {
+                stBody.innerHTML = staffRows.map((r, i) => `
+                    <tr>
+                        <td><span class="rp-rank r${i + 1}">${i + 1}</span></td>
+                        <td><b>${escapeHtml(r.staff)}</b></td>
+                        <td class="num">${r.sends}</td>
+                        <td class="num">${r.custs}</td>
+                        <td><div class="rp-bar-track"><div class="rp-bar" style="width:${maxSends ? Math.round(r.sends / maxSends * 100) : 0}%;"></div></div></td>
+                    </tr>`).join('');
+            }
+            if (stEmpty) stEmpty.style.display = staffRows.length ? 'none' : 'block';
+            const stTable = document.getElementById('rpStaffTable');
+            if (stTable) stTable.style.display = staffRows.length ? '' : 'none';
+
+            // ===== Chi tiết theo khách =====
+            const custRows = [...rows].sort((a, b) => b.count - a.count || b.lastAt - a.lastAt);
+            const cBody = document.querySelector('#rpCustTable tbody');
+            const cEmpty = document.getElementById('rpCustEmpty');
+            if (cBody) {
+                cBody.innerHTML = custRows.map(r => `
+                    <tr>
+                        <td><b>${escapeHtml(r.name)}</b></td>
+                        <td>${escapeHtml(r.code)}</td>
+                        <td>${escapeHtml(r.staff)}</td>
+                        <td class="num">${r.count}</td>
+                        <td>${fmtTime(r.lastAt)}</td>
+                    </tr>`).join('');
+            }
+            if (cEmpty) cEmpty.style.display = custRows.length ? 'none' : 'block';
+            const cTable = document.getElementById('rpCustTable');
+            if (cTable) cTable.style.display = custRows.length ? '' : 'none';
+        }
+    })();
+
 
     /* ============================================================
        ===============   KHỐI CHỨC NĂNG QUẢN TRỊ   ================
@@ -1940,5 +2557,6 @@
         }
     })();
 </script>
+<div id="zaloToast"></div>
 </body>
 </html>
