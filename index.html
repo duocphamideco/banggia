@@ -684,6 +684,27 @@
         .zc-addr { color: #777; }
         .zc-del-btn { background: none; border: none; color: #ccc; cursor: pointer; font-size: 15px; padding: 6px 8px; border-radius: 8px; transition: color 0.15s, background 0.15s; }
         .zc-del-btn:hover { color: #d93025; background: #fdecea; }
+        /* ===== Ghi nhận Tên NV đã gửi (KH mới) ===== */
+        .zc-staff-btn { background: #6f42c1; color: #fff; border: none; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; font-weight: bold; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; transition: background 0.15s; }
+        .zc-staff-btn:hover { background: #59339d; }
+        .zc-staff-btn.claimed { background: #fd7e14; }
+        .zc-staff-btn.claimed:hover { background: #d9690a; }
+        .zc-staff-badge { display: inline-flex; align-items: center; gap: 4px; background: #fff3cd; color: #8a6100; border: 1px solid #ffe08a; border-radius: 20px; font-size: 11.5px; font-weight: bold; padding: 2px 10px; white-space: nowrap; }
+        .zalo-cust-row.staff-claimed { background: #fffbe9; }
+        #ncStaffOverlay { position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 6000; display: none; align-items: center; justify-content: center; }
+        #ncStaffPopup { background: #fff; border-radius: 14px; box-shadow: 0 10px 34px rgba(0,0,0,.35); width: 92%; max-width: 390px; padding: 20px 22px; }
+        #ncStaffPopup h4 { margin: 0 0 6px; font-size: 16px; color: #6f42c1; display: flex; align-items: center; gap: 8px; }
+        #ncStaffPopup .ns-cust { font-size: 13px; color: #555; margin-bottom: 12px; word-break: break-word; line-height: 1.5; }
+        #ncStaffPopup input { width: 100%; box-sizing: border-box; padding: 10px 12px; font-size: 15px; border: 1.5px solid #ccc; border-radius: 8px; }
+        #ncStaffPopup input:focus { border-color: #6f42c1; outline: none; }
+        #ncStaffPopup .ns-hint { font-size: 12px; color: #888; margin: 7px 0 14px; line-height: 1.45; }
+        #ncStaffPopup .ns-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; }
+        #ncStaffPopup .ns-actions button { border: none; border-radius: 8px; padding: 9px 15px; font-size: 13px; font-weight: bold; cursor: pointer; }
+        #nsSaveBtn { background: #28a745; color: #fff; }
+        #nsSaveBtn:hover { background: #1f8a38; }
+        #nsRemoveBtn { background: #dc3545; color: #fff; display: none; }
+        #nsRemoveBtn:hover { background: #bb2d3b; }
+        #nsCancelBtn { background: #e9ecef; color: #333; }
         @media (max-width: 700px) { .newcust-form { grid-template-columns: 1fr 1fr; } .nc-add-btn { grid-column: 1 / -1; } }
 
         /* Toast thông báo */
@@ -1983,6 +2004,8 @@
                     contact: v.contact || '',
                     address: v.address || '',
                     staff: '(KH mới)',
+                    sentStaff: v.sentStaff || '',
+                    sentStaffAt: v.sentStaffAt || 0,
                     rawPhone: v.phone || '',
                     phones: extractPhones(v.phone),
                     createdAt: v.createdAt || 0
@@ -2085,8 +2108,23 @@
             document.getElementById('ncSearch')?.addEventListener('input', renderNewCustList);
             // Sự kiện bảng: Gửi Zalo + Xóa hàng (event delegation)
             document.getElementById('ncCustList')?.addEventListener('click', e => {
+                const staffBtn = e.target.closest('.zc-staff-btn');
+                if (staffBtn) { e.preventDefault(); openStaffPopup(staffBtn.getAttribute('data-key')); return; }
                 const send = e.target.closest('.zc-send-btn');
-                if (send) { e.preventDefault(); sendQuote(send.getAttribute('data-phone'), send.getAttribute('data-id'), send); return; }
+                if (send) {
+                    e.preventDefault();
+                    // Cảnh báo nếu khách này đã được NV khác ghi nhận gửi (tránh khai thác nhầm)
+                    const id = send.getAttribute('data-id');
+                    const cust = newCustomers.find(c => c.id === id);
+                    const claim = cust && (cust.sentStaff || '').trim();
+                    const myName = (localStorage.getItem(NC_STAFF_LS_KEY) || '').trim().toLowerCase();
+                    if (claim && claim.toLowerCase() !== myName) {
+                        const when = cust.sentStaffAt ? ' lúc ' + new Date(cust.sentStaffAt).toLocaleString('vi-VN') : '';
+                        if (!confirm(`⚠️ Khách "${cust.name}" đã được NV ${claim} ghi nhận gửi${when}.\n\nVẫn tiếp tục gửi cho khách này?`)) return;
+                    }
+                    sendQuote(send.getAttribute('data-phone'), id, send);
+                    return;
+                }
                 const del = e.target.closest('.zc-del-btn');
                 if (del) {
                     const key = del.getAttribute('data-key');
@@ -2106,6 +2144,70 @@
                 .then(() => showToast('✅ Đã xóa toàn bộ danh sách khách hàng mới.', 4000))
                 .catch(e => showToast('❌ Lỗi xóa: ' + escapeHtml(e.message || ''), 4000));
         };
+
+        /* ---------- Ghi nhận Tên NV đã gửi (lưu ngay trên record khachHangMoi → mọi máy thấy realtime) ---------- */
+        const NC_STAFF_LS_KEY = 'ncStaffName_v1'; // nhớ tên NV nhập lần trước trên máy này
+        let nsCurrentKey = null;
+        if (!document.getElementById('ncStaffOverlay')) {
+            document.body.insertAdjacentHTML('beforeend', `
+                <div id="ncStaffOverlay">
+                    <div id="ncStaffPopup">
+                        <h4><i class="fas fa-user-pen"></i> Ghi nhận nhân viên đã gửi</h4>
+                        <div class="ns-cust" id="nsCustInfo"></div>
+                        <input type="text" id="nsStaffInput" placeholder="Nhập tên nhân viên (VD: Huyền, Dũng...)" maxlength="40" />
+                        <div class="ns-hint">Tên NV lưu trực tiếp trên hàng khách này (Firebase) — <b>mọi máy đều thấy</b>, nhân viên khác sẽ không khai thác nhầm.</div>
+                        <div class="ns-actions">
+                            <button id="nsRemoveBtn" title="Xóa ghi nhận để khách này trở về trạng thái chưa ai gửi"><i class="fas fa-trash"></i> Xóa ghi nhận</button>
+                            <button id="nsCancelBtn">Hủy</button>
+                            <button id="nsSaveBtn"><i class="fas fa-floppy-disk"></i> Lưu</button>
+                        </div>
+                    </div>
+                </div>`);
+            const ov = document.getElementById('ncStaffOverlay');
+            const inp = document.getElementById('nsStaffInput');
+            const closeP = () => { ov.style.display = 'none'; nsCurrentKey = null; };
+            ov.addEventListener('click', e => { if (e.target === ov) closeP(); });
+            document.getElementById('nsCancelBtn').addEventListener('click', closeP);
+            inp.addEventListener('keydown', e => {
+                if (e.key === 'Enter') document.getElementById('nsSaveBtn').click();
+                if (e.key === 'Escape') closeP();
+            });
+            document.getElementById('nsSaveBtn').addEventListener('click', () => {
+                const staff = inp.value.trim();
+                if (!staff) { alert('Vui lòng nhập tên nhân viên.'); inp.focus(); return; }
+                if (!nsCurrentKey) return;
+                try { localStorage.setItem(NC_STAFF_LS_KEY, staff); } catch (e) {}
+                const cust = newCustomers.find(c => c.fbKey === nsCurrentKey);
+                newCustRef.child(nsCurrentKey).update({ sentStaff: staff, sentStaffAt: firebase.database.ServerValue.TIMESTAMP })
+                    .then(() => showToast(`✅ Đã ghi nhận <b>NV ${escapeHtml(staff)}</b> gửi cho khách <b>${escapeHtml(cust ? cust.name : '')}</b>.<br>Mọi máy đều thấy — NV khác sẽ không khai thác nhầm.`, 6500))
+                    .catch(err => showToast('❌ Lỗi lưu: ' + escapeHtml(err.message || ''), 5000));
+                closeP();
+            });
+            document.getElementById('nsRemoveBtn').addEventListener('click', () => {
+                if (!nsCurrentKey) return;
+                const cust = newCustomers.find(c => c.fbKey === nsCurrentKey);
+                if (!confirm(`Xóa ghi nhận NV đã gửi cho khách "${cust ? cust.name : ''}"?`)) return;
+                newCustRef.child(nsCurrentKey).update({ sentStaff: null, sentStaffAt: null })
+                    .then(() => showToast('🗑 Đã xóa ghi nhận — khách này trở về trạng thái <b>chưa ai gửi</b>.', 5000))
+                    .catch(err => showToast('❌ Lỗi xóa: ' + escapeHtml(err.message || ''), 5000));
+                closeP();
+            });
+        }
+        function openStaffPopup(fbKey) {
+            const cust = newCustomers.find(c => c.fbKey === fbKey);
+            if (!cust) return;
+            nsCurrentKey = fbKey;
+            const claim = (cust.sentStaff || '').trim();
+            document.getElementById('nsCustInfo').innerHTML =
+                `Khách: <b>${escapeHtml(cust.name)}</b>` +
+                (cust.rawPhone ? ` — SĐT: <b>${escapeHtml(cust.rawPhone)}</b>` : '') +
+                (claim ? `<br><span style="color:#8a6100">Đang ghi nhận: <b>NV ${escapeHtml(claim)}</b>${cust.sentStaffAt ? ' (' + new Date(cust.sentStaffAt).toLocaleString('vi-VN') + ')' : ''}</span>` : '');
+            const inp = document.getElementById('nsStaffInput');
+            inp.value = claim || (localStorage.getItem(NC_STAFF_LS_KEY) || '');
+            document.getElementById('nsRemoveBtn').style.display = claim ? 'inline-block' : 'none';
+            document.getElementById('ncStaffOverlay').style.display = 'flex';
+            setTimeout(() => { inp.focus(); inp.select(); }, 60);
+        }
 
         // ---------- Render ----------
         function renderNewCustList() {
@@ -2133,6 +2235,12 @@
             let html = shown.map(c => {
                 const sent = !!sentMap[c.id];
                 const nClicks = (clickStats[c.id] && clickStats[c.id].count) || 0;
+                const claimStaff = (c.sentStaff || '').trim();
+                const staffBtn = `
+                        <button class="zc-staff-btn${claimStaff ? ' claimed' : ''}" data-key="${escapeHtml(c.fbKey)}"
+                                title="${claimStaff ? 'Đã ghi nhận NV ' + escapeHtml(claimStaff) + ' gửi — bấm để sửa/xóa' : 'Ghi nhận tên NV đã gửi cho khách này (mọi máy đều thấy, tránh khai thác nhầm)'}">
+                            <i class="fas fa-user-pen"></i> ${claimStaff ? 'NV: ' + escapeHtml(claimStaff) : 'Tên NV'}
+                        </button>`;
                 const phoneBtns = c.phones.length
                     ? c.phones.map(p => `
                         <button class="zc-send-btn" style="background:#16a085;" data-phone="${escapeHtml(p.digits)}" data-id="${escapeHtml(c.id)}"
@@ -2141,10 +2249,11 @@
                         </button>`).join('')
                     : '<span style="color:#bbb; font-size:12.5px;">Chưa có SĐT</span>';
                 return `
-                    <div class="zalo-cust-row${sent ? ' sent-today' : ''}">
+                    <div class="zalo-cust-row${sent ? ' sent-today' : ''}${claimStaff ? ' staff-claimed' : ''}">
                         <div class="zc-info">
                             <div class="zc-name">${escapeHtml(c.name)}</div>
                             <div class="zc-sub">
+                                ${claimStaff ? `<span class="zc-staff-badge" title="Nhân viên đã ghi nhận gửi cho khách này${c.sentStaffAt ? ' — ' + new Date(c.sentStaffAt).toLocaleString('vi-VN') : ''}"><i class="fas fa-user-check"></i> NV ${escapeHtml(claimStaff)} đã gửi</span>` : ''}
                                 <span class="zc-clicks${nClicks ? '' : ' zero'}"><i class="fas fa-paper-plane"></i> ${nClicks} lần/kỳ</span>
                                 ${c.contact ? `<span><i class="fas fa-user"></i> ${escapeHtml(c.contact)}</span>` : ''}
                                 ${c.address ? `<span class="zc-addr"><i class="fas fa-location-dot"></i> ${escapeHtml(c.address)}</span>` : ''}
@@ -2153,6 +2262,7 @@
                         <div class="zc-phones">
                             ${sent ? '<span class="zc-sent-badge"><i class="fas fa-check"></i> Đã gửi hôm nay</span>' : ''}
                             ${phoneBtns}
+                            ${staffBtn}
                             <button class="zc-del-btn" data-key="${escapeHtml(c.fbKey)}" title="Xóa khách này"><i class="fas fa-trash"></i></button>
                         </div>
                     </div>`;
