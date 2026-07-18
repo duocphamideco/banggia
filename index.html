@@ -6,6 +6,7 @@
     <title>Hệ Thống IDECO - Báo Giá Chuyên Nghiệp</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -668,9 +669,26 @@
             .zalo-cust-row { flex-direction: column; align-items: stretch; gap: 8px; }
             .zc-phones { justify-content: flex-start; }
         }
+        /* ===================== KHÁCH HÀNG MỚI ===================== */
+        .newcust-form { display: grid; grid-template-columns: 1.2fr 1fr 0.9fr 1.3fr auto; gap: 8px; padding: 14px 20px 4px; }
+        .newcust-form input { padding: 10px 12px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 13.5px; outline: none; transition: border-color 0.2s; min-width: 0; }
+        .newcust-form input:focus { border-color: #16a085; }
+        .nc-add-btn { background: #16a085; color: #fff; border: none; border-radius: 10px; padding: 10px 16px; font-size: 13.5px; font-weight: bold; cursor: pointer; white-space: nowrap; transition: background 0.15s; }
+        .nc-add-btn:hover { background: #11866f; }
+        .newcust-actions { display: flex; gap: 8px; padding: 8px 20px 4px; flex-wrap: wrap; align-items: center; }
+        .nc-upload-btn, .nc-clear-btn { border: none; border-radius: 10px; padding: 9px 15px; font-size: 13px; font-weight: bold; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: opacity 0.15s; }
+        .nc-upload-btn { background: #2980b9; color: #fff; }
+        .nc-clear-btn { background: #fdecea; color: #d93025; border: 1px solid #f5c6c1; }
+        .nc-upload-btn:hover, .nc-clear-btn:hover { opacity: 0.88; }
+        .nc-hint { font-size: 12px; color: #999; }
+        .zc-addr { color: #777; }
+        .zc-del-btn { background: none; border: none; color: #ccc; cursor: pointer; font-size: 15px; padding: 6px 8px; border-radius: 8px; transition: color 0.15s, background 0.15s; }
+        .zc-del-btn:hover { color: #d93025; background: #fdecea; }
+        @media (max-width: 700px) { .newcust-form { grid-template-columns: 1fr 1fr; } .nc-add-btn { grid-column: 1 / -1; } }
+
         /* Toast thông báo */
         #zaloToast { position: fixed; left: 50%; bottom: 34px; transform: translateX(-50%) translateY(20px); background: #1b2a4a; color: #fff; padding: 14px 22px; border-radius: 12px; font-size: 14.5px; font-weight: 600; box-shadow: 0 8px 30px rgba(0,0,0,0.35); z-index: 99999; opacity: 0; pointer-events: none; transition: opacity 0.25s, transform 0.25s; max-width: 92vw; text-align: center; line-height: 1.5; }
-        #zaloToast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+        #zaloToast.show { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
         #zaloToast .kbd { background: #fff; color: #1b2a4a; border-radius: 5px; padding: 1px 7px; font-family: monospace; font-weight: bold; }
 
     </style>
@@ -679,7 +697,7 @@
 
 <header class="header">
     <div class="container" style="display: flex; justify-content: space-between; align-items: center; padding: 0 20px;">
-        <div style="font-size: 1.5rem; font-weight: 800;">IDECO PHARMA</div>
+        <div style="font-size: 1.5rem; font-weight: 800;">BẢNG BÁO GIÁ ẢNH CHUYÊN NGHIỆP ĐƯỢC PHÁT TRIỂN BỞI: MTRIET </div>
         <div class="header-right">
             <button id="drugMenuBtn" class="header-menu-btn" title="Mở danh sách thuốc" onclick="openDrugMenu()">
                 <i class="fas fa-list-ul"></i>
@@ -828,6 +846,42 @@
                 </div>
                 <div class="zalo-list" id="zaloCustList">
                     <div class="zalo-list-empty"><i class="fas fa-users"></i>Đang tải danh sách khách hàng...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===================== KHÁCH HÀNG MỚI (TIỀM NĂNG) ===================== -->
+        <div class="zalo-panel" id="newCustPanel">
+            <div class="zalo-panel-header" style="background: linear-gradient(135deg, #16a085, #0e6655);" onclick="toggleNewCustPanel()">
+                <h3><i class="fas fa-user-plus"></i> KHÁCH HÀNG MỚI <span class="zp-count" id="ncCount">0 khách</span></h3>
+                <i class="fas fa-chevron-down zp-toggle"></i>
+            </div>
+            <div class="zalo-panel-body">
+                <div class="zalo-guide" style="background:#e8f8f4; border-color:#c8ece3; color:#0e6655;">
+                    <i class="fas fa-circle-info"></i> Khai form từng khách hoặc <b>tải file Excel</b> (cột: Tên khách hàng — Người liên hệ — Điện thoại — Địa chỉ).
+                    Danh sách lưu chung trên Firebase, mọi máy đều thấy. Bấm <b>Gửi Zalo</b> hoạt động y hệt bảng khách đang giao dịch phía trên.
+                </div>
+                <div class="newcust-form">
+                    <input type="text" id="ncName" placeholder="Tên khách hàng *">
+                    <input type="text" id="ncContact" placeholder="Người liên hệ">
+                    <input type="text" id="ncPhone" placeholder="Điện thoại *">
+                    <input type="text" id="ncAddress" placeholder="Địa chỉ">
+                    <button class="nc-add-btn" onclick="addNewCustomer()"><i class="fas fa-plus"></i> Thêm khách</button>
+                </div>
+                <div class="newcust-actions">
+                    <button class="nc-upload-btn" onclick="document.getElementById('ncFileInput').click()"><i class="fas fa-file-excel"></i> Tải file Excel</button>
+                    <input type="file" id="ncFileInput" accept=".xlsx,.xls,.csv" style="display:none;">
+                    <button class="nc-clear-btn" onclick="clearAllNewCustomers()"><i class="fas fa-trash"></i> Xóa tất cả</button>
+                    <span class="nc-hint">Hỗ trợ .xlsx, .xls, .csv — tự nhận diện dòng tiêu đề</span>
+                </div>
+                <div class="zalo-controls" style="padding-top:6px;">
+                    <div class="zalo-search-wrap">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="ncSearch" class="zalo-search" placeholder="Tìm tên khách, SĐT, địa chỉ..." autocomplete="off">
+                    </div>
+                </div>
+                <div class="zalo-list" id="ncCustList">
+                    <div class="zalo-list-empty"><i class="fas fa-user-plus"></i>Chưa có khách hàng mới — khai form hoặc tải file Excel.</div>
                 </div>
             </div>
         </div>
@@ -1736,26 +1790,129 @@
             }, 2000);
         }
 
-        // ---------- Copy ảnh báo giá vào clipboard ----------
-        function makeQuoteBlob() {
-            return renderQuoteCanvas().then(cv => new Promise((res, rej) =>
-                cv.toBlob(b => b ? res(b) : rej(new Error('Không tạo được ảnh')), 'image/png')
-            ));
+        // ---------- Copy ảnh báo giá vào clipboard (tự cắt trang cho báo giá dài) ----------
+        // Zalo PC chỉ xử lý được ảnh có chiều cao giới hạn (~4.000px); ảnh cao hơn sẽ
+        // báo "lỗi trong quá trình xử lý ảnh" và bị chuyển thành file .png.
+        // Giải pháp: báo giá dài được TỰ ĐỘNG CẮT thành nhiều ảnh, mỗi ảnh ≤ 3.800px,
+        // vết cắt được dò tại dòng trắng để không đứt chữ. Copy lần lượt từng ảnh.
+        const ZALO_IMG = {
+            MAX_W: 1200,          // chiều rộng tối đa mỗi ảnh
+            MAX_H: 3800,          // chiều cao tối đa Zalo xử lý an toàn
+            SLICE_H: 3400,        // chiều cao mục tiêu của mỗi trang khi phải cắt
+            MAX_BYTES: 2.2 * 1024 * 1024,
+            MIN_W: 700
+        };
+        function scaleCanvas(src, ratio) {
+            const c = document.createElement('canvas');
+            c.width  = Math.max(1, Math.round(src.width * ratio));
+            c.height = Math.max(1, Math.round(src.height * ratio));
+            const ctx = c.getContext('2d');
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, c.width, c.height);
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';
+            ctx.drawImage(src, 0, 0, c.width, c.height);
+            return c;
         }
-        async function copyQuoteImage() {
+        function canvasToBlob(cv) {
+            return new Promise((res, rej) =>
+                cv.toBlob(b => b ? res(b) : rej(new Error('Không tạo được ảnh')), 'image/png')
+            );
+        }
+        // Dò dòng gần targetY nhất mà toàn màu trắng (để cắt không đứt chữ)
+        function findCleanCutY(cv, ctx, targetY, searchUp) {
+            const w = cv.width;
+            const step = Math.max(2, Math.floor(w / 220)); // lấy mẫu ~220 cột
+            for (let y = targetY; y > targetY - searchUp && y > 50; y -= 2) {
+                const row = ctx.getImageData(0, y, w, 1).data;
+                let bad = 0, total = 0;
+                for (let x = 0; x < w; x += step) {
+                    const k = x * 4;
+                    total++;
+                    if (row[k] < 246 || row[k + 1] < 246 || row[k + 2] < 246) bad++;
+                }
+                if (bad / total <= 0.02) return y;   // ≥98% điểm ảnh trắng -> cắt được
+            }
+            return targetY; // không tìm được thì đành cắt đúng vị trí
+        }
+        // Trả về mảng canvas (1 phần tử nếu báo giá ngắn, nhiều phần tử nếu dài)
+        async function buildZaloChunks() {
+            let cv = await renderQuoteCanvas();
+
+            // Bước 1: thu chiều rộng về giới hạn
+            if (cv.width > ZALO_IMG.MAX_W) cv = scaleCanvas(cv, ZALO_IMG.MAX_W / cv.width);
+
+            // Bước 2: nếu đủ thấp -> 1 ảnh duy nhất
+            if (cv.height <= ZALO_IMG.MAX_H) {
+                let blob = await canvasToBlob(cv), guard = 0;
+                while (blob.size > ZALO_IMG.MAX_BYTES && cv.width > ZALO_IMG.MIN_W && guard < 6) {
+                    cv = scaleCanvas(cv, 0.85);
+                    blob = await canvasToBlob(cv);
+                    guard++;
+                }
+                console.log(`[ZALO] 1 ảnh: ${cv.width}x${cv.height}px, ${(blob.size / 1024).toFixed(0)}KB`);
+                return [{ canvas: cv, blob }];
+            }
+
+            // Bước 3: cắt thành nhiều trang tại các dòng trắng
+            const ctx = cv.getContext('2d');
+            const chunks = [];
+            let y = 0;
+            while (y < cv.height) {
+                let cutY = Math.min(y + ZALO_IMG.SLICE_H, cv.height);
+                if (cutY < cv.height) cutY = findCleanCutY(cv, ctx, cutY, 500);
+                const h = cutY - y;
+                const part = document.createElement('canvas');
+                part.width = cv.width;
+                part.height = h;
+                const pctx = part.getContext('2d');
+                pctx.fillStyle = '#ffffff';
+                pctx.fillRect(0, 0, part.width, part.height);
+                pctx.drawImage(cv, 0, y, cv.width, h, 0, 0, cv.width, h);
+                chunks.push({ canvas: part, blob: await canvasToBlob(part) });
+                y = cutY;
+            }
+            console.log(`[ZALO] Cắt thành ${chunks.length} ảnh:`, chunks.map(c => `${c.canvas.width}x${c.canvas.height}`).join(', '));
+            return chunks;
+        }
+
+        // ---------- Hàng đợi copy nhiều ảnh ----------
+        let zaloQueue = null; // { chunks, idx, phone }
+        async function writeBlobToClipboard(blobOrPromise) {
             if (!navigator.clipboard || !window.ClipboardItem) {
                 throw new Error('Trình duyệt không hỗ trợ copy ảnh — hãy dùng Chrome/Edge mới và mở trang qua HTTPS.');
             }
             try {
-                // Cách 1: truyền Promise vào ClipboardItem (giữ user-gesture, chuẩn nhất)
-                await navigator.clipboard.write([new ClipboardItem({ 'image/png': makeQuoteBlob() })]);
+                await navigator.clipboard.write([new ClipboardItem({ 'image/png': blobOrPromise })]);
             } catch (e1) {
-                // Cách 2 (fallback cho Chrome cũ): render xong mới ghi clipboard
-                const blob = await makeQuoteBlob();
+                const blob = await Promise.resolve(blobOrPromise);
                 await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
             }
         }
-
+        function chunkToastHtml() {
+            const total = zaloQueue.chunks.length;
+            const done = zaloQueue.idx + 1;
+            if (done < total) {
+                return `✅ <b>Đã copy ảnh ${done}/${total}</b> — dán vào Zalo (<span class="kbd">Ctrl + V</span> → <span class="kbd">Enter</span>),`
+                     + ` rồi bấm <button onclick="zaloCopyNextChunk()" style="background:#0068ff;color:#fff;border:none;border-radius:8px;padding:7px 14px;font-weight:bold;cursor:pointer;margin-left:6px;">`
+                     + `<i class="fas fa-copy"></i> Copy ảnh ${done + 1}/${total}</button>`;
+            }
+            return total > 1
+                ? `🎉 <b>Đã copy ảnh cuối ${done}/${total}!</b> Dán vào Zalo (<span class="kbd">Ctrl + V</span> → <span class="kbd">Enter</span>) là hoàn tất.`
+                : `✅ <b>Ảnh báo giá đã copy!</b><br>Trong Zalo bấm <span class="kbd">Ctrl + V</span> rồi <span class="kbd">Enter</span> để gửi.`;
+        }
+        window.zaloCopyNextChunk = async function () {
+            if (!zaloQueue || zaloQueue.idx + 1 >= zaloQueue.chunks.length) return;
+            try {
+                zaloQueue.idx++;
+                await writeBlobToClipboard(zaloQueue.chunks[zaloQueue.idx].blob);
+                showToast(chunkToastHtml(), zaloQueue.idx + 1 >= zaloQueue.chunks.length ? 9000 : 60000);
+            } catch (e) {
+                zaloQueue.idx--;
+                console.error('[ZALO] Lỗi copy ảnh tiếp theo:', e);
+                showToast('❌ Không copy được ảnh. Bấm lại nút Copy nhé.', 6000);
+            }
+        };
         // ---------- Gửi báo giá ----------
         async function sendQuote(phone, custId, btn) {
             if (isSending) return;
@@ -1764,19 +1921,26 @@
             btn.disabled = true;
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang tạo ảnh...';
             try {
-                await copyQuoteImage();
+                // Dựng các ảnh (tự cắt trang nếu báo giá dài) và copy ảnh đầu tiên.
+                // Truyền Promise vào ClipboardItem để giữ user-gesture của cú bấm chuột.
+                const chunksPromise = buildZaloChunks();
+                await writeBlobToClipboard(chunksPromise.then(list => list[0].blob));
+                zaloQueue = { chunks: await chunksPromise, idx: 0, phone };
+
                 markSent(custId);
-                const cust = customers.find(c => c.id === custId);
+                const cust = customers.find(c => c.id === custId)
+                          || (window.__newCustomers || []).find(c => c.id === custId);
                 if (cust) recordZaloClick(cust);
-                showToast('✅ <b>Ảnh báo giá đã copy!</b><br>Trong Zalo bấm <span class="kbd">Ctrl + V</span> rồi <span class="kbd">Enter</span> để gửi.', 7000);
+                showToast(chunkToastHtml(), zaloQueue.chunks.length > 1 ? 60000 : 8000);
                 setTimeout(() => openZaloChatPC(phone), 400);
                 renderZaloList();
+                if (typeof renderNewCustList === 'function') renderNewCustList();
             } catch (e) {
                 console.error('[ZALO] Lỗi copy ảnh:', e);
                 showToast('❌ Không copy được ảnh báo giá.<br>' + escapeHtml(e.message || 'Vui lòng thử lại.'), 6000);
+            } finally {
                 btn.innerHTML = oldHtml;
                 btn.disabled = false;
-            } finally {
                 isSending = false;
             }
         }
@@ -1796,7 +1960,214 @@
                 sendQuote(btn.getAttribute('data-phone'), btn.getAttribute('data-id'), btn);
             });
         });
+
+        /* ============================================================
+           =============  KHÁCH HÀNG MỚI (TIỀM NĂNG)  =================
+           Lưu Firebase webcty → khachHangMoi/{id}
+           {name, contact, phone, address, createdAt}
+           Khai form thủ công hoặc upload Excel; xóa từng hàng / xóa hết.
+           Nút Gửi Zalo dùng chung sendQuote với bảng KH đang giao dịch.
+           ============================================================ */
+        const newCustRef = database.ref('khachHangMoi');
+        let newCustomers = [];
+        window.__newCustomers = newCustomers;
+
+        newCustRef.on('value', snap => {
+            const data = snap.val() || {};
+            newCustomers = Object.keys(data).map(k => {
+                const v = data[k] || {};
+                return {
+                    id: 'nc_' + k,          // tiền tố tránh trùng id với KH đang giao dịch
+                    fbKey: k,
+                    name: v.name || '(Chưa có tên)',
+                    contact: v.contact || '',
+                    address: v.address || '',
+                    staff: '(KH mới)',
+                    rawPhone: v.phone || '',
+                    phones: extractPhones(v.phone),
+                    createdAt: v.createdAt || 0
+                };
+            }).sort((a, b) => b.createdAt - a.createdAt);
+            window.__newCustomers = newCustomers;
+            renderNewCustList();
+        }, err => {
+            console.error('[KH MỚI] Lỗi tải:', err);
+            const box = document.getElementById('ncCustList');
+            if (box) box.innerHTML = '<div class="zalo-list-empty"><i class="fas fa-triangle-exclamation"></i>Không tải được danh sách. Kiểm tra kết nối mạng.</div>';
+        });
+
+        window.toggleNewCustPanel = function () {
+            document.getElementById('newCustPanel')?.classList.toggle('open');
+        };
+
+        // ---------- Thêm thủ công ----------
+        window.addNewCustomer = function () {
+            const name = document.getElementById('ncName').value.trim();
+            const contact = document.getElementById('ncContact').value.trim();
+            const phone = document.getElementById('ncPhone').value.trim();
+            const address = document.getElementById('ncAddress').value.trim();
+            if (!name) { showToast('⚠️ Vui lòng nhập <b>tên khách hàng</b>.', 4000); return; }
+            if (!extractPhones(phone).length) { showToast('⚠️ <b>Số điện thoại</b> không hợp lệ (cần 9–12 chữ số).', 4500); return; }
+            newCustRef.push({ name, contact, phone, address, createdAt: Date.now() })
+                .then(() => {
+                    ['ncName', 'ncContact', 'ncPhone', 'ncAddress'].forEach(id => document.getElementById(id).value = '');
+                    document.getElementById('ncName').focus();
+                    showToast(`✅ Đã thêm khách <b>${escapeHtml(name)}</b>.`, 3500);
+                })
+                .catch(e => showToast('❌ Lỗi lưu: ' + escapeHtml(e.message || ''), 5000));
+        };
+
+        // ---------- Upload Excel/CSV ----------
+        function headerScore(text) {
+            const t = String(text || '').toLowerCase();
+            return {
+                name:    /tên|ten|khách hàng|khach hang|customer/.test(t) && !/liên hệ|lien he/.test(t),
+                contact: /liên hệ|lien he|contact|người lh|nguoi lh/.test(t),
+                phone:   /điện thoại|dien thoai|đt|sdt|sđt|phone/.test(t),
+                address: /địa chỉ|dia chi|address/.test(t)
+            };
+        }
+        function parseCustomerSheet(rows) {
+            // rows: mảng 2 chiều. Quét tối đa 10 dòng đầu tìm dòng tiêu đề.
+            let headerIdx = -1, cols = { name: -1, contact: -1, phone: -1, address: -1 };
+            for (let r = 0; r < Math.min(rows.length, 10); r++) {
+                const found = { name: -1, contact: -1, phone: -1, address: -1 };
+                (rows[r] || []).forEach((cell, ci) => {
+                    const sc = headerScore(cell);
+                    if (sc.contact && found.contact < 0) found.contact = ci;
+                    else if (sc.name && found.name < 0) found.name = ci;
+                    if (sc.phone && found.phone < 0) found.phone = ci;
+                    if (sc.address && found.address < 0) found.address = ci;
+                });
+                if (found.name >= 0 && found.phone >= 0) { headerIdx = r; cols = found; break; }
+            }
+            if (headerIdx < 0) return null;
+            const out = [];
+            for (let r = headerIdx + 1; r < rows.length; r++) {
+                const row = rows[r] || [];
+                const name = String(row[cols.name] ?? '').trim();
+                const phone = String(row[cols.phone] ?? '').trim();
+                if (!name && !phone) continue;
+                if (!name || !extractPhones(phone).length) continue;
+                out.push({
+                    name,
+                    contact: cols.contact >= 0 ? String(row[cols.contact] ?? '').trim() : '',
+                    phone,
+                    address: cols.address >= 0 ? String(row[cols.address] ?? '').trim() : ''
+                });
+            }
+            return out;
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('ncFileInput')?.addEventListener('change', async e => {
+                const file = e.target.files[0];
+                e.target.value = '';
+                if (!file) return;
+                if (typeof XLSX === 'undefined') { showToast('❌ Thư viện đọc Excel chưa tải xong — kiểm tra mạng rồi thử lại.', 5000); return; }
+                try {
+                    const buf = await file.arrayBuffer();
+                    const wb = XLSX.read(buf, { type: 'array' });
+                    const ws = wb.Sheets[wb.SheetNames[0]];
+                    const rows = XLSX.utils.sheet_to_json(ws, { header: 1, defval: '' });
+                    const parsed = parseCustomerSheet(rows);
+                    if (!parsed) { showToast('❌ Không tìm thấy dòng tiêu đề có cột <b>Tên khách hàng</b> và <b>Điện thoại</b>.', 6000); return; }
+                    if (!parsed.length) { showToast('⚠️ File không có dòng khách hợp lệ nào.', 5000); return; }
+                    if (!confirm(`Tìm thấy ${parsed.length} khách hợp lệ trong file "${file.name}".\nThêm vào danh sách KHÁCH HÀNG MỚI?`)) return;
+                    const updates = {};
+                    parsed.forEach(c => { updates[newCustRef.push().key] = { ...c, createdAt: Date.now() }; });
+                    await newCustRef.update(updates);
+                    showToast(`✅ Đã thêm <b>${parsed.length}</b> khách từ file Excel.`, 5000);
+                } catch (err) {
+                    console.error('[KH MỚI] Lỗi đọc file:', err);
+                    showToast('❌ Không đọc được file: ' + escapeHtml(err.message || ''), 5000);
+                }
+            });
+            document.getElementById('ncSearch')?.addEventListener('input', renderNewCustList);
+            // Sự kiện bảng: Gửi Zalo + Xóa hàng (event delegation)
+            document.getElementById('ncCustList')?.addEventListener('click', e => {
+                const send = e.target.closest('.zc-send-btn');
+                if (send) { e.preventDefault(); sendQuote(send.getAttribute('data-phone'), send.getAttribute('data-id'), send); return; }
+                const del = e.target.closest('.zc-del-btn');
+                if (del) {
+                    const key = del.getAttribute('data-key');
+                    const cust = newCustomers.find(c => c.fbKey === key);
+                    if (cust && confirm(`Xóa khách "${cust.name}" khỏi danh sách?`)) {
+                        newCustRef.child(key).remove().catch(err => showToast('❌ Lỗi xóa: ' + escapeHtml(err.message || ''), 4000));
+                    }
+                }
+            });
+        });
+
+        // ---------- Xóa tất cả ----------
+        window.clearAllNewCustomers = function () {
+            if (!newCustomers.length) { showToast('Danh sách đang trống.', 3000); return; }
+            if (!confirm(`Xóa TOÀN BỘ ${newCustomers.length} khách hàng mới?\nThao tác này áp dụng cho mọi máy và không hoàn tác được.`)) return;
+            newCustRef.remove()
+                .then(() => showToast('✅ Đã xóa toàn bộ danh sách khách hàng mới.', 4000))
+                .catch(e => showToast('❌ Lỗi xóa: ' + escapeHtml(e.message || ''), 4000));
+        };
+
+        // ---------- Render ----------
+        function renderNewCustList() {
+            const box = document.getElementById('ncCustList');
+            const countEl = document.getElementById('ncCount');
+            if (!box) return;
+            const kw = (document.getElementById('ncSearch')?.value || '').trim().toLowerCase();
+            const sentMap = getSentMap();
+
+            let list = newCustomers;
+            if (kw) {
+                list = list.filter(c =>
+                    c.name.toLowerCase().includes(kw) ||
+                    c.contact.toLowerCase().includes(kw) ||
+                    c.address.toLowerCase().includes(kw) ||
+                    c.phones.some(p => p.digits.includes(kw))
+                );
+            }
+            if (countEl) countEl.textContent = `${list.length} khách`;
+            if (!list.length) {
+                box.innerHTML = `<div class="zalo-list-empty"><i class="fas fa-user-plus"></i>${kw ? 'Không tìm thấy khách phù hợp.' : 'Chưa có khách hàng mới — khai form hoặc tải file Excel.'}</div>`;
+                return;
+            }
+            const shown = list.slice(0, MAX_RENDER);
+            let html = shown.map(c => {
+                const sent = !!sentMap[c.id];
+                const nClicks = (clickStats[c.id] && clickStats[c.id].count) || 0;
+                const phoneBtns = c.phones.length
+                    ? c.phones.map(p => `
+                        <button class="zc-send-btn" style="background:#16a085;" data-phone="${escapeHtml(p.digits)}" data-id="${escapeHtml(c.id)}"
+                                title="Copy ảnh báo giá & mở chat Zalo ${escapeHtml(p.digits)}">
+                            <i class="fas fa-paper-plane"></i> Gửi Zalo ${escapeHtml(p.digits)}
+                        </button>`).join('')
+                    : '<span style="color:#bbb; font-size:12.5px;">Chưa có SĐT</span>';
+                return `
+                    <div class="zalo-cust-row${sent ? ' sent-today' : ''}">
+                        <div class="zc-info">
+                            <div class="zc-name">${escapeHtml(c.name)}</div>
+                            <div class="zc-sub">
+                                <span class="zc-clicks${nClicks ? '' : ' zero'}"><i class="fas fa-paper-plane"></i> ${nClicks} lần/kỳ</span>
+                                ${c.contact ? `<span><i class="fas fa-user"></i> ${escapeHtml(c.contact)}</span>` : ''}
+                                ${c.address ? `<span class="zc-addr"><i class="fas fa-location-dot"></i> ${escapeHtml(c.address)}</span>` : ''}
+                            </div>
+                        </div>
+                        <div class="zc-phones">
+                            ${sent ? '<span class="zc-sent-badge"><i class="fas fa-check"></i> Đã gửi hôm nay</span>' : ''}
+                            ${phoneBtns}
+                            <button class="zc-del-btn" data-key="${escapeHtml(c.fbKey)}" title="Xóa khách này"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>`;
+            }).join('');
+            if (list.length > MAX_RENDER) {
+                html += `<div class="zalo-list-empty" style="padding:14px;">Đang hiển thị ${MAX_RENDER}/${list.length} khách — nhập từ khóa để lọc bớt.</div>`;
+            }
+            box.innerHTML = html;
+        }
+        // Cập nhật badge lượt gửi khi thống kê thay đổi
+        statsRef.on('value', () => renderNewCustList());
     })();
+
+
+
 
     /* ============================================================
        ===============   KHỐI CHỨC NĂNG QUẢN TRỊ   ================
