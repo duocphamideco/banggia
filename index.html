@@ -2042,12 +2042,15 @@
 
         // ---------- Upload Excel/CSV ----------
         function headerScore(text) {
-            const t = String(text || '').toLowerCase();
+            // Chuẩn hóa Unicode: Excel có thể lưu tiếng Việt dạng tổ hợp (NFD) — "Điện thoại" nhìn giống
+            // nhưng khác mã ký tự khiến regex không khớp → normalize NFC + so thêm bản không dấu
+            const t = String(text || '').normalize('NFC').toLowerCase();
+            const f = t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd'); // bản không dấu
             return {
-                name:    /tên|ten|khách hàng|khach hang|customer/.test(t) && !/liên hệ|lien he/.test(t),
-                contact: /liên hệ|lien he|contact|người lh|nguoi lh/.test(t),
-                phone:   /điện thoại|dien thoai|đt|sdt|sđt|phone/.test(t),
-                address: /địa chỉ|dia chi|address/.test(t)
+                name:    (/tên|khách hàng|customer/.test(t) || /ten|khach hang|customer/.test(f)) && !/liên hệ/.test(t) && !/lien he/.test(f),
+                contact: /liên hệ|contact|người lh/.test(t) || /lien he|contact|nguoi lh/.test(f),
+                phone:   /điện thoại|đt|sđt|phone/.test(t) || /dien thoai|dt|sdt|phone/.test(f),
+                address: /địa chỉ|address/.test(t) || /dia chi|address/.test(f)
             };
         }
         function parseCustomerSheet(rows) {
