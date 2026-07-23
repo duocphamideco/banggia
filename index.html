@@ -712,6 +712,115 @@
         #zaloToast.show { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
         #zaloToast .kbd { background: #fff; color: #1b2a4a; border-radius: 5px; padding: 1px 7px; font-family: monospace; font-weight: bold; }
 
+        /* ==================== BÁO CÁO TUẦN GỬI ZALO ==================== */
+        .wr-wrap { background:#fff; border-radius:14px; box-shadow:0 4px 22px rgba(0,0,0,.08); overflow:hidden; }
+        .wr-head { background:linear-gradient(90deg,#0f2b52,#1b4d8f); color:#fff; padding:16px 20px; display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between; }
+        .wr-head h2 { font-size:19px; display:flex; align-items:center; gap:9px; }
+        .wr-range { font-size:13px; opacity:.92; margin-top:3px; font-weight:600; }
+        .wr-head-actions { display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+        .wr-btn { border:none; border-radius:9px; padding:9px 14px; font-size:13px; font-weight:bold; cursor:pointer; display:inline-flex; align-items:center; gap:6px; transition:.2s; }
+        .wr-btn-light { background:rgba(255,255,255,.16); color:#fff; }
+        .wr-btn-light:hover { background:rgba(255,255,255,.3); }
+        .wr-btn-excel { background:#1d8348; color:#fff; }
+        .wr-btn-excel:hover { background:#166b3a; }
+        .wr-btn-del { background:#c0392b; color:#fff; }
+        .wr-btn-del:hover { background:#a03024; }
+        .wr-staff-chip { background:#fff; color:#0f2b52; border-radius:20px; padding:7px 14px; font-size:13px; font-weight:bold; cursor:pointer; display:inline-flex; align-items:center; gap:7px; border:2px solid #ffd54f; }
+        .wr-staff-chip:hover { background:#fff9e6; }
+
+        .wr-auto-note { background:#fff8e1; border-bottom:1px solid #ffe082; color:#7a5b00; padding:9px 20px; font-size:12.8px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+
+        .wr-cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(165px,1fr)); gap:12px; padding:16px 20px 4px; }
+        .wr-card { border-radius:12px; padding:13px 15px; color:#fff; }
+        .wr-card .lbl { font-size:12px; opacity:.9; font-weight:600; }
+        .wr-card .val { font-size:25px; font-weight:800; line-height:1.25; }
+        .wr-c1 { background:linear-gradient(135deg,#0068ff,#4a9dff); }
+        .wr-c2 { background:linear-gradient(135deg,#00897b,#26a69a); }
+        .wr-c3 { background:linear-gradient(135deg,#8e44ad,#a569bd); }
+        .wr-c4 { background:linear-gradient(135deg,#e67e22,#f39c12); }
+
+        .wr-days { display:flex; gap:7px; flex-wrap:wrap; padding:14px 20px 6px; }
+        .wr-day { border:2px solid #dfe4ea; background:#fff; border-radius:20px; padding:7px 14px; font-size:12.7px; font-weight:bold; color:#57606f; cursor:pointer; transition:.18s; }
+        .wr-day:hover { border-color:#0068ff; color:#0068ff; }
+        .wr-day.active { background:#0068ff; border-color:#0068ff; color:#fff; }
+        .wr-day .n { background:rgba(0,0,0,.12); border-radius:10px; padding:1px 7px; margin-left:5px; font-size:11.5px; }
+        .wr-day.active .n { background:rgba(255,255,255,.28); }
+        .wr-day.today { box-shadow:0 0 0 3px rgba(0,104,255,.15); }
+
+        .wr-filters { display:flex; gap:10px; flex-wrap:wrap; padding:10px 20px 14px; }
+        .wr-search-wrap { position:relative; flex:1; min-width:220px; }
+        .wr-search-wrap i { position:absolute; left:12px; top:50%; transform:translateY(-50%); color:#aaa; font-size:13px; }
+        .wr-search { width:100%; padding:10px 12px 10px 34px; border:2px solid #e6e9ee; border-radius:9px; font-size:13.5px; outline:none; }
+        .wr-search:focus { border-color:#0068ff; }
+        .wr-select { padding:10px 12px; border:2px solid #e6e9ee; border-radius:9px; font-size:13.5px; background:#fff; cursor:pointer; outline:none; min-width:190px; }
+        .wr-select:focus { border-color:#0068ff; }
+
+        .wr-table-box { padding:0 20px 20px; overflow-x:auto; }
+        table.wr-table { width:100%; border-collapse:collapse; font-size:13.6px; min-width:840px; }
+        table.wr-table th { background:#0f2b52; color:#fff; padding:11px 10px; text-align:left; font-size:12.6px; text-transform:uppercase; letter-spacing:.3px; position:sticky; top:0; }
+        table.wr-table th:first-child { border-radius:8px 0 0 0; }
+        table.wr-table th:last-child { border-radius:0 8px 0 0; }
+        table.wr-table td { padding:10px; border-bottom:1px solid #eef1f5; vertical-align:top; }
+        table.wr-table tr:hover td { background:#f7fbff; }
+        .wr-cust-name { font-weight:bold; color:#0f2b52; }
+        .wr-cust-sub { font-size:11.6px; color:#8a94a6; margin-top:2px; }
+        .wr-phone { color:#0068ff; font-weight:bold; white-space:nowrap; }
+        .wr-staff-btn { background:#eaf3ff; border:1.6px solid #0068ff; color:#0056d6; border-radius:20px; padding:6px 12px; font-size:12.4px; font-weight:bold; cursor:pointer; margin:2px 4px 2px 0; display:inline-flex; align-items:center; gap:6px; transition:.18s; }
+        .wr-staff-btn:hover { background:#0068ff; color:#fff; }
+        .wr-staff-btn .cnt { background:#0068ff; color:#fff; border-radius:10px; padding:1px 7px; font-size:11.3px; }
+        .wr-staff-btn:hover .cnt { background:#fff; color:#0068ff; }
+        .wr-empty { text-align:center; padding:44px 20px; color:#9aa3b2; }
+        .wr-empty i { font-size:40px; display:block; margin-bottom:12px; color:#d5dbe4; }
+
+        .wr-rank { padding:0 20px 22px; }
+        .wr-rank h3 { font-size:15px; color:#0f2b52; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+        .wr-rank-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(215px,1fr)); gap:10px; }
+        .wr-rank-item { border:1.6px solid #e6e9ee; border-radius:11px; padding:11px 13px; display:flex; align-items:center; gap:11px; background:#fbfcfe; }
+        .wr-rank-no { width:29px; height:29px; border-radius:50%; background:#0f2b52; color:#fff; font-weight:800; font-size:13px; display:flex; align-items:center; justify-content:center; flex:0 0 auto; }
+        .wr-rank-item:nth-child(1) .wr-rank-no { background:#f1c40f; color:#5c4500; }
+        .wr-rank-item:nth-child(2) .wr-rank-no { background:#bdc3c7; color:#3d4448; }
+        .wr-rank-item:nth-child(3) .wr-rank-no { background:#cd7f32; }
+        .wr-rank-name { font-weight:bold; font-size:13.5px; color:#2c3e50; }
+        .wr-rank-sub { font-size:11.7px; color:#8a94a6; }
+
+        /* Modal xem lại nội dung */
+        .wr-modal-ov { position:fixed; inset:0; background:rgba(10,20,40,.62); display:none; align-items:flex-start; justify-content:center; z-index:100000; padding:26px 14px; overflow-y:auto; }
+        .wr-modal-ov.show { display:flex; }
+        .wr-modal { background:#fff; border-radius:15px; width:100%; max-width:820px; box-shadow:0 22px 60px rgba(0,0,0,.35); overflow:hidden; }
+        .wr-modal-head { background:linear-gradient(90deg,#0f2b52,#1b4d8f); color:#fff; padding:14px 18px; display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
+        .wr-modal-head h3 { font-size:16px; }
+        .wr-modal-head .sub { font-size:12.4px; opacity:.9; margin-top:3px; line-height:1.5; }
+        .wr-modal-close { background:rgba(255,255,255,.18); border:none; color:#fff; width:32px; height:32px; border-radius:8px; cursor:pointer; font-size:15px; flex:0 0 auto; }
+        .wr-modal-close:hover { background:rgba(255,255,255,.34); }
+        .wr-modal-body { padding:16px 18px 22px; max-height:72vh; overflow-y:auto; }
+        .wr-send-item { border:1.6px solid #e6e9ee; border-radius:12px; margin-bottom:14px; overflow:hidden; }
+        .wr-send-head { background:#f3f7fc; padding:9px 13px; font-size:12.8px; font-weight:bold; color:#0f2b52; display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+        .wr-send-head .tag { background:#0068ff; color:#fff; border-radius:9px; padding:2px 9px; font-size:11.4px; }
+        .wr-send-body { padding:12px 13px; }
+        .wr-send-text { background:#fffdf3; border-left:3px solid #f1c40f; padding:9px 11px; border-radius:0 8px 8px 0; font-size:13px; white-space:pre-wrap; color:#4a4a4a; margin-bottom:11px; line-height:1.55; }
+        .wr-items { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:11px; }
+        .wr-items span { background:#eaf3ff; color:#0056d6; border-radius:14px; padding:3px 10px; font-size:11.8px; font-weight:600; }
+        .wr-shots { display:flex; flex-direction:column; gap:10px; }
+        .wr-shots img { width:100%; border:1px solid #e0e5ec; border-radius:9px; cursor:zoom-in; display:block; }
+        .wr-shot-note { font-size:11.6px; color:#8a94a6; text-align:center; }
+        .wr-loading { text-align:center; padding:22px; color:#8a94a6; font-size:13px; }
+
+        /* Modal tên nhân viên */
+        .wr-name-box { background:#fff; border-radius:14px; max-width:430px; width:100%; padding:22px; box-shadow:0 22px 60px rgba(0,0,0,.35); }
+        .wr-name-box h3 { color:#0f2b52; font-size:17px; margin-bottom:7px; display:flex; align-items:center; gap:8px; }
+        .wr-name-box p { font-size:12.8px; color:#7a8496; line-height:1.55; margin-bottom:14px; }
+        .wr-name-box input { width:100%; padding:11px 13px; border:2px solid #e6e9ee; border-radius:9px; font-size:14.5px; outline:none; margin-bottom:14px; }
+        .wr-name-box input:focus { border-color:#0068ff; }
+        .wr-name-actions { display:flex; gap:8px; justify-content:flex-end; }
+
+        @media (max-width:700px) {
+            .wr-head { flex-direction:column; align-items:flex-start; }
+            .wr-head-actions { width:100%; }
+            .wr-btn, .wr-staff-chip { flex:1; justify-content:center; }
+            .wr-table-box { padding:0 10px 16px; }
+            .wr-cards, .wr-days, .wr-filters { padding-left:12px; padding-right:12px; }
+        }
+
     </style>
 </head>
 <body>
@@ -732,6 +841,7 @@
 <nav class="nav-tabs">
     <button class="tab-btn active" onclick="openTab('catalog')" id="btn-catalog">DANH MỤC SẢN PHẨM</button>
     <button class="tab-btn" onclick="openTab('quotation')" id="btn-quotation">TẠO BÁO GIÁ</button>
+    <button class="tab-btn" onclick="openTab('weekreport')" id="btn-weekreport"><i class="fas fa-chart-column"></i> BÁO CÁO TUẦN</button>
     <button class="tab-btn" onclick="openTab('admin')" id="btn-admin"><i class="fas fa-cog"></i> QUẢN TRỊ</button>
 </nav>
 
@@ -907,6 +1017,74 @@
             </div>
         </div>
 
+    </div>
+
+    <!-- ===================== TAB BÁO CÁO TUẦN ===================== -->
+    <div id="weekreport" class="tab-content">
+        <div class="wr-wrap">
+            <div class="wr-head">
+                <div>
+                    <h2><i class="fas fa-chart-column"></i> BÁO CÁO TUẦN — GỬI BÁO GIÁ ZALO</h2>
+                    <div class="wr-range" id="wrRange">Đang tải dữ liệu tuần...</div>
+                </div>
+                <div class="wr-head-actions">
+                    <button class="wr-staff-chip" id="wrStaffChip" onclick="wrEditStaffName()"><i class="fas fa-user-tag"></i> <span>NV: —</span></button>
+                    <button class="wr-btn wr-btn-light" onclick="wrReload()"><i class="fas fa-rotate"></i> Tải lại</button>
+                    <button class="wr-btn wr-btn-excel" onclick="wrExportExcel()"><i class="fas fa-file-excel"></i> Xuất Excel</button>
+                    <button class="wr-btn wr-btn-del" onclick="wrClearWeek()"><i class="fas fa-trash-can"></i> Xóa dữ liệu tuần</button>
+                </div>
+            </div>
+
+            <div class="wr-auto-note">
+                <i class="fas fa-circle-info"></i>
+                <span id="wrAutoNote">Dữ liệu chỉ lưu trong tuần hiện tại (Thứ 2 → Chủ nhật) và <b>tự động xóa</b> khi sang tuần mới.</span>
+            </div>
+
+            <div class="wr-cards">
+                <div class="wr-card wr-c1"><div class="lbl">Tổng lượt gửi trong tuần</div><div class="val" id="wrTotal">0</div></div>
+                <div class="wr-card wr-c2"><div class="lbl">Số khách hàng đã gửi</div><div class="val" id="wrCust">0</div></div>
+                <div class="wr-card wr-c3"><div class="lbl">Nhân viên tham gia gửi</div><div class="val" id="wrStaffCount">0</div></div>
+                <div class="wr-card wr-c4"><div class="lbl">Ngày gửi nhiều nhất</div><div class="val" id="wrTopDay" style="font-size:19px;">—</div></div>
+            </div>
+
+            <div class="wr-days" id="wrDays"></div>
+
+            <div class="wr-filters">
+                <div class="wr-search-wrap">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="wrSearch" class="wr-search" placeholder="Tìm tên khách hàng, người liên hệ, số điện thoại..." autocomplete="off">
+                </div>
+                <select id="wrStaffFilter" class="wr-select"><option value="">— Tất cả nhân viên gửi —</option></select>
+                <select id="wrSort" class="wr-select">
+                    <option value="last">Sắp xếp: Gửi gần nhất</option>
+                    <option value="count">Sắp xếp: Số lần gửi nhiều nhất</option>
+                    <option value="name">Sắp xếp: Tên khách hàng A→Z</option>
+                </select>
+            </div>
+
+            <div class="wr-table-box">
+                <table class="wr-table">
+                    <thead>
+                        <tr>
+                            <th style="width:46px;">STT</th>
+                            <th>Tên khách hàng</th>
+                            <th style="width:170px;">Người liên hệ</th>
+                            <th style="width:130px;">Điện thoại</th>
+                            <th>Nhân viên gửi <span style="font-weight:400;text-transform:none;">(bấm để xem nội dung đã gửi)</span></th>
+                            <th style="width:118px;">Lần gửi cuối</th>
+                        </tr>
+                    </thead>
+                    <tbody id="wrTbody">
+                        <tr><td colspan="6"><div class="wr-empty"><i class="fas fa-inbox"></i>Chưa có dữ liệu gửi trong tuần này.</div></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="wr-rank" id="wrRankBox" style="display:none;">
+                <h3><i class="fas fa-ranking-star"></i> Xếp hạng nhân viên trong tuần</h3>
+                <div class="wr-rank-grid" id="wrRankGrid"></div>
+            </div>
+        </div>
     </div>
 
     <!-- ===================== TAB QUẢN TRỊ ===================== -->
@@ -1276,6 +1454,9 @@
         }
         if(id === 'admin') {
             onEnterAdminTab();
+        }
+        if(id === 'weekreport' && typeof window.__wrOnEnter === 'function') {
+            window.__wrOnEnter();
         }
     }
 
@@ -1952,6 +2133,12 @@
                 const cust = customers.find(c => c.id === custId)
                           || (window.__newCustomers || []).find(c => c.id === custId);
                 if (cust) recordZaloClick(cust);
+                // Ghi nhận vào BÁO CÁO TUẦN (kèm ảnh + nội dung báo giá vừa gửi)
+                try {
+                    if (typeof window.__logWeeklySend === 'function') {
+                        window.__logWeeklySend(cust || { name: 'KH ' + phone, contact: '', staff: '', id: custId }, phone, zaloQueue.chunks);
+                    }
+                } catch (eLog) { console.error('[BCT] Lỗi ghi báo cáo tuần:', eLog); }
                 showToast(chunkToastHtml(), zaloQueue.chunks.length > 1 ? 60000 : 8000);
                 setTimeout(() => openZaloChatPC(phone), 400);
                 renderZaloList();
@@ -2824,6 +3011,536 @@
             setTimeout(() => el.style.display = 'none', timeout);
         }
     })();
+
+/* ================================================================================
+   ==============  BÁO CÁO TUẦN — KẾT QUẢ GỬI BÁO GIÁ QUA ZALO  ==================
+   Chu kỳ: Thứ 2 00:00 → Chủ nhật 23:59. Sang tuần mới dữ liệu tuần cũ TỰ ĐỘNG XÓA.
+   Firebase (webcty):
+     weeklyZaloWeeks/{tuần}                -> mốc thời gian (chỉ mục nhẹ để dọn dẹp)
+     weeklyZaloReport/{tuần}/logs/{id}     -> {c,ct,p,s,as,cid,t,h}  mỗi lượt gửi
+     weeklyZaloReport/{tuần}/snaps/{hash}  -> {text,items,mode,pages[]} nội dung đã gửi
+     weeklyZaloReport/{tuần}/snapIndex/{hash} -> chống tải trùng ảnh (tiết kiệm dung lượng)
+   ================================================================================ */
+(function initWeeklyReport() {
+    if (typeof database === 'undefined' || !database) return;
+
+    const ROOT      = 'weeklyZaloReport';
+    const WEEKS_IDX = 'weeklyZaloWeeks';
+    const STAFF_LS  = 'ncStaffName_v1';      // dùng chung tên NV với module KH mới
+    const DEL_PASS  = 'minhtriet1973';
+    const DAY_NAMES = ['Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7', 'Chủ nhật'];
+    const SNAP_MAX_PAGES = 4;
+    const SNAP_MAX_CHARS = 950000;
+
+    const p2 = n => String(n).padStart(2, '0');
+    function esc(s) {
+        return String(s == null ? '' : s).replace(/[&<>"']/g,
+            c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    }
+    function mondayOf(d) {
+        const x = new Date(d); x.setHours(0, 0, 0, 0);
+        x.setDate(x.getDate() - ((x.getDay() + 6) % 7));
+        return x;
+    }
+    function weekKeyOf(d) {
+        const m = mondayOf(d);
+        return `${m.getFullYear()}-${p2(m.getMonth() + 1)}-${p2(m.getDate())}`;
+    }
+    const fmtDM   = d => `${p2(d.getDate())}/${p2(d.getMonth() + 1)}/${d.getFullYear()}`;
+    const dayIdx  = ts => (new Date(ts).getDay() + 6) % 7;
+    function fmtDateTime(ts) {
+        if (!ts) return '—';
+        const d = new Date(ts);
+        return `${p2(d.getDate())}/${p2(d.getMonth() + 1)} ${p2(d.getHours())}:${p2(d.getMinutes())}`;
+    }
+    function foldVN(s) {
+        return String(s || '').normalize('NFC').toLowerCase()
+            .normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd');
+    }
+    function strHash(str) {
+        let h = 5381;
+        for (let i = 0; i < str.length; i++) h = ((h << 5) + h + str.charCodeAt(i)) | 0;
+        return (h >>> 0).toString(36);
+    }
+    function toast(html, ms) {
+        const t = document.getElementById('zaloToast');
+        if (!t) { console.log('[BCT]', html.replace(/<[^>]+>/g, '')); return; }
+        t.innerHTML = html;
+        t.classList.add('show');
+        clearTimeout(window.__wrToastTimer);
+        window.__wrToastTimer = setTimeout(() => t.classList.remove('show'), ms || 4500);
+    }
+
+    /* ---------------------------- Tên nhân viên máy này ---------------------------- */
+    function myStaff() {
+        try { return (localStorage.getItem(STAFF_LS) || '').trim(); } catch (e) { return ''; }
+    }
+    function setMyStaff(v) {
+        try { localStorage.setItem(STAFF_LS, v); } catch (e) {}
+        paintStaffChip();
+    }
+    function paintStaffChip() {
+        const chip = document.getElementById('wrStaffChip');
+        if (!chip) return;
+        const n = myStaff();
+        chip.querySelector('span').textContent = n ? 'NV: ' + n : 'Chưa đặt tên NV — bấm để nhập';
+        chip.style.borderColor = n ? '#ffd54f' : '#e74c3c';
+    }
+
+    /* ------------------------------ Modal nhập tên NV ------------------------------ */
+    function buildNameModal() {
+        if (document.getElementById('wrNameOv')) return;
+        const ov = document.createElement('div');
+        ov.id = 'wrNameOv';
+        ov.className = 'wr-modal-ov';
+        ov.style.alignItems = 'center';
+        ov.innerHTML =
+            '<div class="wr-name-box">' +
+              '<h3><i class="fas fa-user-tag"></i> Tên nhân viên sử dụng máy này</h3>' +
+              '<p>Tên này được ghi vào <b>Báo cáo tuần</b> mỗi khi bạn bấm <b>Gửi Zalo</b>, để biết ai đã gửi báo giá cho khách hàng nào.</p>' +
+              '<input type="text" id="wrNameInput" placeholder="Ví dụ: Nguyễn Văn A" autocomplete="off">' +
+              '<div class="wr-name-actions">' +
+                '<button class="wr-btn" style="background:#e9ecef;color:#333;" id="wrNameCancel">Để sau</button>' +
+                '<button class="wr-btn" style="background:#1d8348;color:#fff;" id="wrNameSave"><i class="fas fa-check"></i> Lưu tên</button>' +
+              '</div>' +
+            '</div>';
+        document.body.appendChild(ov);
+        const close = () => ov.classList.remove('show');
+        ov.addEventListener('click', e => { if (e.target === ov) close(); });
+        document.getElementById('wrNameCancel').onclick = close;
+        document.getElementById('wrNameSave').onclick = () => {
+            const v = (document.getElementById('wrNameInput').value || '').trim();
+            if (!v) { toast('⚠️ Vui lòng nhập tên nhân viên.'); return; }
+            setMyStaff(v);
+            close();
+            toast('✅ Đã lưu tên nhân viên: <b>' + esc(v) + '</b>');
+        };
+    }
+    window.wrEditStaffName = function () {
+        buildNameModal();
+        const ov = document.getElementById('wrNameOv');
+        const inp = document.getElementById('wrNameInput');
+        inp.value = myStaff();
+        ov.classList.add('show');
+        setTimeout(() => inp.focus(), 80);
+    };
+
+    /* --------------------------- Chụp nội dung đã gửi --------------------------- */
+    function canvasToJpeg(cv, maxW, q) {
+        const scale = Math.min(1, maxW / cv.width);
+        const c = document.createElement('canvas');
+        c.width = Math.max(1, Math.round(cv.width * scale));
+        c.height = Math.max(1, Math.round(cv.height * scale));
+        const ctx = c.getContext('2d');
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, c.width, c.height);
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
+        ctx.drawImage(cv, 0, 0, c.width, c.height);
+        return c.toDataURL('image/jpeg', q);
+    }
+
+    const uploadedSnaps = new Set();
+
+    /* ------------- Ghi nhận 1 lượt gửi (gọi từ sendQuote sau khi copy ảnh) ------------- */
+    window.__logWeeklySend = async function (cust, phone, chunks) {
+        const week  = weekKeyOf(new Date());
+        const staff = myStaff() || 'Chưa đặt tên';
+
+        // 1) Ảnh + nội dung báo giá vừa gửi
+        let hash = '', snap = null;
+        try {
+            const text  = (document.getElementById('quoteText')?.value || '').trim();
+            const items = (typeof selectedImages !== 'undefined' ? selectedImages : [])
+                            .map(s => (s && s.drugName) || '').filter(Boolean);
+            const pages = [];
+            let totalChars = 0;
+            for (const ch of (chunks || [])) {
+                if (!ch || !ch.canvas || pages.length >= SNAP_MAX_PAGES) break;
+                const url = canvasToJpeg(ch.canvas, 720, 0.72);
+                if (totalChars + url.length > SNAP_MAX_CHARS) break;
+                pages.push(url);
+                totalChars += url.length;
+            }
+            snap = {
+                text, items,
+                mode: (typeof currentMode !== 'undefined' ? currentMode : ''),
+                totalPages: (chunks || []).length,
+                pages, at: Date.now()
+            };
+            hash = 'h' + strHash(text + '|' + items.join('|') + '|' + snap.mode + '|' +
+                                 pages.map(p => p.length).join(',') + '|' + (pages[0] || '').slice(-500));
+        } catch (e) {
+            console.warn('[BCT] Không tạo được ảnh nội dung:', e);
+        }
+
+        // 2) Ghi log + ảnh (ảnh trùng nội dung chỉ lưu 1 lần → tiết kiệm dung lượng)
+        try {
+            await database.ref(`${WEEKS_IDX}/${week}`).set(Date.now());
+            if (hash && snap && snap.pages.length && !uploadedSnaps.has(hash)) {
+                const idx = await database.ref(`${ROOT}/${week}/snapIndex/${hash}`).once('value');
+                if (!idx.exists()) {
+                    await database.ref(`${ROOT}/${week}/snaps/${hash}`).set(snap);
+                    await database.ref(`${ROOT}/${week}/snapIndex/${hash}`).set(Date.now());
+                }
+                uploadedSnaps.add(hash);
+            }
+            await database.ref(`${ROOT}/${week}/logs`).push({
+                c:   (cust && cust.name) || '(Không rõ tên)',
+                ct:  (cust && (cust.contact || cust.contactPerson)) || '',
+                p:   phone || '',
+                s:   staff,
+                as:  (cust && cust.staff) || '',
+                cid: (cust && cust.id) || '',
+                t:   firebase.database.ServerValue.TIMESTAMP,
+                h:   hash || ''
+            });
+        } catch (e) {
+            console.error('[BCT] Lỗi ghi báo cáo tuần:', e);
+        }
+    };
+
+    /* ------------------------------ Tự động dọn tuần cũ ------------------------------ */
+    async function purgeOldWeeks() {
+        try {
+            const snap = await database.ref(WEEKS_IDX).once('value');
+            const obj  = snap.val() || {};
+            const cur  = weekKeyOf(new Date());
+            for (const k of Object.keys(obj)) {
+                if (k < cur) {
+                    await database.ref(`${ROOT}/${k}`).remove();
+                    await database.ref(`${WEEKS_IDX}/${k}`).remove();
+                    console.log('[BCT] Đã tự động xóa dữ liệu tuần', k);
+                }
+            }
+        } catch (e) { console.error('[BCT] Lỗi dọn tuần cũ:', e); }
+    }
+
+    /* --------------------------------- Dữ liệu tuần --------------------------------- */
+    let curWeek  = weekKeyOf(new Date());
+    let logsRef  = null;
+    let logs     = [];
+    let filterDay = -1;
+    let lastRows = [];
+    const snapCache = {};
+
+    function bindWeek() {
+        if (logsRef) { try { logsRef.off(); } catch (e) {} }
+        curWeek = weekKeyOf(new Date());
+        logsRef = database.ref(`${ROOT}/${curWeek}/logs`);
+        logsRef.on('value', s => {
+            const v = s.val() || {};
+            logs = Object.keys(v).map(k => Object.assign({ key: k }, v[k]))
+                        .filter(x => x && x.t)
+                        .sort((a, b) => (b.t || 0) - (a.t || 0));
+            render();
+        }, err => {
+            console.error('[BCT] Lỗi tải báo cáo tuần:', err);
+            const tb = document.getElementById('wrTbody');
+            if (tb) tb.innerHTML = '<tr><td colspan="6"><div class="wr-empty"><i class="fas fa-triangle-exclamation"></i>Không tải được dữ liệu. Kiểm tra kết nối mạng.</div></td></tr>';
+        });
+    }
+
+    /* ---------------------------------- Gom nhóm ---------------------------------- */
+    function groupData() {
+        const kw     = foldVN(document.getElementById('wrSearch')?.value || '').trim();
+        const staffF = document.getElementById('wrStaffFilter')?.value || '';
+        const sortBy = document.getElementById('wrSort')?.value || 'last';
+
+        let list = logs;
+        if (filterDay >= 0) list = list.filter(l => dayIdx(l.t) === filterDay);
+        if (staffF)         list = list.filter(l => (l.s || '') === staffF);
+        if (kw) {
+            list = list.filter(l =>
+                foldVN(l.c).includes(kw) || foldVN(l.ct).includes(kw) ||
+                String(l.p || '').includes(kw) || foldVN(l.s).includes(kw));
+        }
+
+        const map = new Map();
+        for (const l of list) {
+            const key = (l.p && String(l.p)) || l.cid || foldVN(l.c);
+            if (!map.has(key)) {
+                map.set(key, { key, name: l.c || '', contact: l.ct || '', phone: l.p || '',
+                               assigned: l.as || '', total: 0, last: 0, staffs: new Map() });
+            }
+            const g = map.get(key);
+            g.total++;
+            if ((l.t || 0) > g.last) g.last = l.t || 0;
+            if (!g.contact && l.ct)  g.contact = l.ct;
+            if (!g.assigned && l.as) g.assigned = l.as;
+            const st = l.s || 'Chưa đặt tên';
+            if (!g.staffs.has(st)) g.staffs.set(st, { staff: st, count: 0, last: 0, logs: [] });
+            const sg = g.staffs.get(st);
+            sg.count++;
+            sg.logs.push(l);
+            if ((l.t || 0) > sg.last) sg.last = l.t || 0;
+        }
+
+        const arr = [...map.values()];
+        arr.forEach(g => { g.staffList = [...g.staffs.values()].sort((a, b) => b.count - a.count); });
+        if (sortBy === 'count')      arr.sort((a, b) => b.total - a.total || b.last - a.last);
+        else if (sortBy === 'name')  arr.sort((a, b) => String(a.name).localeCompare(String(b.name), 'vi'));
+        else                         arr.sort((a, b) => b.last - a.last);
+        lastRows = arr;
+        return { rows: arr, filtered: list };
+    }
+
+    /* ----------------------------------- Render ----------------------------------- */
+    function render() {
+        paintStaffChip();
+
+        // Khoảng thời gian tuần + đếm ngược tự xóa
+        const mon = mondayOf(new Date());
+        const sun = new Date(mon); sun.setDate(sun.getDate() + 6); sun.setHours(23, 59, 59, 999);
+        const rangeEl = document.getElementById('wrRange');
+        if (rangeEl) rangeEl.innerHTML = `<i class="fas fa-calendar-week"></i> Tuần hiện tại: <b>Thứ 2 ${fmtDM(mon)}</b> → <b>Chủ nhật ${fmtDM(sun)}</b>`;
+        const noteEl = document.getElementById('wrAutoNote');
+        if (noteEl) {
+            const hoursLeft = Math.max(0, Math.ceil((sun.getTime() - Date.now()) / 3600000));
+            const dLeft = Math.floor(hoursLeft / 24), hLeft = hoursLeft % 24;
+            noteEl.innerHTML = `Dữ liệu chỉ lưu trong tuần này và <b>tự động xóa sạch</b> khi bước sang tuần mới — còn <b>${dLeft} ngày ${hLeft} giờ</b> (đến 23:59 Chủ nhật ${fmtDM(sun)}).`;
+        }
+
+        // Bộ lọc nhân viên
+        const sel = document.getElementById('wrStaffFilter');
+        if (sel) {
+            const cur = sel.value;
+            const staffs = [...new Set(logs.map(l => l.s || 'Chưa đặt tên'))].sort((a, b) => a.localeCompare(b, 'vi'));
+            sel.innerHTML = '<option value="">— Tất cả nhân viên gửi —</option>' +
+                staffs.map(s => `<option value="${esc(s)}">${esc(s)}</option>`).join('');
+            if (staffs.includes(cur)) sel.value = cur;
+        }
+
+        // Chip theo ngày
+        const daysBox = document.getElementById('wrDays');
+        if (daysBox) {
+            const counts = [0, 0, 0, 0, 0, 0, 0];
+            logs.forEach(l => counts[dayIdx(l.t)]++);
+            const todayI = (new Date().getDay() + 6) % 7;
+            let html = `<button class="wr-day ${filterDay === -1 ? 'active' : ''}" onclick="wrSetDay(-1)">Cả tuần<span class="n">${logs.length}</span></button>`;
+            for (let i = 0; i < 7; i++) {
+                const d = new Date(mon); d.setDate(d.getDate() + i);
+                html += `<button class="wr-day ${filterDay === i ? 'active' : ''} ${i === todayI ? 'today' : ''}" onclick="wrSetDay(${i})" title="${fmtDM(d)}">${DAY_NAMES[i]} <span style="opacity:.7;font-weight:600;">${p2(d.getDate())}/${p2(d.getMonth() + 1)}</span><span class="n">${counts[i]}</span></button>`;
+            }
+            daysBox.innerHTML = html;
+        }
+
+        const { rows, filtered } = groupData();
+
+        // Thẻ tổng hợp
+        const setTxt = (id, v) => { const e = document.getElementById(id); if (e) e.textContent = v; };
+        setTxt('wrTotal', filtered.length);
+        setTxt('wrCust', rows.length);
+        setTxt('wrStaffCount', new Set(filtered.map(l => l.s || 'Chưa đặt tên')).size);
+        const dc = [0, 0, 0, 0, 0, 0, 0];
+        filtered.forEach(l => dc[dayIdx(l.t)]++);
+        const best = dc.indexOf(Math.max(...dc));
+        setTxt('wrTopDay', Math.max(...dc) > 0 ? `${DAY_NAMES[best]} (${dc[best]})` : '—');
+
+        // Bảng chi tiết
+        const tb = document.getElementById('wrTbody');
+        if (tb) {
+            if (!rows.length) {
+                tb.innerHTML = '<tr><td colspan="6"><div class="wr-empty"><i class="fas fa-inbox"></i>' +
+                    (logs.length ? 'Không có kết quả phù hợp bộ lọc.' : 'Chưa có lượt gửi báo giá nào trong tuần này.') +
+                    '</div></td></tr>';
+            } else {
+                tb.innerHTML = rows.map((g, i) => {
+                    const chips = g.staffList.map((sg, k) =>
+                        `<button class="wr-staff-btn" onclick="wrOpenDetail(${i},${k})" title="Xem lại nội dung ${esc(sg.staff)} đã gửi">` +
+                        `<i class="fas fa-user"></i> ${esc(sg.staff)} <span class="cnt">${sg.count} lần</span></button>`).join('');
+                    return `<tr>
+                        <td style="color:#8a94a6;font-weight:bold;">${i + 1}</td>
+                        <td><div class="wr-cust-name">${esc(g.name)}</div>${g.assigned ? `<div class="wr-cust-sub">NV phụ trách: ${esc(g.assigned)}</div>` : ''}</td>
+                        <td>${esc(g.contact) || '<span style="color:#c3c9d4;">—</span>'}</td>
+                        <td class="wr-phone">${esc(g.phone) || '—'}</td>
+                        <td>${chips}<div class="wr-cust-sub">Tổng: <b>${g.total}</b> lượt gửi</div></td>
+                        <td style="font-size:12.6px;color:#5a6472;">${fmtDateTime(g.last)}</td>
+                    </tr>`;
+                }).join('');
+            }
+        }
+
+        // Xếp hạng nhân viên
+        const rankBox = document.getElementById('wrRankBox');
+        const grid = document.getElementById('wrRankGrid');
+        if (rankBox && grid) {
+            const m = new Map();
+            filtered.forEach(l => {
+                const s = l.s || 'Chưa đặt tên';
+                if (!m.has(s)) m.set(s, { staff: s, count: 0, custs: new Set() });
+                const o = m.get(s);
+                o.count++;
+                o.custs.add((l.p && String(l.p)) || l.cid || foldVN(l.c));
+            });
+            const rank = [...m.values()].sort((a, b) => b.count - a.count);
+            rankBox.style.display = rank.length ? 'block' : 'none';
+            grid.innerHTML = rank.map((r, i) =>
+                `<div class="wr-rank-item"><div class="wr-rank-no">${i + 1}</div><div>
+                    <div class="wr-rank-name">${esc(r.staff)}</div>
+                    <div class="wr-rank-sub">${r.count} lượt gửi · ${r.custs.size} khách hàng</div>
+                 </div></div>`).join('');
+        }
+    }
+
+    window.wrSetDay = function (i) { filterDay = i; render(); };
+    window.wrReload = function () { purgeOldWeeks().then(bindWeek); toast('🔄 Đã tải lại dữ liệu tuần.'); };
+
+    /* -------------------------- Modal xem lại nội dung đã gửi -------------------------- */
+    function buildDetailModal() {
+        if (document.getElementById('wrDetailOv')) return;
+        const ov = document.createElement('div');
+        ov.id = 'wrDetailOv';
+        ov.className = 'wr-modal-ov';
+        ov.innerHTML =
+            '<div class="wr-modal">' +
+              '<div class="wr-modal-head"><div><h3 id="wrDetailTitle">Nội dung đã gửi</h3><div class="sub" id="wrDetailSub"></div></div>' +
+              '<button class="wr-modal-close" onclick="wrCloseDetail()"><i class="fas fa-xmark"></i></button></div>' +
+              '<div class="wr-modal-body" id="wrDetailBody"></div>' +
+            '</div>';
+        document.body.appendChild(ov);
+        ov.addEventListener('click', e => { if (e.target === ov) window.wrCloseDetail(); });
+    }
+    window.wrCloseDetail = function () { document.getElementById('wrDetailOv')?.classList.remove('show'); };
+    window.wrZoomShot = function (src) {
+        const w = window.open('');
+        if (w) w.document.write('<title>Nội dung báo giá đã gửi</title><body style="margin:0;background:#222;text-align:center"><img src="' + src + '" style="max-width:100%">');
+    };
+
+    async function loadSnap(hash) {
+        if (!hash) return null;
+        if (snapCache[hash] !== undefined) return snapCache[hash];
+        try {
+            const s = await database.ref(`${ROOT}/${curWeek}/snaps/${hash}`).once('value');
+            snapCache[hash] = s.val() || null;
+        } catch (e) { console.error('[BCT] Lỗi tải nội dung:', e); snapCache[hash] = null; }
+        return snapCache[hash];
+    }
+
+    window.wrOpenDetail = async function (rowIdx, staffIdx) {
+        buildDetailModal();
+        const g  = lastRows[rowIdx];
+        const sg = g && g.staffList && g.staffList[staffIdx];
+        if (!g || !sg) return;
+        const staff = sg.staff;
+
+        document.getElementById('wrDetailTitle').innerHTML = `<i class="fas fa-file-image"></i> Nội dung NV ${esc(staff)} đã gửi`;
+        document.getElementById('wrDetailSub').innerHTML =
+            `Khách hàng: <b>${esc(g.name)}</b>${g.contact ? ' · Người liên hệ: <b>' + esc(g.contact) + '</b>' : ''} · ĐT: <b>${esc(g.phone)}</b><br>` +
+            `Số lần gửi trong tuần: <b>${sg.count}</b> · Lần cuối: <b>${fmtDateTime(sg.last)}</b>`;
+
+        const body = document.getElementById('wrDetailBody');
+        body.innerHTML = '<div class="wr-loading"><i class="fas fa-spinner fa-spin"></i> Đang tải nội dung đã gửi...</div>';
+        document.getElementById('wrDetailOv').classList.add('show');
+
+        const items = sg.logs.slice().sort((a, b) => (b.t || 0) - (a.t || 0));
+        const snaps = await Promise.all(items.map(l => loadSnap(l.h)));
+
+        body.innerHTML = items.map((l, i) => {
+            const sn = snaps[i];
+            const d  = new Date(l.t);
+            const head = `<div class="wr-send-head"><span><i class="fas fa-clock"></i> Lần ${items.length - i}: ${DAY_NAMES[dayIdx(l.t)]} ${p2(d.getDate())}/${p2(d.getMonth() + 1)} lúc ${p2(d.getHours())}:${p2(d.getMinutes())}</span>` +
+                         `<span class="tag">${sn && sn.totalPages > 1 ? sn.totalPages + ' trang ảnh' : '1 ảnh'}</span></div>`;
+            if (!sn) {
+                return `<div class="wr-send-item">${head}<div class="wr-send-body"><div class="wr-shot-note">Không lưu được ảnh nội dung cho lượt gửi này.</div></div></div>`;
+            }
+            const txt   = sn.text ? `<div class="wr-send-text">${esc(sn.text)}</div>` : '';
+            const its   = (sn.items && sn.items.length) ? `<div class="wr-items">${sn.items.map(x => `<span>${esc(x)}</span>`).join('')}</div>` : '';
+            const shots = (sn.pages || []).map((p, k) =>
+                `<img src="${p}" onclick="wrZoomShot(this.src)" alt="Trang ${k + 1}">` +
+                ((sn.pages.length > 1) ? `<div class="wr-shot-note">Trang ${k + 1}/${sn.pages.length} — bấm vào ảnh để xem cỡ lớn</div>` : '')).join('');
+            const more  = (sn.totalPages > (sn.pages || []).length)
+                        ? `<div class="wr-shot-note">(Chỉ lưu ${sn.pages.length}/${sn.totalPages} trang đầu để tiết kiệm dung lượng)</div>` : '';
+            return `<div class="wr-send-item">${head}<div class="wr-send-body">${txt}${its}<div class="wr-shots">${shots}${more}</div></div></div>`;
+        }).join('');
+    };
+
+    /* --------------------------------- Xuất Excel --------------------------------- */
+    window.wrExportExcel = function () {
+        if (typeof XLSX === 'undefined') { toast('❌ Chưa tải được thư viện Excel.'); return; }
+        const { rows, filtered } = groupData();
+        if (!rows.length) { toast('⚠️ Không có dữ liệu để xuất.'); return; }
+        const mon = mondayOf(new Date());
+        const sun = new Date(mon); sun.setDate(sun.getDate() + 6);
+
+        const detail = [];
+        rows.forEach((g, i) => {
+            [...g.staffs.values()].sort((a, b) => b.count - a.count).forEach(sg => {
+                detail.push({
+                    'STT': i + 1,
+                    'Tên khách hàng': g.name,
+                    'Người liên hệ': g.contact,
+                    'Điện thoại': g.phone,
+                    'Nhân viên gửi': sg.staff,
+                    'Số lần gửi': sg.count,
+                    'Lần gửi cuối': fmtDateTime(sg.last),
+                    'NV phụ trách': g.assigned
+                });
+            });
+        });
+        const sm = new Map();
+        filtered.forEach(l => {
+            const s = l.s || 'Chưa đặt tên';
+            if (!sm.has(s)) sm.set(s, { 'Nhân viên': s, 'Tổng lượt gửi': 0, 'Số khách hàng': new Set() });
+            const o = sm.get(s);
+            o['Tổng lượt gửi']++;
+            o['Số khách hàng'].add((l.p && String(l.p)) || l.cid || foldVN(l.c));
+        });
+        const summary = [...sm.values()]
+            .map(o => ({ 'Nhân viên': o['Nhân viên'], 'Tổng lượt gửi': o['Tổng lượt gửi'], 'Số khách hàng': o['Số khách hàng'].size }))
+            .sort((a, b) => b['Tổng lượt gửi'] - a['Tổng lượt gửi']);
+
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(detail), 'Chi tiet KH');
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(summary), 'Tong hop NV');
+        XLSX.writeFile(wb, `BaoCaoTuan_GuiZalo_${p2(mon.getDate())}-${p2(mon.getMonth() + 1)}_den_${p2(sun.getDate())}-${p2(sun.getMonth() + 1)}.xlsx`);
+        toast('✅ Đã xuất file Excel báo cáo tuần.');
+    };
+
+    /* ------------------------------ Xóa thủ công tuần ------------------------------ */
+    window.wrClearWeek = function () {
+        if (!logs.length) { toast('⚠️ Tuần này chưa có dữ liệu để xóa.'); return; }
+        const pass = prompt('Xóa toàn bộ dữ liệu báo cáo tuần hiện tại (không thể khôi phục).\nNhập mật khẩu để xác nhận:');
+        if (pass === null) return;
+        if (pass.trim() !== DEL_PASS) { toast('❌ Mật khẩu không đúng.'); return; }
+        Promise.all([
+            database.ref(`${ROOT}/${curWeek}`).remove(),
+            database.ref(`${WEEKS_IDX}/${curWeek}`).remove()
+        ]).then(() => {
+            uploadedSnaps.clear();
+            Object.keys(snapCache).forEach(k => delete snapCache[k]);
+            toast('🗑️ Đã xóa toàn bộ dữ liệu báo cáo tuần này.');
+        }).catch(e => toast('❌ Lỗi xóa: ' + esc(e.message || '')));
+    };
+
+    /* ---------------------------------- Khởi động ---------------------------------- */
+    window.__wrOnEnter = function () { render(); if (!myStaff()) window.wrEditStaffName(); };
+
+    document.addEventListener('DOMContentLoaded', () => {
+        buildNameModal();
+        buildDetailModal();
+        paintStaffChip();
+        ['wrSearch', 'wrStaffFilter', 'wrSort'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.addEventListener(id === 'wrSearch' ? 'input' : 'change', render);
+        });
+        purgeOldWeeks().then(bindWeek);
+
+        // Lần đầu dùng máy này: hỏi tên nhân viên để báo cáo tuần ghi nhận đúng người gửi
+        if (!myStaff()) setTimeout(() => { if (!myStaff()) window.wrEditStaffName(); }, 1500);
+
+        // Sang tuần mới trong lúc app đang mở: tự dọn dữ liệu cũ và chuyển sang tuần mới
+        setInterval(() => {
+            if (weekKeyOf(new Date()) !== curWeek) {
+                console.log('[BCT] Đã sang tuần mới → dọn dữ liệu tuần cũ.');
+                purgeOldWeeks().then(bindWeek);
+            } else if (document.getElementById('weekreport')?.classList.contains('active')) {
+                render();
+            }
+        }, 60000);
+    });
+})();
+
 </script>
 <div id="zaloToast"></div>
 </body>
