@@ -667,6 +667,9 @@
         .nc-upload-btn:hover, .nc-clear-btn:hover { opacity: 0.88; }
         .nc-hint { font-size: 12px; color: #999; }
         .zc-addr { color: #777; }
+        .zc-map-link { color: #1a73e8; text-decoration: none; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; max-width: 100%; }
+        .zc-map-link:hover { color: #0b57d0; text-decoration: underline; }
+        .zc-map-link .fa-arrow-up-right-from-square { font-size: 10px; opacity: .75; }
         .zc-del-btn { background: none; border: none; color: #ccc; cursor: pointer; font-size: 15px; padding: 6px 8px; border-radius: 8px; transition: color 0.15s, background 0.15s; }
         .zc-del-btn:hover { color: #d93025; background: #fdecea; }
         /* ===== Ghi nhận Tên NV đã gửi (KH mới) ===== */
@@ -1808,6 +1811,25 @@
             return phones;
         }
 
+        // ---------- Google Maps: mở tìm kiếm theo Tên KH + Địa chỉ ----------
+        function googleMapsUrl(name, address) {
+            const q = [String(name || '').trim(), String(address || '').trim()].filter(Boolean).join(' ');
+            return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(q);
+        }
+        function customerAddress(c) {
+            return String(
+                c?.address || c?.customerAddress || c?.addressCustomer ||
+                c?.diaChi || c?.diachi || c?.['Địa chỉ'] || c?.['Địa Chỉ'] || ''
+            ).trim();
+        }
+        function mapAddressHtml(name, address) {
+            const addr = String(address || '').trim();
+            if (!addr) return '';
+            const url = googleMapsUrl(name, addr);
+            return `<a class="zc-addr zc-map-link" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" title="Mở Google Maps: ${escapeHtml(addr)}">`
+                 + `<i class="fas fa-location-dot"></i> ${escapeHtml(addr)} <i class="fas fa-arrow-up-right-from-square"></i></a>`;
+        }
+
         // ---------- Tải danh sách KH realtime ----------
         dbKhach.ref('customerManagement/customers').on('value', snap => {
             const data = snap.val();
@@ -1825,6 +1847,7 @@
                 code:    c.code || '',
                 name:    c.name || '(Chưa có tên)',
                 contact: c.contact || c.contactPerson || '',
+                address: customerAddress(c),
                 staff:   (c.staff || '').trim(),
                 phones:  extractPhones(c.phone),
                 ordered:         !!c.ordered,          // đã đặt hàng non-drug (tick từ script TBKH)
@@ -1871,6 +1894,7 @@
                     c.name.toLowerCase().includes(kw) ||
                     c.code.toLowerCase().includes(kw) ||
                     c.contact.toLowerCase().includes(kw) ||
+                    (c.address || '').toLowerCase().includes(kw) ||
                     c.phones.some(p => p.digits.includes(kw))
                 );
             }
@@ -1920,6 +1944,7 @@
                                 ${clicksHtml}
                                 ${c.contact ? `<span><i class="fas fa-user"></i> ${escapeHtml(c.contact)}</span>` : ''}
                                 ${c.staff ? `<span class="zc-staff"><i class="fas fa-id-badge"></i> ${escapeHtml(c.staff)}</span>` : ''}
+                                ${mapAddressHtml(c.name, c.address)}
                             </div>
                         </div>
                         <div class="zc-phones">
@@ -2417,7 +2442,7 @@
                                 ${claimStaff ? `<span class="zc-staff-badge" title="Nhân viên đã ghi nhận gửi cho khách này${c.sentStaffAt ? ' — ' + new Date(c.sentStaffAt).toLocaleString('vi-VN') : ''}"><i class="fas fa-user-check"></i> NV ${escapeHtml(claimStaff)} đã gửi</span>` : ''}
                                 <span class="zc-clicks${nClicks ? '' : ' zero'}"><i class="fas fa-paper-plane"></i> ${nClicks} lần/kỳ</span>
                                 ${c.contact ? `<span><i class="fas fa-user"></i> ${escapeHtml(c.contact)}</span>` : ''}
-                                ${c.address ? `<span class="zc-addr"><i class="fas fa-location-dot"></i> ${escapeHtml(c.address)}</span>` : ''}
+                                ${mapAddressHtml(c.name, c.address)}
                             </div>
                         </div>
                         <div class="zc-phones">
