@@ -809,6 +809,39 @@
             .wr-cards, .wr-days, .wr-filters { padding-left:12px; padding-right:12px; }
         }
 
+
+
+        /* ===== GỬI ZALO LẦN LƯỢT: TÍCH TỐI ĐA 10 KHÁCH ===== */
+        .zb-batch { margin: 12px 20px 8px; border: 1.5px solid #b8d7ff; border-radius: 12px; background: #f8fbff; overflow: hidden; }
+        .zb-head { display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; padding:11px 14px; background:linear-gradient(135deg,#eaf3ff,#f6fbff); border-bottom:1px solid #d7e8ff; }
+        .zb-head strong { color:#004fae; font-size:14px; display:flex; align-items:center; gap:7px; }
+        .zb-count { background:#0068ff; color:white; border-radius:999px; padding:4px 10px; font-size:12px; font-weight:800; }
+        .zb-controls { display:flex; gap:8px; flex-wrap:wrap; align-items:center; padding:11px 14px 6px; }
+        .zb-controls label { display:flex; align-items:center; gap:6px; font-size:13px; font-weight:700; color:#244b70; }
+        .zb-controls select,.zb-controls button { min-height:36px; border:1px solid #b9cde3; border-radius:8px; background:#fff; padding:7px 11px; font-size:13px; font-weight:700; }
+        .zb-controls button { cursor:pointer; }
+        .zb-controls button:disabled { opacity:.48; cursor:not-allowed; }
+        #zbStart { background:#0068ff; color:#fff; border-color:#0068ff; }
+        #zbStop { color:#b42335; border-color:#e4b1b8; }
+        #zbClear { color:#765300; border-color:#ead38c; background:#fff9e8; }
+        .zb-note { padding:3px 14px 8px; color:#5b6f82; font-size:12px; line-height:1.55; }
+        .zb-selected { margin:0 14px 10px; padding:8px 12px; background:#fff; border:1px dashed #c7dbef; border-radius:9px; font-size:12px; color:#38536c; max-height:120px; overflow:auto; }
+        .zb-selected ol { margin:5px 0 0; padding-left:22px; }
+        .zb-selected li { padding:2px 0; }
+        #zbStatus { margin:0 14px 10px; padding:9px 11px; border-radius:8px; background:#eef7ff; color:#17466c; font-size:12.5px; line-height:1.45; font-weight:700; }
+        #zbCountdown { display:none; align-items:center; gap:10px; margin:0 14px 12px; padding:10px 12px; border:1px solid #b8d7ff; border-radius:10px; background:#f7fbff; color:#17466c; font-weight:800; }
+        #zbCountdown.show { display:flex; }
+        #zbCountdown.done { border-color:#a7dfb4; background:#effaf2; color:#1e7e34; }
+        #zbCountdownNum { width:44px; height:44px; border-radius:50%; background:#0068ff; color:#fff; display:inline-flex; align-items:center; justify-content:center; font-size:20px; font-weight:900; flex:0 0 44px; box-shadow:0 3px 10px rgba(0,104,255,.22); }
+        #zbCountdown.done #zbCountdownNum { background:#1e7e34; }
+        #zbCountdownText { font-size:13px; line-height:1.4; }
+        .zb-pick { flex:0 0 45px; min-width:45px; display:flex; align-items:center; justify-content:center; gap:4px; cursor:pointer; align-self:stretch; }
+        .zb-check { width:19px; height:19px; cursor:pointer; accent-color:#0068ff; }
+        .zb-order { width:21px; height:21px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:11px; font-weight:900; background:#e5e7eb; color:#6b7280; }
+        .zb-order.on { background:#0068ff; color:#fff; box-shadow:0 2px 7px rgba(0,104,255,.25); }
+        .zalo-cust-row.zb-selected-row { box-shadow: inset 4px 0 0 #0068ff; background:#eef6ff !important; }
+        @media(max-width:600px){ .zb-batch{margin:10px 10px 6px}.zb-controls{padding:10px}.zb-note,.zb-selected,#zbStatus,#zbCountdown{margin-left:10px;margin-right:10px}.zb-pick{flex-basis:38px;min-width:38px}.zb-controls button{flex:1 1 130px} }
+
     </style>
 </head>
 <body>
@@ -950,6 +983,30 @@
                     <i class="fas fa-circle-info"></i> Bấm <b>Gửi Zalo</b> → ảnh báo giá phía trên được <b>tự động copy</b> và Zalo PC mở đúng khung chat của khách.
                     Trong Zalo chỉ cần bấm <b>Ctrl+V</b> rồi <b>Enter</b> là gửi xong.
                 </div>
+
+                <div class="zb-batch" id="zaloBatchBox">
+                    <div class="zb-head">
+                        <strong><i class="fas fa-list-check"></i> GỬI ZALO TỰ ĐỘNG THEO KHÁCH ĐÃ TÍCH</strong>
+                        <span class="zb-count" id="zbCount">Đã chọn 0/10 khách</span>
+                    </div>
+                    <div class="zb-controls">
+                        <label>Khoảng cách
+                            <select id="zbDelay">
+                                <option value="2">2 giây</option><option value="3">3 giây</option><option value="4">4 giây</option>
+                                <option value="5" selected>5 giây</option><option value="6">6 giây</option><option value="7">7 giây</option>
+                                <option value="8">8 giây</option><option value="9">9 giây</option><option value="10">10 giây</option>
+                            </select>
+                        </label>
+                        <button id="zbStart" type="button" disabled><i class="fas fa-play"></i> Gửi khách đã tích</button>
+                        <button id="zbStop" type="button" disabled><i class="fas fa-stop"></i> Dừng</button>
+                        <button id="zbClear" type="button" disabled><i class="far fa-square"></i> Bỏ chọn tất cả</button>
+                    </div>
+                    <div class="zb-note"><b>Cách dùng:</b> tích ô vuông ở từng khách theo đúng thứ tự muốn gửi, tối đa 10 khách. Bấm gửi, ứng dụng dùng một cửa sổ Zalo cố định, tự chuyển lần lượt đúng SĐT đã chọn; mỗi lượt đếm ngược về 0 rồi tiếp tục khách kế tiếp.</div>
+                    <div class="zb-selected"><b id="zbPreviewTitle">Danh sách sẽ gửi: 0 khách</b><ol id="zbSelectedList"></ol></div>
+                    <div id="zbStatus">Chưa chọn khách hàng. Có thể chọn ở cả danh sách khách đang giao dịch và KHÁCH HÀNG MỚI.</div>
+                    <div id="zbCountdown"><span id="zbCountdownNum">0</span><span id="zbCountdownText"></span></div>
+                </div>
+
                 <div class="zalo-controls">
                     <div class="zalo-search-wrap">
                         <i class="fas fa-search"></i>
@@ -1746,8 +1803,15 @@
 
         const MAX_RENDER = 300;            // giới hạn số dòng hiển thị (dùng tìm kiếm để lọc)
         let customers = [];                // {id, code, name, contact, staff, phones:[{display,digits}]}
+        let newCustomers = [];              // dùng chung cho chọn gửi Zalo lần lượt
         let hasLoaded = false;
         let isSending = false;
+
+        // Chọn khách để gửi lần lượt — Map giữ đúng thứ tự người dùng tích chọn
+        const batchSelected = new Map();
+        let batchQueue = [], batchIndex = 0, batchRunning = false, batchBusy = false;
+        let batchRunId = 0, batchTimer = null, batchCountdownTimer = null, batchZaloWindow = null;
+        let batchChunks = null;
 
         // ---------- Thống kê lượt bấm Gửi Zalo trong kỳ (lưu Firebase webcty, chia sẻ mọi máy) ----------
         function kyKey() {                 // kỳ = tháng hiện tại, dạng YYYY-MM
@@ -1935,8 +1999,11 @@
                             <i class="fas fa-paper-plane"></i> Gửi Zalo ${escapeHtml(p.digits)}
                         </button>`).join('')
                     : '<span style="color:#bbb; font-size:12.5px;">Chưa có SĐT</span>';
+                const pickHtml = batchPickHtml(c);
+                const pickedRow = batchSelected.has(c.id) ? ' zb-selected-row' : '';
                 return `
-                    <div class="zalo-cust-row${sent ? ' sent-today' : ''}">
+                    <div class="zalo-cust-row${sent ? ' sent-today' : ''}${pickedRow}">
+                        ${pickHtml}
                         <div class="zc-info">
                             <div class="zc-name">${escapeHtml(c.name)}${c.code ? `<span class="zc-code">[${escapeHtml(c.code)}]</span>` : ''}</div>
                             <div class="zc-sub">
@@ -2173,7 +2240,7 @@
            Nút Gửi Zalo dùng chung sendQuote với bảng KH đang giao dịch.
            ============================================================ */
         const newCustRef = database.ref('khachHangMoi');
-        let newCustomers = [];
+        newCustomers = [];
         window.__newCustomers = newCustomers;
 
         newCustRef.on('value', snap => {
@@ -2434,8 +2501,11 @@
                             <i class="fas fa-paper-plane"></i> Gửi Zalo ${escapeHtml(p.digits)}
                         </button>`).join('')
                     : '<span style="color:#bbb; font-size:12.5px;">Chưa có SĐT</span>';
+                const pickHtml = batchPickHtml(c);
+                const pickedRow = batchSelected.has(c.id) ? ' zb-selected-row' : '';
                 return `
-                    <div class="zalo-cust-row${sent ? ' sent-today' : ''}${claimStaff ? ' staff-claimed' : ''}">
+                    <div class="zalo-cust-row${sent ? ' sent-today' : ''}${claimStaff ? ' staff-claimed' : ''}${pickedRow}">
+                        ${pickHtml}
                         <div class="zc-info">
                             <div class="zc-name">${escapeHtml(c.name)}</div>
                             <div class="zc-sub">
@@ -2458,6 +2528,216 @@
             }
             box.innerHTML = html;
         }
+
+        /* ===================== GỬI ZALO LẦN LƯỢT — TỐI ĐA 10 KHÁCH ===================== */
+        function batchFirstPhone(c) {
+            return c && c.phones && c.phones.length ? String(c.phones[0].digits || '') : '';
+        }
+        function batchFindCustomer(id) {
+            return customers.find(c => c.id === id) || newCustomers.find(c => c.id === id) || null;
+        }
+        function batchOrderOf(id) {
+            let n = 0;
+            for (const key of batchSelected.keys()) { n++; if (key === id) return n; }
+            return 0;
+        }
+        function batchPickHtml(c) {
+            const p = batchFirstPhone(c);
+            const checked = batchSelected.has(c.id);
+            const ord = checked ? batchOrderOf(c.id) : '';
+            return `<label class="zb-pick" title="${p ? 'Tích để thêm khách này vào danh sách gửi tự động' : 'Khách chưa có số điện thoại'}">
+                <input type="checkbox" class="zb-check" data-id="${escapeHtml(c.id)}" ${checked ? 'checked' : ''} ${p ? '' : 'disabled'}>
+                <span class="zb-order${checked ? ' on' : ''}">${checked ? ord : '—'}</span>
+            </label>`;
+        }
+        function batchSetStatus(text) {
+            const el = document.getElementById('zbStatus');
+            if (el) el.textContent = text;
+        }
+        function batchRefreshUi(rerender) {
+            // Bỏ khỏi lựa chọn nếu khách đã bị xóa khỏi dữ liệu
+            [...batchSelected.keys()].forEach(id => { if (!batchFindCustomer(id)) batchSelected.delete(id); });
+            const count = batchSelected.size;
+            const badge = document.getElementById('zbCount');
+            const title = document.getElementById('zbPreviewTitle');
+            const list = document.getElementById('zbSelectedList');
+            if (badge) badge.textContent = `Đã chọn ${count}/10 khách`;
+            if (title) title.textContent = `Danh sách sẽ gửi: ${count} khách`;
+            if (list) list.innerHTML = [...batchSelected.keys()].map(id => {
+                const c = batchFindCustomer(id); if (!c) return '';
+                const p = batchFirstPhone(c);
+                return `<li><b>${escapeHtml(c.name || 'Khách hàng')}</b>${p ? ' — ' + escapeHtml(p) : ''}</li>`;
+            }).join('');
+            const start = document.getElementById('zbStart');
+            const stop = document.getElementById('zbStop');
+            const clear = document.getElementById('zbClear');
+            const delay = document.getElementById('zbDelay');
+            if (start) start.disabled = batchRunning || batchBusy || count === 0;
+            if (stop) stop.disabled = !batchRunning && !batchBusy;
+            if (clear) clear.disabled = batchRunning || batchBusy || count === 0;
+            if (delay) delay.disabled = batchRunning || batchBusy;
+            if (!batchRunning && !batchBusy) batchSetStatus(count ? `Đã chọn ${count} khách. Kiểm tra thứ tự rồi bấm “Gửi khách đã tích”.` : 'Chưa chọn khách hàng. Có thể chọn ở cả hai danh sách bên dưới.');
+            if (rerender) { renderZaloList(); renderNewCustList(); }
+        }
+        function batchSetCountdown(num, text, done) {
+            const box = document.getElementById('zbCountdown');
+            const n = document.getElementById('zbCountdownNum');
+            const t = document.getElementById('zbCountdownText');
+            if (!box || !n || !t) return;
+            box.classList.add('show'); box.classList.toggle('done', !!done);
+            n.textContent = String(num); t.textContent = text || '';
+        }
+        function batchHideCountdown() {
+            const box = document.getElementById('zbCountdown');
+            if (box) box.classList.remove('show','done');
+            clearInterval(batchCountdownTimer); batchCountdownTimer = null;
+        }
+        function batchEnsureZaloWindow(first) {
+            try {
+                if (!batchZaloWindow || batchZaloWindow.closed) {
+                    const p = batchFirstPhone(first);
+                    batchZaloWindow = window.open(p ? ('https://zalo.me/' + p) : 'https://chat.zalo.me/', 'IDECO_ZALO_AUTO');
+                }
+                if (batchZaloWindow && !batchZaloWindow.closed) { try { batchZaloWindow.focus(); } catch (_) {} }
+            } catch (_) { batchZaloWindow = null; }
+            return batchZaloWindow;
+        }
+        function batchOpenChat(c) {
+            const p = batchFirstPhone(c); if (!p) return false;
+            const w = batchEnsureZaloWindow(c);
+            if (!w) {
+                batchSetStatus('Trình duyệt đang chặn cửa sổ Zalo. Hãy cho phép Pop-up cho trang này rồi thử lại.');
+                return false;
+            }
+            try { w.location.href = 'https://zalo.me/' + p; w.focus(); return true; }
+            catch (_) { return false; }
+        }
+        function batchStopTimers() {
+            clearTimeout(batchTimer); clearInterval(batchCountdownTimer);
+            batchTimer = null; batchCountdownTimer = null;
+        }
+        function batchFinish() {
+            batchStopTimers();
+            batchRunning = false; batchBusy = false;
+            batchSetCountdown(0, `✅ ĐÃ HOÀN THÀNH ${batchQueue.length}/${batchQueue.length} KHÁCH ĐÃ CHỌN`, true);
+            batchSetStatus(`✅ Đã hoàn thành danh sách ${batchQueue.length} khách theo đúng thứ tự đã chọn.`);
+            showToast(`✅ <b>Đã hoàn thành ${batchQueue.length}/${batchQueue.length} khách.</b><br>Các link Zalo đã được mở lần lượt đúng thứ tự.`, 7000);
+            batchRefreshUi(false);
+        }
+        function batchCountdown(seconds, token, current) {
+            batchStopTimers();
+            let remain = Math.max(0, Math.floor(seconds));
+            const label = current ? (current.name || batchFirstPhone(current)) : 'khách hiện tại';
+            const update = () => batchSetCountdown(remain,
+                remain > 0 ? `Còn ${remain} giây → tự chuyển khách tiếp theo. Hiện tại: ${label}` : '0 giây → đang chuyển khách tiếp theo...', false);
+            update();
+            batchCountdownTimer = setInterval(() => {
+                if (token !== batchRunId || !batchRunning) { clearInterval(batchCountdownTimer); return; }
+                remain--;
+                if (remain <= 0) {
+                    remain = 0; update(); clearInterval(batchCountdownTimer); batchCountdownTimer = null;
+                    batchTimer = setTimeout(() => {
+                        if (token !== batchRunId || !batchRunning) return;
+                        if (batchIndex >= batchQueue.length) batchFinish(); else batchStep();
+                    }, 180);
+                } else update();
+            }, 1000);
+        }
+        async function batchStep() {
+            if (!batchRunning || batchBusy) return;
+            const token = batchRunId;
+            const c = batchQueue[batchIndex];
+            if (!c) { batchFinish(); return; }
+            batchBusy = true; batchRefreshUi(false); batchHideCountdown();
+            const p = batchFirstPhone(c);
+            batchSetStatus(`Lượt ${batchIndex + 1}/${batchQueue.length} · Đang copy báo giá cho ${c.name || p}...`);
+            try {
+                if (!batchChunks || !batchChunks.length) throw new Error('Chưa tạo được ảnh báo giá');
+                await writeBlobToClipboard(batchChunks[0].blob);
+                if (token !== batchRunId || !batchRunning) return;
+                if (!batchOpenChat(c)) throw new Error('Chrome đang chặn cửa sổ Zalo');
+
+                markSent(c.id); recordZaloClick(c);
+                try {
+                    if (typeof window.__logWeeklySend === 'function') window.__logWeeklySend(c, p, batchChunks);
+                } catch (eLog) { console.error('[BCT] Lỗi ghi báo cáo tuần:', eLog); }
+                renderZaloList(); renderNewCustList();
+
+                batchSetStatus(`Lượt ${batchIndex + 1}/${batchQueue.length} · ✅ Đã copy báo giá và mở Zalo: ${c.name || p}. Dán/Ctrl+V rồi Gửi.`);
+                batchIndex++;
+                const delay = Math.max(2, Math.min(10, Number(document.getElementById('zbDelay')?.value) || 5));
+                batchCountdown(delay, token, c);
+            } catch (e) {
+                console.error('[ZALO AUTO] Lỗi:', e);
+                batchRunning = false;
+                batchSetCountdown('!', `Đã tạm dừng tại ${c.name || p}. ${e.message || 'Không thể tiếp tục.'}`, false);
+                batchSetStatus(`⚠️ Chưa tiếp tục được: ${e.message || 'Trình duyệt chặn Clipboard/Pop-up'}. Cho phép Clipboard và Pop-up rồi bấm Gửi lại.`);
+                showToast('⚠️ ' + escapeHtml(e.message || 'Không thể tiếp tục gửi tự động.'), 6000);
+            } finally {
+                batchBusy = false; batchRefreshUi(false);
+            }
+        }
+        async function batchStart() {
+            if (!batchSelected.size || batchRunning || batchBusy) return;
+            batchQueue = [...batchSelected.keys()].map(batchFindCustomer).filter(Boolean).slice(0, 10);
+            batchQueue = batchQueue.filter(c => batchFirstPhone(c));
+            if (!batchQueue.length) { batchSetStatus('Không có khách nào có số điện thoại hợp lệ.'); return; }
+
+            // Mở cửa sổ Zalo NGAY trong cú bấm của người dùng để tránh Chrome chặn popup.
+            if (!batchEnsureZaloWindow(batchQueue[0])) {
+                batchSetStatus('Chrome đang chặn Pop-up. Hãy cho phép Pop-up cho trang rồi bấm Gửi lại.');
+                showToast('⚠️ Hãy <b>cho phép Pop-up</b> cho trang này để ứng dụng tự mở Zalo lần lượt.', 7000);
+                return;
+            }
+
+            batchBusy = true; batchRefreshUi(false); batchHideCountdown();
+            batchSetStatus('Đang tạo ảnh báo giá một lần để dùng cho toàn bộ khách đã chọn...');
+            try {
+                batchChunks = await buildZaloChunks();
+                if (!batchChunks || !batchChunks.length) throw new Error('Không tạo được ảnh báo giá');
+                if (batchChunks.length > 1) {
+                    showToast(`ℹ️ Báo giá dài được chia ${batchChunks.length} ảnh. Chế độ tự động sẽ copy <b>ảnh đầu tiên</b> mỗi lượt; các ảnh tiếp theo vẫn có thể dùng nút gửi riêng như trước.`, 8000);
+                }
+                batchIndex = 0; batchRunning = true; batchRunId++;
+                batchBusy = false; batchRefreshUi(false);
+                await batchStep();
+            } catch (e) {
+                batchBusy = false; batchRunning = false; batchRefreshUi(false);
+                batchSetStatus('❌ Không tạo được ảnh báo giá: ' + (e.message || 'Vui lòng thử lại.'));
+                showToast('❌ Không tạo được ảnh báo giá.<br>' + escapeHtml(e.message || ''), 6000);
+            }
+        }
+
+        document.addEventListener('change', e => {
+            const cb = e.target.closest('.zb-check');
+            if (!cb) return;
+            const id = cb.getAttribute('data-id');
+            const c = batchFindCustomer(id);
+            if (!c) { cb.checked = false; return; }
+            if (batchRunning || batchBusy) { cb.checked = batchSelected.has(id); batchSetStatus('Đang chạy danh sách. Bấm Dừng trước khi thay đổi khách đã chọn.'); return; }
+            if (cb.checked) {
+                if (!batchFirstPhone(c)) { cb.checked = false; batchSetStatus('Khách này chưa có số điện thoại hợp lệ.'); return; }
+                if (!batchSelected.has(id) && batchSelected.size >= 10) {
+                    cb.checked = false; batchSetStatus('Tối đa 10 khách. Bỏ chọn một khách trước khi thêm khách khác.'); return;
+                }
+                if (!batchSelected.has(id)) batchSelected.set(id, true);
+            } else batchSelected.delete(id);
+            batchRefreshUi(true);
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('zbStart')?.addEventListener('click', batchStart);
+            document.getElementById('zbStop')?.addEventListener('click', () => {
+                batchRunId++; batchStopTimers(); batchRunning = false; batchBusy = false;
+                batchSetCountdown('■', 'Đã dừng. Không chuyển sang khách tiếp theo.', false);
+                batchSetStatus('Đã dừng danh sách gửi tự động.'); batchRefreshUi(false);
+            });
+            document.getElementById('zbClear')?.addEventListener('click', () => {
+                if (batchRunning || batchBusy) return;
+                batchSelected.clear(); batchHideCountdown(); batchRefreshUi(true);
+            });
+            batchRefreshUi(false);
+        });
+
         // Cập nhật badge lượt gửi khi thống kê thay đổi
         statsRef.on('value', () => renderNewCustList());
     })();
